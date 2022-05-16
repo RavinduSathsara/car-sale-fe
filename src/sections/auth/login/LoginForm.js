@@ -1,7 +1,8 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
+import axios from 'axios';
 // material
 import { Link, Stack, Checkbox, TextField, IconButton, InputAdornment, FormControlLabel } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
@@ -15,6 +16,9 @@ export default function LoginForm() {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const [adName, setAdName] = useState('');
+  const [adPassword, seAdPassword] = useState('');
+
   const [name, setName] = useState('');
 
   const [passWord, setPassword] = useState('');
@@ -23,6 +27,14 @@ export default function LoginForm() {
     email: Yup.string().required('User Name is required'),
     password: Yup.string().required('Password is required'),
   });
+  useEffect(() => {
+    axios.get(`http://localhost:8000/api/admin`).then((res) => {
+      const persons = res.data;
+
+      seAdPassword(persons[0].password);
+      setAdName(persons[0].user_name);
+    });
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -32,7 +44,7 @@ export default function LoginForm() {
     },
     validationSchema: LoginSchema,
     onSubmit: () => {
-      if (name === 'admin' && passWord === 'admin') {
+      if (name === adName && passWord === adPassword) {
         navigate('dashboard/app', { replace: true });
       } else {
         alert('Invalid User');
