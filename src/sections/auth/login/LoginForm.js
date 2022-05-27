@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import axios from 'axios';
@@ -16,9 +16,6 @@ export default function LoginForm() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [isLoggin, setIsLoggin] = useState('');
-
-  const [adName, setAdName] = useState('');
-  const [adPassword, seAdPassword] = useState('');
 
   const [inName, setName] = useState('');
 
@@ -38,6 +35,10 @@ export default function LoginForm() {
       })
       .then((res) => {
         setIsLoggin(res.data);
+      })
+      .catch((err) => {
+        console.log('err', err);
+        alert('Some thing went error');
       });
   };
 
@@ -59,7 +60,7 @@ export default function LoginForm() {
     },
   });
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } = formik;
+  const { errors, touched, values, handleSubmit, getFieldProps } = formik;
 
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
