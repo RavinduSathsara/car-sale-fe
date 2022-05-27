@@ -15,11 +15,12 @@ export default function LoginForm() {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoggin, setIsLoggin] = useState('');
 
   const [adName, setAdName] = useState('');
   const [adPassword, seAdPassword] = useState('');
 
-  const [name, setName] = useState('');
+  const [inName, setName] = useState('');
 
   const [passWord, setPassword] = useState('');
 
@@ -27,27 +28,30 @@ export default function LoginForm() {
     email: Yup.string().required('User Name is required'),
     password: Yup.string().required('Password is required'),
   });
-  useEffect(() => {
-    axios.get(`http://localhost:8000/api/admin`).then((res) => {
-      const persons = res.data;
 
-      seAdPassword(persons[0].password);
-      setAdName(persons[0].user_name);
-    });
-  }, []);
+  // create post
+  const createLogin = () => {
+    axios
+      .post('https://car-sale-be-node.herokuapp.com/users/login', {
+        name: inName,
+        password: passWord,
+      })
+      .then((res) => {
+        setIsLoggin(res.data);
+      });
+  };
 
   const formik = useFormik({
     initialValues: {
-      email: 'admin',
+      email: 'asda',
       password: 'admin',
       remember: true,
     },
     validationSchema: LoginSchema,
     onSubmit: () => {
-      if (name === adName && passWord === adPassword) {
+      createLogin();
+      if (isLoggin === 'Success') {
         navigate('dashboard/app', { replace: true });
-      } else {
-        alert('Invalid User');
       }
 
       // navigate('dashboard/app', { replace: true });
@@ -70,7 +74,7 @@ export default function LoginForm() {
             autoComplete="username"
             type="email"
             label="User Name"
-            value={name}
+            value={inName}
             onChange={(e) => setName(e.target.value)}
             error={Boolean(touched.email && errors.email)}
             helperText={touched.email && errors.email}
