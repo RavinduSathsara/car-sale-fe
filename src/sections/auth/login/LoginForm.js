@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import axios from 'axios';
@@ -26,6 +27,18 @@ export default function LoginForm() {
     password: Yup.string().required('Password is required'),
   });
 
+  const alert = () => {
+    Swal.fire({
+      title: 'Username or password incorrect',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp',
+      },
+    });
+  };
+
   // create post
   const createLogin = () => {
     axios
@@ -34,11 +47,15 @@ export default function LoginForm() {
         password: passWord,
       })
       .then((res) => {
-        setIsLoggin(res.data);
+        // setIsLoggin(res.data);
+        if (res.data === 'Success') {
+          navigate('dashboard/app', { replace: true });
+        }
       })
       .catch((err) => {
         console.log('err', err);
-        alert('Some thing went error');
+        alert();
+        // alert('Some thing went error');
       });
   };
 
