@@ -70,7 +70,7 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function User() {
+export default function Staff() {
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -137,10 +137,10 @@ export default function User() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            User
+            Staff
           </Typography>
           <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New User
+            New Staff
           </Button>
         </Stack>
 
