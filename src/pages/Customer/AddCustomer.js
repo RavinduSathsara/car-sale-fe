@@ -20,6 +20,7 @@ import axios from 'axios';
 import { LoadingButton } from '@mui/lab';
 import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
+import BasicTable from '../../components/Table';
 
 const AddCustomer = () => {
   const [firstName, setFirstName] = useState('');
@@ -36,18 +37,6 @@ const AddCustomer = () => {
     setContact('');
     setAddress('');
   };
-
-  // const addNewCostomer = async () => {
-  //   const res = await axios.post('http://127.0.0.1:8000/api/customers', {
-  //     name: 'sample',
-  //     contact: 'Hi',
-  //     address: 'address',
-  //     email: 'email',
-  //   });
-  //   console.log(res);
-  // };
-
-  // let fullName = `${firstName} ${lastName}`;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -164,6 +153,14 @@ const AddCustomer = () => {
               </LoadingButton>
             </Grid>
           </form>
+
+          <br />
+
+          <Typography variant="h6" gutterBottom>
+            All Customers
+          </Typography>
+
+          <BasicTable />
         </Container>
       </Page>
     </>
