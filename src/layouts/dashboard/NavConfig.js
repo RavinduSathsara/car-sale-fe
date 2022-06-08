@@ -24,7 +24,7 @@ const navConfig = [
   {
     title: 'Customer',
     path: '/dashboard/add-customer',
-    icon: getIcon('material-symbols:attribution'),
+    icon: getIcon('material-symbols:record-voice-over-rounded'),
   },
   {
     title: 'blog',

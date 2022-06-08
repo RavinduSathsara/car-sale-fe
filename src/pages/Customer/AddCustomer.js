@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { Grid, Button, Container, Typography } from '@mui/material';
 import {
   Link,
@@ -22,6 +22,58 @@ import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
 
 const AddCustomer = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [contact, setContact] = useState('');
+  const [address, setAddress] = useState('');
+
+  const handleReset = (event) => {
+    event.preventDefault();
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setContact('');
+    setAddress('');
+  };
+
+  // const addNewCostomer = async () => {
+  //   const res = await axios.post('http://127.0.0.1:8000/api/customers', {
+  //     name: 'sample',
+  //     contact: 'Hi',
+  //     address: 'address',
+  //     email: 'email',
+  //   });
+  //   console.log(res);
+  // };
+
+  // let fullName = `${firstName} ${lastName}`;
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post('http://127.0.0.1:8000/api/customers', {
+      name: `${firstName} ${lastName}`,
+      contact: `${contact}`,
+      address: `${address}`,
+      email: `${email}`,
+    });
+
+    Swal.fire({
+      title: 'New costomer added sucessfully !',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp',
+      },
+    });
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setContact('');
+    setAddress('');
+  };
+
   return (
     <>
       <Page title="Dashboard: Blog">
@@ -31,30 +83,87 @@ const AddCustomer = () => {
               Add New Customer
             </Typography>
           </Stack>
-          <Grid item xs={8}>
-            <TextField
-              fullWidth
-              autoComplete="username"
-              type="email"
-              label="First Name"
-              // value={inName}
-              // onChange={(e) => setName(e.target.value)}
-              // error={Boolean(touched.email && errors.email)}
-              // helperText={touched.email && errors.email}
-            />
-          </Grid>
-          <Grid item xs={8}>
-            <TextField
-              fullWidth
-              autoComplete="username"
-              type="email"
-              label="First Name"
-              // value={inName}
-              // onChange={(e) => setName(e.target.value)}
-              // error={Boolean(touched.email && errors.email)}
-              // helperText={touched.email && errors.email}
-            />
-          </Grid>
+          <form onSubmit={handleSubmit} onReset={handleReset}>
+            <Grid container>
+              <Grid item xs={4} sx={{ m: 2 }}>
+                <TextField
+                  fullWidth
+                  required
+                  // autoComplete="username"
+                  type="text"
+                  label="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={4} sx={{ m: 2 }}>
+                <TextField
+                  fullWidth
+                  required
+                  // autoComplete="username"
+                  type="text"
+                  label="Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </Grid>{' '}
+              <Grid item xs={4} sx={{ m: 2 }}>
+                <TextField
+                  fullWidth
+                  required
+                  autoComplete="username"
+                  type="number"
+                  label="Contact No."
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value)}
+                />
+              </Grid>{' '}
+              <Grid item xs={4} sx={{ m: 2 }}>
+                <TextField
+                  fullWidth
+                  required
+                  // autoComplete="username"
+                  type="email"
+                  label="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={8.35} sx={{ m: 2 }}>
+                <TextField
+                  fullWidth
+                  // autoComplete="username"
+                  type="text"
+                  required
+                  label="Address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  // error={Boolean(touched.email && errors.email)}
+                  // helperText={touched.email && errors.email}
+                />
+              </Grid>
+            </Grid>
+            <Grid item xs={5} sx={{ m: 2 }}>
+              <LoadingButton
+                style={{ width: 150 }}
+                size="large"
+                type="submit"
+                variant="contained"
+                // loading={isSubmitting }
+              >
+                Create
+              </LoadingButton>
+              <LoadingButton
+                style={{ width: 150, marginLeft: 10 }}
+                size="large"
+                type="reset"
+                variant="outlined"
+                // loading={isSubmitting }
+              >
+                Reset
+              </LoadingButton>
+            </Grid>
+          </form>
         </Container>
       </Page>
     </>
