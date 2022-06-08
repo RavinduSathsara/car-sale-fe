@@ -1,6 +1,8 @@
 import { faker } from '@faker-js/faker';
+import { useEffect, useState } from 'react';
 // @mui
 import { useTheme } from '@mui/material/styles';
+import axios from 'axios';
 import { Grid, Container, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
@@ -21,6 +23,14 @@ import {
 // ----------------------------------------------------------------------
 
 export default function DashboardApp() {
+  const [customers, setCostomers] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/api/customers').then((resp) => {
+      setCostomers(resp.data.post);
+    });
+  }, []);
+
   const theme = useTheme();
 
   return (
@@ -32,7 +42,7 @@ export default function DashboardApp() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
+            <AppWidgetSummary title="Total Customers" total={customers?.length} icon={'ant-design:team-outlined'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
