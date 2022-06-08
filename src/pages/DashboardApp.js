@@ -19,18 +19,12 @@ import {
   AppCurrentSubject,
   AppConversionRates,
 } from '../sections/@dashboard/app';
+import useFetch from '../hooks/useFetch';
 
 // ----------------------------------------------------------------------
 
 export default function DashboardApp() {
-  const [customers, setCostomers] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/customers').then((resp) => {
-      setCostomers(resp.data.post);
-    });
-  }, []);
-
+  const [data] = useFetch('http://127.0.0.1:8000/api/customers');
   const theme = useTheme();
 
   return (
@@ -42,7 +36,7 @@ export default function DashboardApp() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Total Customers" total={customers?.length} icon={'ant-design:team-outlined'} />
+            <AppWidgetSummary title="Total Customers" total={data?.post.length} icon={'ant-design:team-outlined'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>

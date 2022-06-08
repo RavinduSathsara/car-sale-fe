@@ -2,34 +2,26 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import useFetch from '../../hooks/useFetch';
 
 function createData(name, contact, email, address) {
   return { name, contact, email, address };
 }
 
 export default function BasicTable() {
-  const [coustomers, setCostomers] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/customers').then((resp) => {
-      setCostomers(resp.data.post);
-    });
-  }, []);
-
-  console.log(coustomers);
+  const [data] = useFetch('http://127.0.0.1:8000/api/customers');
 
   const rows = [
-    createData(coustomers[0]?.name, coustomers[0]?.contact, coustomers[0]?.email, coustomers[0]?.address),
-    createData(coustomers[1]?.name, coustomers[1]?.contact, coustomers[1]?.email, coustomers[1]?.address),
-    createData(coustomers[2]?.name, coustomers[2]?.contact, coustomers[2]?.email, coustomers[2]?.address),
-    createData(coustomers[3]?.name, coustomers[3]?.contact, coustomers[3]?.email, coustomers[3]?.address),
-    createData(coustomers[4]?.name, coustomers[4]?.contact, coustomers[4]?.email, coustomers[4]?.address),
-    createData(coustomers[5]?.name, coustomers[5]?.contact, coustomers[5]?.email, coustomers[5]?.address),
-    createData(coustomers[6]?.name, coustomers[6]?.contact, coustomers[6]?.email, coustomers[6]?.address),
-    createData(coustomers[7]?.name, coustomers[7]?.contact, coustomers[7]?.email, coustomers[7]?.address),
-    createData(coustomers[8]?.name, coustomers[8]?.contact, coustomers[8]?.email, coustomers[8]?.address),
-    createData(coustomers[9]?.name, coustomers[9]?.contact, coustomers[9]?.email, coustomers[9]?.address),
-    createData(coustomers[10]?.name, coustomers[10]?.contact, coustomers[10]?.email, coustomers[10]?.address),
+    createData(data?.post[0]?.name, data?.post[0]?.contact, data?.post[0]?.email, data?.post[0]?.address),
+    createData(data?.post[1]?.name, data?.post[1]?.contact, data?.post[1]?.email, data?.post[1]?.address),
+    createData(data?.post[2]?.name, data?.post[2]?.contact, data?.post[2]?.email, data?.post[2]?.address),
+    createData(data?.post[3]?.name, data?.post[3]?.contact, data?.post[3]?.email, data?.post[3]?.address),
+    createData(data?.post[4]?.name, data?.post[4]?.contact, data?.post[4]?.email, data?.post[4]?.address),
+    createData(data?.post[5]?.name, data?.post[5]?.contact, data?.post[5]?.email, data?.post[5]?.address),
+    createData(data?.post[6]?.name, data?.post[6]?.contact, data?.post[6]?.email, data?.post[6]?.address),
+    createData(data?.post[7]?.name, data?.post[7]?.contact, data?.post[7]?.email, data?.post[7]?.address),
+    createData(data?.post[8]?.name, data?.post[8]?.contact, data?.post[8]?.email, data?.post[8]?.address),
+    createData(data?.post[9]?.name, data?.post[9]?.contact, data?.post[9]?.email, data?.post[9]?.address),
   ];
 
   return (
