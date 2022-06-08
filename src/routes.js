@@ -12,6 +12,7 @@ import Products from './pages/Products';
 import DashboardApp from './pages/DashboardApp';
 import Staff from './pages/Staff';
 import AddStaff from './pages/Staff/AddStaff';
+import AddCustomer from './pages/Customer/AddCustomer';
 
 // ----------------------------------------------------------------------
 
@@ -26,6 +27,7 @@ export default function Router() {
         { path: 'products', element: <Products /> },
         { path: 'blog', element: <Blog /> },
         { path: 'add-staff', element: <AddStaff /> },
+        { path: 'add-customer', element: <AddCustomer /> },
       ],
     },
     {
