@@ -139,7 +139,13 @@ export default function Staff() {
           <Typography variant="h4" gutterBottom>
             Staff
           </Typography>
-          <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
+
+          <Button
+            variant="contained"
+            component={RouterLink}
+            to="/dashboard/add-staff"
+            startIcon={<Iconify icon="eva:plus-fill" />}
+          >
             New Staff
           </Button>
         </Stack>

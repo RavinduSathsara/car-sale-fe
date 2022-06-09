@@ -16,131 +16,86 @@ export default function LoginForm() {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoggin, setIsLoggin] = useState('');
-
-  const [inName, setName] = useState('');
-
+  const [inemail, setEmail] = useState('');
   const [passWord, setPassword] = useState('');
+  const [remember, setRemember] = useState(false);
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string().required('User Name is required'),
-    password: Yup.string().required('Password is required'),
-  });
-
-  const alert = () => {
-    Swal.fire({
-      title: 'Username or password incorrect',
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown',
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp',
-      },
-    });
-  };
-
-  // create post
-  const createLogin = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     axios
-      .post('https://car-sale-be-node.herokuapp.com/users/login', {
-        name: inName,
-        password: passWord,
+      .post('http://127.0.0.1:8000/api/login', {
+        email: `${inemail}`,
+        password: `${passWord}`,
       })
       .then((res) => {
-        // setIsLoggin(res.data);
-        if (res.data === 'Success') {
+        console.log('login', res?.data.success);
+        if (res?.data.success) {
           navigate('dashboard/app', { replace: true });
         }
       })
       .catch((err) => {
         console.log('err', err);
-        alert();
-        // alert('Some thing went error');
+        Swal.fire({
+          title: 'Username or password incorrect',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
       });
   };
-
-  const formik = useFormik({
-    initialValues: {
-      email: 'asda',
-      password: 'admin',
-      remember: true,
-    },
-    validationSchema: LoginSchema,
-    onSubmit: () => {
-      createLogin();
-      if (isLoggin === 'Success') {
-        navigate('dashboard/app', { replace: true });
-      }
-
-      // navigate('dashboard/app', { replace: true });
-      // alert(passWord);
-    },
-  });
-
-  const { errors, touched, values, handleSubmit, getFieldProps } = formik;
 
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
   };
 
   return (
-    <FormikProvider value={formik}>
-      <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <Stack spacing={3}>
-          <TextField
-            fullWidth
-            autoComplete="username"
-            type="email"
-            label="User Name"
-            value={inName}
-            onChange={(e) => setName(e.target.value)}
-            error={Boolean(touched.email && errors.email)}
-            helperText={touched.email && errors.email}
-          />
+    <form onSubmit={handleSubmit}>
+      <Stack spacing={3}>
+        <TextField fullWidth type="text" label="Email" value={inemail} onChange={(e) => setEmail(e.target.value)} />
 
-          <TextField
-            fullWidth
-            autoComplete="current-password"
-            type={showPassword ? 'text' : 'password'}
-            label="Password"
-            value={passWord}
-            onChange={(e) => setPassword(e.target.value)}
-            // {...getFieldProps('password')}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={handleShowPassword} edge="end">
-                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            error={Boolean(touched.password && errors.password)}
-            helperText={touched.password && errors.password}
-          />
-        </Stack>
-
-        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-          <FormControlLabel
-            control={<Checkbox {...getFieldProps('remember')} checked={values.remember} />}
-            label="Remember me"
-          />
-
-          <Link component={RouterLink} variant="subtitle2" to="#" underline="hover">
-            Forgot password?
-          </Link>
-        </Stack>
-
-        <LoadingButton
+        <TextField
           fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          // loading={isSubmitting }
-        >
-          Login
-        </LoadingButton>
-      </Form>
-    </FormikProvider>
+          type={showPassword ? 'text' : 'password'}
+          label="Password"
+          value={passWord}
+          onChange={(e) => setPassword(e.target.value)}
+          // {...getFieldProps('password')}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={handleShowPassword} edge="end">
+                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Stack>
+
+      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
+        <FormControlLabel
+          control={<Checkbox checked={remember} {...label} onChange={(e) => setRemember(e.target.value)} />}
+          label="Remember me"
+        />
+
+        <Link component={RouterLink} variant="subtitle2" to="#" underline="hover">
+          Forgot password?
+        </Link>
+      </Stack>
+
+      <LoadingButton
+        fullWidth
+        size="large"
+        type="submit"
+        variant="contained"
+        // loading={isSubmitting }
+      >
+        Login
+      </LoadingButton>
+    </form>
   );
 }

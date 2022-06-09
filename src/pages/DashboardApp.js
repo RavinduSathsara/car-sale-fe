@@ -36,7 +36,7 @@ export default function DashboardApp() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Total Customers" total={data?.post.length} icon={'ant-design:team-outlined'} />
+            <AppWidgetSummary title="Total Customers" total={data?.customer.length} icon={'ant-design:team-outlined'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>

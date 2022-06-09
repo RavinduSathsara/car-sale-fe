@@ -56,6 +56,7 @@ const AddCustomer = () => {
         popup: 'animate__animated animate__fadeOutUp',
       },
     });
+
     setFirstName('');
     setLastName('');
     setEmail('');
