@@ -28,7 +28,7 @@ const BasicTable = () => {
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow>
+          <TableRow style={{ background: ' #ffebee' }}>
             <TableCell>Full Name</TableCell>
             <TableCell align="left">contact</TableCell>
             <TableCell align="left">Email</TableCell>
