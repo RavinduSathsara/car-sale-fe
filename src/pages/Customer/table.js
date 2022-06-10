@@ -11,14 +11,17 @@ const BasicTable = () => {
 
   const rows = [];
   if (data) {
-    data?.customer.forEach((item) => {
-      rows.push({
-        name: item?.name,
-        contact: item?.contact,
-        email: item?.email,
-        address: item?.address,
+    data?.customer
+      .slice()
+      .reverse()
+      .forEach((item) => {
+        rows.push({
+          name: item?.name,
+          contact: item?.contact,
+          email: item?.email,
+          address: item?.address,
+        });
       });
-    });
   }
 
   return (
