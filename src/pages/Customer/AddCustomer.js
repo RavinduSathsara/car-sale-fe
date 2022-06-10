@@ -20,7 +20,7 @@ import axios from 'axios';
 import { LoadingButton } from '@mui/lab';
 import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
-import BasicTable from '../../components/Table';
+import BasicTable from './table';
 
 const AddCustomer = () => {
   const [firstName, setFirstName] = useState('');

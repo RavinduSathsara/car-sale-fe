@@ -1,5 +1,6 @@
 import React from 'react';
 // import { Grid, Button, Container, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   Link,
   Stack,
@@ -12,6 +13,9 @@ import {
   InputAdornment,
   FormControlLabel,
 } from '@mui/material';
+
+import { Icon } from '@iconify/react';
+
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import { useFormik, Form, FormikProvider } from 'formik';
@@ -19,7 +23,6 @@ import axios from 'axios';
 // material
 import { LoadingButton } from '@mui/lab';
 import Page from '../../components/Page';
-import Iconify from '../../components/Iconify';
 
 const AddStaff = () => {
   return (
@@ -30,6 +33,9 @@ const AddStaff = () => {
             <Typography variant="h4" gutterBottom>
               Add New Staff
             </Typography>
+            <IconButton component={RouterLink} to="/dashboard/staff">
+              <Icon icon="ant-design:rollback-outlined" />
+            </IconButton>
           </Stack>
           <Grid item xs={8}>
             <TextField
