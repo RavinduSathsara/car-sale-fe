@@ -36,8 +36,8 @@ const AddVehicle = () => {
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [make, setMake] = useState('');
-  const [yom, setYom] = useState(Date.now());
-  const [yor, setYor] = useState(Date.now());
+  const [yearOfManufacture, setYom] = useState(Date.now());
+  const [yearOfRegistration, setYor] = useState(Date.now());
   const [ownership, setOwnership] = useState('');
   const [chassisNo, setChassisNo] = useState('');
   const [fuelType, setFuelType] = useState('');
@@ -135,22 +135,29 @@ const AddVehicle = () => {
                 />
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
-                <TextField
-                  fullWidth
-                  required
-                  type="text"
-                  label="Make"
-                  value={make}
-                  onChange={(e) => setMake(e.target.value)}
-                />
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Make</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={make}
+                    label="Make"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={'Car'}>Car</MenuItem>
+                    <MenuItem value={'Jeep'}>Jeep</MenuItem>
+                    <MenuItem value={'Van'}>Van</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid>
+
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
                   required
                   // autoComplete="username"
                   type="text"
-                  label="Ownership:"
+                  label="Ownership"
                   value={ownership}
                   onChange={(e) => setOwnership(e.target.value)}
                 />
@@ -158,9 +165,9 @@ const AddVehicle = () => {
               <Grid item xs={4} sx={{ m: 2 }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
-                    label="Year of make: "
+                    label="Year of make"
                     views={['year']}
-                    value={yom}
+                    value={yearOfManufacture}
                     onChange={(newValue) => {
                       setYom(newValue);
                     }}
@@ -172,9 +179,9 @@ const AddVehicle = () => {
               <Grid item xs={4} sx={{ m: 2 }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
-                    label="Year of rent: "
+                    label="Year of Registration"
                     views={['year']}
-                    value={yor}
+                    value={yearOfRegistration}
                     onChange={(newValue) => {
                       setYor(newValue);
                     }}
@@ -189,7 +196,7 @@ const AddVehicle = () => {
                   // autoComplete="username"
                   type="number"
                   required
-                  label="Chasis No: "
+                  label="Chasis No"
                   value={chassisNo}
                   onChange={(e) => setChassisNo(e.target.value)}
                   // error={Boolean(touched.email && errors.email)}
@@ -203,12 +210,11 @@ const AddVehicle = () => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={fuelType}
-                    label="Fuel Type: "
+                    label="Fuel Type"
                     onChange={handleChange}
                   >
                     <MenuItem value={'diesel'}>Diesel</MenuItem>
                     <MenuItem value={'petrol'}>Petrol</MenuItem>
-                    <MenuItem value={'abcd'}>.....</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -218,7 +224,7 @@ const AddVehicle = () => {
                   // autoComplete="username"
                   type="number"
                   required
-                  label="Registration No: "
+                  label="Registration No"
                   value={regNo}
                   onChange={(e) => setRegNo(e.target.value)}
                   // error={Boolean(touched.email && errors.email)}
@@ -243,7 +249,7 @@ const AddVehicle = () => {
                   required
                   // autoComplete="username"
                   type="number"
-                  label="Cost:"
+                  label="Cost"
                   value={cost}
                   onChange={(e) => setCost(e.target.value)}
                 />
@@ -254,7 +260,7 @@ const AddVehicle = () => {
                   required
                   // autoComplete="username"
                   type="number"
-                  label="Unit Price: "
+                  label="Unit Price"
                   value={unitPrice}
                   onChange={(e) => setUnitPrice(e.target.value)}
                 />
@@ -265,7 +271,7 @@ const AddVehicle = () => {
                   required
                   // autoComplete="username"
                   type="text"
-                  label="Margin:"
+                  label="Margin"
                   value={margin}
                   onChange={(e) => setMargin(e.target.value)}
                 />
@@ -273,7 +279,7 @@ const AddVehicle = () => {
               <Grid item xs={4} sx={{ m: 2 }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
-                    label="Time Stamps: "
+                    label="Time Stamps"
                     value={timeStamp}
                     onChange={(newValue) => {
                       setTimeStamp(newValue);
