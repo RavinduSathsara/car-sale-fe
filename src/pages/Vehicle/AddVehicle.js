@@ -159,6 +159,7 @@ const AddVehicle = () => {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     label="Year of make: "
+                    views={['year']}
                     value={yom}
                     onChange={(newValue) => {
                       setYom(newValue);
@@ -172,6 +173,7 @@ const AddVehicle = () => {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     label="Year of rent: "
+                    views={['year']}
                     value={yor}
                     onChange={(newValue) => {
                       setYor(newValue);
@@ -289,8 +291,8 @@ const AddVehicle = () => {
                 type="text"
                 label="Remarks"
                 placeholder="Add yor comment here"
-                value={margin}
-                onChange={(e) => setMargin(e.target.value)}
+                value={remarks}
+                onChange={(e) => setRemarks(e.target.value)}
               />
             </Grid>
             <Grid item xs={5} sx={{ m: 2 }}>
