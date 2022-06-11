@@ -11,16 +11,24 @@ import {
   IconButton,
   InputAdornment,
   FormControlLabel,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
 } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import { useFormik, Form, FormikProvider } from 'formik';
 import axios from 'axios';
 // material
 import TextareaAutosize from '@mui/base/TextareaAutosize';
-import { LoadingButton } from '@mui/lab';
+import { LoadingButton, DatePicker } from '@mui/lab';
 import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
 
@@ -90,6 +98,9 @@ const AddVehicle = () => {
     setMargin('');
   };
 
+  const value = '';
+  const handleChange = () => {};
+
   return (
     <>
       <Page title="Dashboard: Blog">
@@ -122,7 +133,7 @@ const AddVehicle = () => {
                   value={model}
                   onChange={(e) => setModel(e.target.value)}
                 />
-              </Grid>{' '}
+              </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
@@ -132,27 +143,7 @@ const AddVehicle = () => {
                   value={make}
                   onChange={(e) => setMake(e.target.value)}
                 />
-              </Grid>{' '}
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  label="Year of make: "
-                  value={value}
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  label="Year of rent: "
-                  value={value}
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
+              </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
@@ -164,7 +155,33 @@ const AddVehicle = () => {
                   onChange={(e) => setOwnership(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={8.35} sx={{ m: 2 }}>
+              <Grid item xs={4} sx={{ m: 2 }}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    label="Year of make: "
+                    value={value}
+                    onChange={(newValue) => {
+                      // setValue(newValue);
+                    }}
+                    renderInput={(params) => <TextField fullWidth {...params} />}
+                  />
+                </LocalizationProvider>
+              </Grid>
+
+              <Grid item xs={4} sx={{ m: 2 }}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    label="Year of rent: "
+                    value={value}
+                    onChange={(newValue) => {
+                      // setValue(newValue);
+                    }}
+                    renderInput={(params) => <TextField fullWidth {...params} />}
+                  />
+                </LocalizationProvider>
+              </Grid>
+
+              <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
                   // autoComplete="username"
@@ -177,21 +194,23 @@ const AddVehicle = () => {
                   // helperText={touched.email && errors.email}
                 />
               </Grid>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Fuel Type</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={fuelType}
-                  label="Fuel Type: "
-                  onChange={handleChange}
-                >
-                  <MenuItem value={diesel}>Diesel</MenuItem>
-                  <MenuItem value={petrol}>Petrol</MenuItem>
-                  <MenuItem value={abcd}>.....</MenuItem>
-                </Select>
-              </FormControl>
-              <Grid item xs={8.35} sx={{ m: 2 }}>
+              <Grid item xs={4} sx={{ m: 2 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Fuel Type</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={fuelType}
+                    label="Fuel Type: "
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={'diesel'}>Diesel</MenuItem>
+                    <MenuItem value={'petrol'}>Petrol</MenuItem>
+                    <MenuItem value={'abcd'}>.....</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
                   // autoComplete="username"
@@ -215,22 +234,7 @@ const AddVehicle = () => {
                   onChange={(e) => setMileAge(e.target.value)}
                 />
               </Grid>
-              <TextareaAutosize
-                aria-label="Remarks"
-                minRows={5}
-                placeholder="Add yor comment here"
-                style={{ width: 200 }}
-              />
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  label="TimeStamps: "
-                  value={value}
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
+
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
@@ -264,6 +268,30 @@ const AddVehicle = () => {
                   onChange={(e) => setMargin(e.target.value)}
                 />
               </Grid>
+              <Grid item xs={4} sx={{ m: 2 }}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    label="Time Stamps: "
+                    value={value}
+                    onChange={(newValue) => {
+                      // setValue(newValue);
+                    }}
+                    renderInput={(params) => <TextField fullWidth {...params} />}
+                  />
+                </LocalizationProvider>
+              </Grid>
+            </Grid>
+
+            <Grid item xs={8.75} sx={{ m: 2 }}>
+              <TextField
+                style={{ width: 800 }}
+                // autoComplete="username"
+                type="text"
+                label="Remarks"
+                placeholder="Add yor comment here"
+                value={margin}
+                onChange={(e) => setMargin(e.target.value)}
+              />
             </Grid>
             <Grid item xs={5} sx={{ m: 2 }}>
               <LoadingButton
@@ -286,14 +314,6 @@ const AddVehicle = () => {
               </LoadingButton>
             </Grid>
           </form>
-
-          <br />
-
-          <Typography variant="h6" gutterBottom>
-            All Vehicles
-          </Typography>
-
-          <BasicTable />
         </Container>
       </Page>
     </>
