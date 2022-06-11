@@ -6,7 +6,7 @@ import { Link as RouterLink } from 'react-router-dom';
 // components
 import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
-import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } from '../../sections/@dashboard/products';
+import { VehicleList } from '../../sections/@dashboard/vehicles';
 // mock
 import PRODUCTS from '../../_mock/products';
 
@@ -24,7 +24,7 @@ export default function Vehicle() {
   };
 
   return (
-    <Page title="Dashboard: Products">
+    <Page title="Vehicle">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
@@ -41,19 +41,11 @@ export default function Vehicle() {
           </Button>
         </Stack>
 
-        <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
-          <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-            <ProductFilterSidebar
-              isOpenFilter={openFilter}
-              onOpenFilter={handleOpenFilter}
-              onCloseFilter={handleCloseFilter}
-            />
-            <ProductSort />
-          </Stack>
-        </Stack>
+        {/* <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
+          <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}></Stack>
+        </Stack> */}
 
-        <ProductList products={PRODUCTS} />
-        <ProductCartWidget />
+        <VehicleList />
       </Container>
     </Page>
   );
