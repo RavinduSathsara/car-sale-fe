@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 // import { Grid, Button, Container, Typography } from '@mui/material';
 import {
   Link,
@@ -26,6 +27,7 @@ import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import { useFormik, Form, FormikProvider } from 'formik';
 import axios from 'axios';
+import { Icon } from '@iconify/react';
 // material
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import { LoadingButton, DatePicker } from '@mui/lab';
@@ -71,15 +73,17 @@ const AddVehicle = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    Swal.fire({
-      title: 'New Vehicle added sucessfully !',
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown',
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp',
-      },
-    });
+    alert(yom);
+
+    // Swal.fire({
+    //   title: 'New Vehicle added sucessfully !',
+    //   showClass: {
+    //     popup: 'animate__animated animate__fadeInDown',
+    //   },
+    //   hideClass: {
+    //     popup: 'animate__animated animate__fadeOutUp',
+    //   },
+    // });
 
     setBrand('');
     setModel('');
@@ -109,6 +113,9 @@ const AddVehicle = () => {
             <Typography variant="h4" gutterBottom>
               Add New Vehicle
             </Typography>
+            <IconButton component={RouterLink} to="/dashboard/vehicle">
+              <Icon icon="ant-design:rollback-outlined" />
+            </IconButton>
           </Stack>
           <form onSubmit={handleSubmit} onReset={handleReset}>
             <Grid container>
