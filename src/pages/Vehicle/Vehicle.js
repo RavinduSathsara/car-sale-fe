@@ -1,6 +1,6 @@
 import { useState } from 'react';
 // material
-import { Container, Stack, Typography, Button } from '@mui/material';
+import { Container, Stack, Typography, Button, Grid } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
 // components
@@ -9,11 +9,15 @@ import Iconify from '../../components/Iconify';
 import { VehicleList } from '../../sections/@dashboard/vehicles';
 // mock
 import PRODUCTS from '../../_mock/products';
+import useFetch from '../../hooks/useFetch';
 
 // ----------------------------------------------------------------------
 
 export default function Vehicle() {
   const [openFilter, setOpenFilter] = useState(false);
+  const [data] = useFetch('http://127.0.0.1:8000/api/vehicles');
+
+  console.log(data?.Vehicle);
 
   const handleOpenFilter = () => {
     setOpenFilter(true);
@@ -45,7 +49,20 @@ export default function Vehicle() {
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}></Stack>
         </Stack> */}
 
-        <VehicleList />
+        <Grid container>
+          {data?.Vehicle.slice()
+            .reverse()
+            .map((item) => (
+              <VehicleList
+                brand={item.brand}
+                model={item.model}
+                price={item.unit_price}
+                modelYear={item.year_manufacture}
+                description={item.remarks}
+                id={item.id}
+              />
+            ))}
+        </Grid>
       </Container>
     </Page>
   );
