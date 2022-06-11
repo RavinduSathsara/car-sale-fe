@@ -36,15 +36,15 @@ const AddVehicle = () => {
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [make, setMake] = useState('');
-  const [yom, setYom] = useState('');
-  const [yor, setYor] = useState('');
+  const [yom, setYom] = useState(Date.now());
+  const [yor, setYor] = useState(Date.now());
   const [ownership, setOwnership] = useState('');
   const [chassisNo, setChassisNo] = useState('');
   const [fuelType, setFuelType] = useState('');
   const [regNo, setRegNo] = useState('');
   const [mileAge, setMileAge] = useState('');
   const [remarks, setRemarks] = useState('');
-  const [timeStamp, setTimeStamp] = useState('');
+  const [timeStamp, setTimeStamp] = useState(Date.now());
   const [cost, setCost] = useState('');
   const [unitPrice, setUnitPrice] = useState('');
   const [margin, setMargin] = useState('');
@@ -159,9 +159,9 @@ const AddVehicle = () => {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     label="Year of make: "
-                    value={value}
+                    value={yom}
                     onChange={(newValue) => {
-                      // setValue(newValue);
+                      setYom(newValue);
                     }}
                     renderInput={(params) => <TextField fullWidth {...params} />}
                   />
@@ -172,9 +172,9 @@ const AddVehicle = () => {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     label="Year of rent: "
-                    value={value}
+                    value={yor}
                     onChange={(newValue) => {
-                      // setValue(newValue);
+                      setYor(newValue);
                     }}
                     renderInput={(params) => <TextField fullWidth {...params} />}
                   />
@@ -272,9 +272,9 @@ const AddVehicle = () => {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     label="Time Stamps: "
-                    value={value}
+                    value={timeStamp}
                     onChange={(newValue) => {
-                      // setValue(newValue);
+                      setTimeStamp(newValue);
                     }}
                     renderInput={(params) => <TextField fullWidth {...params} />}
                   />
