@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { Grid, Button, Container, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import {
@@ -21,10 +21,12 @@ import Swal from 'sweetalert2';
 import { useFormik, Form, FormikProvider } from 'formik';
 import axios from 'axios';
 // material
-import { LoadingButton } from '@mui/lab';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LoadingButton, LocalizationProvider, DatePicker } from '@mui/lab';
 import Page from '../../components/Page';
 
 const AddStaff = () => {
+  const [value, setValue] = React.useState(null);
   return (
     <>
       <Page title="Dashboard: Blog">
@@ -49,18 +51,16 @@ const AddStaff = () => {
               // helperText={touched.email && errors.email}
             />
           </Grid>
-          <Grid item xs={8}>
-            <TextField
-              fullWidth
-              autoComplete="username"
-              type="email"
-              label="First Name"
-              // value={inName}
-              // onChange={(e) => setName(e.target.value)}
-              // error={Boolean(touched.email && errors.email)}
-              // helperText={touched.email && errors.email}
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              label="Basic example"
+              value={value}
+              onChange={(newValue) => {
+                setValue(newValue);
+              }}
+              renderInput={(params) => <TextField {...params} />}
             />
-          </Grid>
+          </LocalizationProvider>
         </Container>
       </Page>
     </>

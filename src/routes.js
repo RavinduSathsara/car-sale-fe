@@ -8,11 +8,12 @@ import Blog from './pages/Blog';
 import Login from './pages/Login';
 import NotFound from './pages/Page404';
 import Register from './pages/Register';
-import Products from './pages/Products';
+import Vehicle from './pages/Vehicle/Vehicle';
 import DashboardApp from './pages/DashboardApp';
 import Staff from './pages/Staff/Staff';
 import AddStaff from './pages/Staff/AddStaff';
 import AddCustomer from './pages/Customer/AddCustomer';
+import AddVehicle from './pages/Vehicle/AddVehicle';
 
 // ----------------------------------------------------------------------
 
@@ -24,7 +25,8 @@ export default function Router() {
       children: [
         { path: 'app', element: <DashboardApp /> },
         { path: 'staff', element: <Staff /> },
-        { path: 'products', element: <Products /> },
+        { path: 'vehicle', element: <Vehicle /> },
+        { path: 'add-vehicle', element: <AddVehicle /> },
         { path: 'blog', element: <Blog /> },
         { path: 'add-staff', element: <AddStaff /> },
         { path: 'add-customer', element: <AddCustomer /> },
