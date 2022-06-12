@@ -68,21 +68,23 @@ export default function Vehicle() {
         </Stack> */}
 
         <Grid container>
-          {data?.Vehicle.slice()
-            .reverse()
-            .map((item) => (
-              <VehicleList
-                key={item.id}
-                brand={item.brand}
-                model={item.model}
-                price={item.unit_price}
-                modelYear={item.year_manufacture}
-                description={item.remarks}
-                id={item.id}
-                deleteVehicle={deleteVehicle}
-                ownership={item.ownership}
-              />
-            ))}
+          {data?.Vehicle.length === 0
+            ? 'Vehicle is not availble !'
+            : data?.Vehicle.slice()
+                .reverse()
+                .map((item) => (
+                  <VehicleList
+                    key={item.id}
+                    brand={item.brand}
+                    model={item.model}
+                    price={item.unit_price}
+                    modelYear={item.year_manufacture}
+                    description={item.remarks}
+                    id={item.id}
+                    deleteVehicle={deleteVehicle}
+                    ownership={item.ownership}
+                  />
+                ))}
         </Grid>
       </Container>
     </Page>
