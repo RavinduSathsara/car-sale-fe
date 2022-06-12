@@ -36,9 +36,6 @@ export default function Vehicle() {
       }
     });
   };
-  setTimeout(() => {
-    setLoading(false);
-  }, 1500);
 
   const handleOpenFilter = () => {
     setOpenFilter(true);
