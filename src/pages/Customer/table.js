@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import useFetch from '../../hooks/useFetch';
+import LoadingLiner from '../../components/LoadingLiner';
 
 const BasicTable = () => {
+  const [loading, setLoading] = useState(true);
   const [data] = useFetch('http://127.0.0.1:8000/api/customers');
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 1500);
 
   const rows = [];
   if (data) {
@@ -21,6 +27,9 @@ const BasicTable = () => {
       });
   }
 
+  if (loading) {
+    return <LoadingLiner />;
+  }
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
