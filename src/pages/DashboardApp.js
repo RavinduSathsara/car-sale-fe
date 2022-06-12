@@ -9,12 +9,10 @@ import Page from '../components/Page';
 import Iconify from '../components/Iconify';
 // sections
 import {
-  AppTasks,
   AppNewsUpdate,
   AppOrderTimeline,
   AppCurrentVisits,
   AppWebsiteVisits,
-  AppTrafficBySite,
   AppWidgetSummary,
   AppCurrentSubject,
   AppConversionRates,
@@ -24,7 +22,7 @@ import useFetch from '../hooks/useFetch';
 // ----------------------------------------------------------------------
 
 export default function DashboardApp() {
-  const [data] = useFetch('http://127.0.0.1:8000/api/customers');
+  // const [data] = useFetch('http://127.0.0.1:8000/api/customers');
   const theme = useTheme();
 
   return (
@@ -36,19 +34,19 @@ export default function DashboardApp() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Total Customers" total={data?.customer.length} icon={'ant-design:team-outlined'} />
+            <AppWidgetSummary title="Sale Done" total={2000} icon={'foundation:burst-sale'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
+            <AppWidgetSummary title="Staff" total={1352831} color="info" icon={'fa6-solid:people-group'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
+            <AppWidgetSummary title="Item Available" total={1723315} color="warning" icon={'carbon:vehicle-insights'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
+            <AppWidgetSummary title="Swap Deals" total={234} color="error" icon={'fluent:people-swap-20-filled'} />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
@@ -169,47 +167,6 @@ export default function DashboardApp() {
                 type: `order${index + 1}`,
                 time: faker.date.past(),
               }))}
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AppTrafficBySite
-              title="Traffic by Site"
-              list={[
-                {
-                  name: 'FaceBook',
-                  value: 323234,
-                  icon: <Iconify icon={'eva:facebook-fill'} color="#1877F2" width={32} height={32} />,
-                },
-                {
-                  name: 'Google',
-                  value: 341212,
-                  icon: <Iconify icon={'eva:google-fill'} color="#DF3E30" width={32} height={32} />,
-                },
-                {
-                  name: 'Linkedin',
-                  value: 411213,
-                  icon: <Iconify icon={'eva:linkedin-fill'} color="#006097" width={32} height={32} />,
-                },
-                {
-                  name: 'Twitter',
-                  value: 443232,
-                  icon: <Iconify icon={'eva:twitter-fill'} color="#1C9CEA" width={32} height={32} />,
-                },
-              ]}
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <AppTasks
-              title="Tasks"
-              list={[
-                { id: '1', label: 'Create FireStone Logo' },
-                { id: '2', label: 'Add SCSS and JS files if required' },
-                { id: '3', label: 'Stakeholder Meeting' },
-                { id: '4', label: 'Scoping & Estimations' },
-                { id: '5', label: 'Sprint Showcase' },
-              ]}
             />
           </Grid>
         </Grid>

@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import useFetch from '../../hooks/useFetch';
 
 const BasicTable = () => {
   const [data] = useFetch('http://127.0.0.1:8000/api/customers');
-
-  console.log(data);
 
   const rows = [];
   if (data) {

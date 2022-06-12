@@ -21,6 +21,10 @@ import {
   Menu,
   MenuItem,
   handleChange,
+  Input,
+  Button,
+  label,
+
   // LocalizationProvider,
 } from '@mui/material';
 
@@ -31,7 +35,8 @@ import Swal from 'sweetalert2';
 import { useFormik, Form, FormikProvider } from 'formik';
 import axios from 'axios';
 // material
-import { LoadingButton } from '@mui/lab';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LoadingButton, LocalizationProvider, DatePicker } from '@mui/lab';
 import Page from '../../components/Page';
 
 const AddStaff = () => {
@@ -41,8 +46,10 @@ const AddStaff = () => {
   const [contact, setContact] = useState('');
   const [address, setAddress] = useState('');
   const [gender, setGender] = useState('');
-  const [Role, setRole] = useState('');
+  const [role, setRole] = useState('');
   const [shift, setShift] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState(Date.now());
+  const [salary, setSalary] = useState('');
 
   const handleReset = (event) => {
     event.preventDefault();
@@ -52,15 +59,11 @@ const AddStaff = () => {
     setContact('');
     setAddress('');
     setGender('');
+    setRole('');
+    setShift('');
+    setDateOfBirth('');
+    setSalary('');
   };
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  // setFirstName('');
-  // setLastName('');
-  // setEmail('');
-  // setContact('');
-  // setAddress('');
-  // setGender('');
 
   return (
     <>
@@ -74,6 +77,7 @@ const AddStaff = () => {
               <Icon icon="ant-design:rollback-outlined" />
             </IconButton>
           </Stack>
+
           <Grid container>
             <Grid item xs={4} sx={{ m: 2 }}>
               <TextField
@@ -116,7 +120,6 @@ const AddStaff = () => {
                 type="email"
                 label="Email"
                 onChange={(e) => setAddress(e.target.value)}
-                // error={Boolean(touched.email && errors.email)
               />
             </Grid>
             <Grid item xs={4} sx={{ m: 2 }}>
@@ -142,17 +145,40 @@ const AddStaff = () => {
               />
             </Grid>
             <Grid item xs={4} sx={{ m: 2 }}>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  label="Date of birth  "
+                  value={dateOfBirth}
+                  onChange={(newValue) => {
+                    setDateOfBirth(newValue);
+                  }}
+                  renderInput={(params) => <TextField fullWidth {...params} />}
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={4} sx={{ m: 2 }}>
+              <TextField
+                fullWidth
+                required
+                autoComplete=""
+                type="number"
+                label="salary"
+                placeholder="Lkr"
+                value={salary}
+                onChange={(e) => setSalary(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={4} sx={{ m: 2 }}>
               <FormControl fullWidth>
                 <InputLabel text="demo-simple-select-label">Role</InputLabel>
                 <Select
                   fullWidth
                   labeltext="demo-simple-select-label"
                   text="demo-simple-select"
-                  value="Role"
+                  value={role}
                   label="Role"
                   onChange={(e) => setRole(e.target.value)}
-                  // type="text"
-                  // onChange={handleChange}
                 >
                   <MenuItem value={1}>Mnager</MenuItem>
                   <MenuItem value={2}>Seller</MenuItem>
@@ -168,11 +194,9 @@ const AddStaff = () => {
                   fullWidth
                   labeltext="demo-simple-select-label"
                   text="demo-simple-select"
-                  value="shift"
+                  value={shift}
                   label="Shift"
                   onChange={(e) => setShift(e.target.value)}
-                  // type="text"
-                  // onChange={handleChange}
                 >
                   <MenuItem value={5}>Day</MenuItem>
                   <MenuItem value={6}>Swing</MenuItem>
@@ -183,7 +207,7 @@ const AddStaff = () => {
             </Grid>
           </Grid>
           <Grid item xs={8}>
-            <FormControl>
+            <FormControl style={{ marginLeft: 20 }}>
               <FormLabel> Gender </FormLabel>
               <RadioGroup row item xs={4} value={gender} onChange={(e) => setGender(e.target.value)}>
                 <FormControlLabel value="male" control={<Radio />} label="Male" />
@@ -192,31 +216,20 @@ const AddStaff = () => {
               </RadioGroup>
             </FormControl>
           </Grid>
-
-          <Grid item xs={5} sx={{ m: 2 }}>
-            <LoadingButton style={{ width: 150 }} size="large" type="submit" variant="contained">
-              Submit
-            </LoadingButton>
-            <LoadingButton style={{ width: 150, marginLeft: 10 }} size="large" type="reset" variant="outlined">
-              Reset
-            </LoadingButton>
-
-            {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                label="Basic example"
-                value={value}
-                onChange={(newValue) => {
-                  setValue(newValue);
-                }}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </LocalizationProvider> */}
+          <Grid item xs={8} sx={{ m: 3 }}>
+            <FormLabel htmlFor="contained-button-file" value="upload" style={{}}>
+              <Input accept="image/*" id="contained-button-file" multiple type="file" />
+            </FormLabel>
           </Grid>
 
-          {/* // helperText={touched.email && errors.email} */}
-          {/* // value={lastName}
-          // error={Boolean(touched.email && errors.email)}
-          // helperText={touched.email && errors.email} */}
+          <Grid item xs={4} sx={{ m: 6 }}>
+            <LoadingButton style={{ width: 150 }} id="sub" size="large" type="submit" variant="contained">
+              Submit
+            </LoadingButton>
+            <LoadingButton style={{ width: 150, marginLeft: 10 }} size="large" id="res" type="reset" variant="outlined">
+              Reset
+            </LoadingButton>
+          </Grid>
         </Container>
       </Page>
     </>

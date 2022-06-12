@@ -16,7 +16,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
-  const [inemail, setEmail] = useState('');
+  const [userName, setUserName] = useState('');
   const [passWord, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -25,7 +25,7 @@ export default function LoginForm() {
     event.preventDefault();
     axios
       .post('http://127.0.0.1:8000/api/login', {
-        email: `${inemail}`,
+        user_name: `${userName}`,
         password: `${passWord}`,
       })
       .then((res) => {
@@ -55,7 +55,7 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit}>
       <Stack spacing={3}>
-        <TextField fullWidth type="text" label="Email" value={inemail} onChange={(e) => setEmail(e.target.value)} />
+        <TextField fullWidth type="text" label="Email" value={userName} onChange={(e) => setUserName(e.target.value)} />
 
         <TextField
           fullWidth
