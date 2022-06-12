@@ -12,11 +12,10 @@ import { VehicleList } from '../../sections/@dashboard/vehicles';
 // mock
 import PRODUCTS from '../../_mock/products';
 import useFetch from '../../hooks/useFetch';
-import LoadingLiner from '../../components/LoadingLiner';
+
 // ----------------------------------------------------------------------
 
 export default function Vehicle() {
-  const [loading, setLoading] = useState(true);
   const [openFilter, setOpenFilter] = useState(false);
   const [data] = useFetch('http://127.0.0.1:8000/api/vehicles');
 
@@ -48,9 +47,7 @@ export default function Vehicle() {
   const handleCloseFilter = () => {
     setOpenFilter(false);
   };
-  if (loading) {
-    return <LoadingLiner />;
-  }
+
   return (
     <Page title="Vehicle">
       <Container>
