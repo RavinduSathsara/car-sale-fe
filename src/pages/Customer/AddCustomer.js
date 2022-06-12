@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-// import { Grid, Button, Container, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   Link,
   Stack,
   Grid,
+  Button,
   Checkbox,
   Container,
   TextField,
@@ -70,97 +71,18 @@ const AddCustomer = () => {
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography variant="h4" gutterBottom>
-              Add New Customer
+              All Customers
             </Typography>
+
+            <Button
+              variant="contained"
+              component={RouterLink}
+              to="/dashboard/add-customer-form"
+              startIcon={<Iconify icon="eva:plus-fill" />}
+            >
+              New Customer
+            </Button>
           </Stack>
-          <form onSubmit={handleSubmit} onReset={handleReset}>
-            <Grid container>
-              <Grid item xs={4} sx={{ m: 2 }}>
-                <TextField
-                  fullWidth
-                  required
-                  // autoComplete="username"
-                  type="text"
-                  label="First Name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={4} sx={{ m: 2 }}>
-                <TextField
-                  fullWidth
-                  required
-                  // autoComplete="username"
-                  type="text"
-                  label="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </Grid>{' '}
-              <Grid item xs={4} sx={{ m: 2 }}>
-                <TextField
-                  fullWidth
-                  required
-                  autoComplete="username"
-                  type="number"
-                  label="Contact No."
-                  value={contact}
-                  onChange={(e) => setContact(e.target.value)}
-                />
-              </Grid>{' '}
-              <Grid item xs={4} sx={{ m: 2 }}>
-                <TextField
-                  fullWidth
-                  required
-                  // autoComplete="username"
-                  type="email"
-                  label="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={8.35} sx={{ m: 2 }}>
-                <TextField
-                  fullWidth
-                  // autoComplete="username"
-                  type="text"
-                  required
-                  label="Address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  // error={Boolean(touched.email && errors.email)}
-                  // helperText={touched.email && errors.email}
-                />
-              </Grid>
-            </Grid>
-            <Grid item xs={5} sx={{ m: 2 }}>
-              <LoadingButton
-                style={{ width: 150 }}
-                size="large"
-                type="submit"
-                variant="contained"
-                // loading={isSubmitting }
-              >
-                Create
-              </LoadingButton>
-              <LoadingButton
-                style={{ width: 150, marginLeft: 10 }}
-                size="large"
-                type="reset"
-                variant="outlined"
-                // loading={isSubmitting }
-              >
-                Reset
-              </LoadingButton>
-            </Grid>
-          </form>
-
-          <br />
-
-          <Typography variant="h6" gutterBottom>
-            All Customers
-          </Typography>
-
           <BasicTable />
         </Container>
       </Page>
