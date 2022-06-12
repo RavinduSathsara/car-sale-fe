@@ -2,6 +2,8 @@ import { useState } from 'react';
 // material
 import { Container, Stack, Typography, Button, Grid } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
 // components
 import Page from '../../components/Page';
@@ -17,7 +19,23 @@ export default function Vehicle() {
   const [openFilter, setOpenFilter] = useState(false);
   const [data] = useFetch('http://127.0.0.1:8000/api/vehicles');
 
-  console.log(data?.Vehicle);
+  const deleteVehicle = (id, brand) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://127.0.0.1:8000/api/vehicles/${id}`)
+          .then(Swal.fire(`${brand}  Deleted!  `, 'Your file has been deleted.', 'success'));
+      }
+    });
+  };
 
   const handleOpenFilter = () => {
     setOpenFilter(true);
@@ -54,12 +72,15 @@ export default function Vehicle() {
             .reverse()
             .map((item) => (
               <VehicleList
+                key={item.id}
                 brand={item.brand}
                 model={item.model}
                 price={item.unit_price}
                 modelYear={item.year_manufacture}
                 description={item.remarks}
                 id={item.id}
+                deleteVehicle={deleteVehicle}
+                ownership={item.ownership}
               />
             ))}
         </Grid>

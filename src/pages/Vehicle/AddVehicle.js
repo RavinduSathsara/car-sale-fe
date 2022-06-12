@@ -38,8 +38,8 @@ const AddVehicle = () => {
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [make, setMake] = useState('');
-  const [yearOfManufacture, setYom] = useState(Date.now());
-  const [yearOfRegistration, setYor] = useState(Date.now());
+  const [yearOfManufacture, setYearOfManufacture] = useState(Date.now());
+  const [yearOfRegistration, setYearOfRegistration] = useState(Date.now());
   const [ownership, setOwnership] = useState('');
   const [chassisNo, setChassisNo] = useState('');
   const [fuelType, setFuelType] = useState('');
@@ -56,8 +56,8 @@ const AddVehicle = () => {
     setBrand('');
     setModel('');
     setMake('');
-    setYom('');
-    setYor('');
+    setYearOfManufacture('');
+    setYearOfRegistration('');
     setOwnership('');
     setChassisNo('');
     setFuelType('');
@@ -73,23 +73,41 @@ const AddVehicle = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    alert(yom);
-
-    // Swal.fire({
-    //   title: 'New Vehicle added sucessfully !',
-    //   showClass: {
-    //     popup: 'animate__animated animate__fadeInDown',
-    //   },
-    //   hideClass: {
-    //     popup: 'animate__animated animate__fadeOutUp',
-    //   },
-    // });
+    axios
+      .post('http://127.0.0.1:8000/api/vehicles', {
+        brand: `${brand}`,
+        model: `${model}`,
+        make: `${make}`,
+        year_manufacture: `${yearOfManufacture.getFullYear()}`,
+        year_registration: `${yearOfRegistration.getFullYear()}`,
+        ownership: `${ownership}`,
+        chassis_no: `${chassisNo}`,
+        fuel_type: `${fuelType}`,
+        reg_no: `${regNo}`,
+        mileage: `${mileAge}`,
+        remarks: `${remarks}`,
+        cost: `${cost}`,
+        unit_price: `${unitPrice}`,
+        margin: `${margin}`,
+        trans_no: `1234`,
+      })
+      .then(
+        Swal.fire({
+          title: 'New Vehicle added sucessfully !',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        })
+      );
 
     setBrand('');
     setModel('');
     setMake('');
-    setYom('');
-    setYor('');
+    setYearOfManufacture('');
+    setYearOfRegistration('');
     setOwnership('');
     setChassisNo('');
     setFuelType('');
@@ -101,9 +119,6 @@ const AddVehicle = () => {
     setUnitPrice('');
     setMargin('');
   };
-
-  const value = '';
-  const handleChange = () => {};
 
   return (
     <>
@@ -145,11 +160,14 @@ const AddVehicle = () => {
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Make</InputLabel>
                   <Select
+                    required
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={make}
                     label="Make"
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      setMake(e.target.value);
+                    }}
                   >
                     <MenuItem value={'Car'}>Car</MenuItem>
                     <MenuItem value={'Jeep'}>Jeep</MenuItem>
@@ -159,15 +177,23 @@ const AddVehicle = () => {
               </Grid>
 
               <Grid item xs={4} sx={{ m: 2 }}>
-                <TextField
-                  fullWidth
-                  required
-                  // autoComplete="username"
-                  type="text"
-                  label="Ownership"
-                  value={ownership}
-                  onChange={(e) => setOwnership(e.target.value)}
-                />
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Ownership</InputLabel>
+                  <Select
+                    required
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={ownership}
+                    label="Owership"
+                    onChange={(e) => {
+                      setOwnership(e.target.value);
+                    }}
+                  >
+                    <MenuItem value={'First Owner'}>First Owner</MenuItem>
+                    <MenuItem value={'Second Owner'}>Second Owner</MenuItem>
+                    <MenuItem value={'Third Owner'}>Third Owner</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -176,9 +202,9 @@ const AddVehicle = () => {
                     views={['year']}
                     value={yearOfManufacture}
                     onChange={(newValue) => {
-                      setYom(newValue);
+                      setYearOfManufacture(newValue);
                     }}
-                    renderInput={(params) => <TextField fullWidth {...params} />}
+                    renderInput={(params) => <TextField required fullWidth {...params} />}
                   />
                 </LocalizationProvider>
               </Grid>
@@ -190,9 +216,9 @@ const AddVehicle = () => {
                     views={['year']}
                     value={yearOfRegistration}
                     onChange={(newValue) => {
-                      setYor(newValue);
+                      setYearOfRegistration(newValue);
                     }}
-                    renderInput={(params) => <TextField fullWidth {...params} />}
+                    renderInput={(params) => <TextField required fullWidth {...params} />}
                   />
                 </LocalizationProvider>
               </Grid>
@@ -214,14 +240,17 @@ const AddVehicle = () => {
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Fuel Type</InputLabel>
                   <Select
+                    required
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={fuelType}
                     label="Fuel Type"
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      setFuelType(e.target.value);
+                    }}
                   >
-                    <MenuItem value={'diesel'}>Diesel</MenuItem>
-                    <MenuItem value={'petrol'}>Petrol</MenuItem>
+                    <MenuItem value={'Diesel'}>Diesel</MenuItem>
+                    <MenuItem value={'Petrol'}>Petrol</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -291,7 +320,7 @@ const AddVehicle = () => {
                     onChange={(newValue) => {
                       setTimeStamp(newValue);
                     }}
-                    renderInput={(params) => <TextField fullWidth {...params} />}
+                    renderInput={(params) => <TextField required fullWidth {...params} />}
                   />
                 </LocalizationProvider>
               </Grid>
@@ -300,6 +329,7 @@ const AddVehicle = () => {
             <Grid item xs={8.75} sx={{ m: 2 }}>
               <TextField
                 style={{ width: 800 }}
+                required
                 // autoComplete="username"
                 type="text"
                 label="Remarks"

@@ -1,17 +1,12 @@
 import React from 'react';
 import { Grid, Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
 
-const VehicleList = ({ brand, model, price, modelYear, description, id }) => {
+const VehicleList = ({ brand, model, price, modelYear, description, id, deleteVehicle, ownership }) => {
   return (
     <>
       <Grid item xs={3} sx={{ m: 2 }}>
         <Card sx={{ maxWidth: 345 }}>
-          <CardMedia
-            component="img"
-            height="200"
-            image="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?cs=srgb&dl=pexels-mike-b-170811.jpg&fm=jpg"
-            alt="green iguana"
-          />
+          <CardMedia component="img" height="200" image={`https://picsum.photos/id/${id}/200/300`} alt="green iguana" />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {brand} {model}
@@ -23,7 +18,7 @@ const VehicleList = ({ brand, model, price, modelYear, description, id }) => {
               Model Year : {modelYear}
             </Typography>
             <Typography gutterBottom variant="p" component="div">
-              From : Colombo
+              Ownership : {ownership}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {description}
@@ -35,7 +30,7 @@ const VehicleList = ({ brand, model, price, modelYear, description, id }) => {
               size="small"
               color="error"
               onClick={() => {
-                alert(id);
+                deleteVehicle(id, brand);
               }}
             >
               Remove

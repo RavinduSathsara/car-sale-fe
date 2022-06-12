@@ -34,7 +34,7 @@ export default function DashboardApp() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Sale Done" total={2000} icon={'foundation:burst-sale'} />
+            <AppWidgetSummary title="Sale Done" color="error" total={2000} icon={'foundation:burst-sale'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
@@ -51,7 +51,7 @@ export default function DashboardApp() {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Swap Deals" total={234} color="error" icon={'fluent:people-swap-20-filled'} />
+            <AppWidgetSummary title="Swap Deals" total={234} icon={'fluent:people-swap-20-filled'} />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
