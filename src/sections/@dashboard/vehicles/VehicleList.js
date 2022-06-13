@@ -1,7 +1,16 @@
 import React from 'react';
-import { Grid, Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
+import { Stack, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Skeleton } from '@mui/material';
 
-const VehicleList = ({ brand, model, price, modelYear, description, id, deleteVehicle, ownership }) => {
+const VehicleList = ({ brand, model, price, modelYear, description, id, deleteVehicle, ownership, isLoading }) => {
+  if (isLoading) {
+    return (
+      <>
+        <Stack spacing={1} sx={{ m: 2 }}>
+          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={285} height={450} />
+        </Stack>
+      </>
+    );
+  }
   return (
     <>
       <Grid item xs={3} sx={{ m: 2 }}>

@@ -22,7 +22,7 @@ import useFetch from '../hooks/useFetch';
 // ----------------------------------------------------------------------
 
 export default function DashboardApp() {
-  const [data] = useFetch('http://127.0.0.1:8000/api/vehicles');
+  const { data } = useFetch('http://127.0.0.1:8000/api/vehicles');
   const theme = useTheme();
 
   return (
