@@ -17,7 +17,7 @@ import useFetch from '../../hooks/useFetch';
 
 export default function Vehicle() {
   const [openFilter, setOpenFilter] = useState(false);
-  const [data] = useFetch('http://127.0.0.1:8000/api/vehicles');
+  const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/vehicles');
 
   const deleteVehicle = (id, brand) => {
     Swal.fire({
@@ -83,6 +83,7 @@ export default function Vehicle() {
                     id={item.id}
                     deleteVehicle={deleteVehicle}
                     ownership={item.ownership}
+                    isLoading={isLoading}
                   />
                 ))}
         </Grid>

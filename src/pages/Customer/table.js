@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
-
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import Swal from 'sweetalert2';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 import useFetch from '../../hooks/useFetch';
 import LoadingLiner from '../../components/LoadingLiner';
 
 const BasicTable = () => {
-  const [loading, setLoading] = useState(true);
-  const [data] = useFetch('http://127.0.0.1:8000/api/customers');
+  const { data, isLoading, error } = useFetch('http://127.0.0.1:8000/api/customers');
 
-  setTimeout(() => {
-    setLoading(false);
-  }, 1500);
-
+  console.log('er', error);
   const rows = [];
   if (data) {
     data?.customer
@@ -27,8 +23,17 @@ const BasicTable = () => {
       });
   }
 
-  if (loading) {
+  if (isLoading) {
     return <LoadingLiner />;
+  }
+  if (error) {
+    return (
+      <>
+        <Typography color="error" variant="h6">
+          Something went wrong !{' '}
+        </Typography>
+      </>
+    );
   }
   return (
     <TableContainer component={Paper}>
