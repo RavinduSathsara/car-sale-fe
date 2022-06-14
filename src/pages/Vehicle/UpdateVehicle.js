@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 
 import {
@@ -36,6 +36,7 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 import { LoadingButton, DatePicker } from '@mui/lab';
 import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
+import useFetch from '../../hooks/useFetch';
 
 const UpdateVehicle = () => {
   const { id } = useParams();
@@ -56,26 +57,28 @@ const UpdateVehicle = () => {
   const [unitPrice, setUnitPrice] = useState('');
   const [margin, setMargin] = useState('');
 
+  // load initial values
+
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      // .post('http://127.0.0.1:8000/api/vehicles', {
-      //   brand: `${brand}`,
-      //   model: `${model}`,
-      //   make: `${make}`,
-      //   year_manufacture: `${yearOfManufacture.getFullYear()}`,
-      //   year_registration: `${yearOfRegistration.getFullYear()}`,
-      //   ownership: `${ownership}`,
-      //   chassis_no: `${chassisNo}`,
-      //   fuel_type: `${fuelType}`,
-      //   reg_no: `${regNo}`,
-      //   mileage: `${mileAge}`,
-      //   remarks: `${remarks}`,
-      //   cost: `${cost}`,
-      //   unit_price: `${unitPrice}`,
-      //   margin: `${margin}`,
-      //   trans_no: `1234`,
-      // })
+      .put(`http://127.0.0.1:8000/api/vehicles/${id}`, {
+        brand: `${brand}`,
+        model: `${model}`,
+        make: `${make}`,
+        year_manufacture: `${yearOfManufacture.getFullYear()}`,
+        year_registration: `${yearOfRegistration.getFullYear()}`,
+        ownership: `${ownership}`,
+        chassis_no: `${chassisNo}`,
+        fuel_type: `${fuelType}`,
+        reg_no: `${regNo}`,
+        mileage: `${mileAge}`,
+        remarks: `${remarks}`,
+        cost: `${cost}`,
+        unit_price: `${unitPrice}`,
+        margin: `${margin}`,
+        trans_no: `1234`,
+      })
       .then(
         Swal.fire({
           title: 'Vehicle Update sucessfully !',
@@ -142,7 +145,8 @@ const UpdateVehicle = () => {
                 <TextField
                   fullWidth
                   required
-                  // autoComplete="username"
+                  autoComplete="username"
+                  defaultValue="ssss"
                   type="text"
                   label="Brand"
                   value={brand}
