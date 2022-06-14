@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { Stack, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Skeleton } from '@mui/material';
 
 const VehicleList = ({ brand, model, price, modelYear, description, id, deleteVehicle, ownership, isLoading }) => {
@@ -34,7 +35,9 @@ const VehicleList = ({ brand, model, price, modelYear, description, id, deleteVe
             </Typography>
           </CardContent>
           <CardActions style={{ marginLeft: '8px' }}>
-            <Button size="small">Update</Button>
+            <Button size="small" component={RouterLink} to={`/dashboard/update-vehicle/${id}`}>
+              Update
+            </Button>
             <Button
               size="small"
               color="error"

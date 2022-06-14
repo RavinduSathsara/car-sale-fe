@@ -13,6 +13,8 @@ import {
   InputAdornment,
   FormControlLabel,
   FormControl,
+  FormLabel,
+  Input,
   InputLabel,
   MenuItem,
   Select,
@@ -28,6 +30,7 @@ import Swal from 'sweetalert2';
 import { useFormik, Form, FormikProvider } from 'formik';
 import axios from 'axios';
 import { Icon } from '@iconify/react';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 // material
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import { LoadingButton, DatePicker } from '@mui/lab';
@@ -338,6 +341,16 @@ const AddVehicle = () => {
                 onChange={(e) => setRemarks(e.target.value)}
               />
             </Grid>
+            <Grid item xs={8} sx={{ m: 3 }}>
+              <FormLabel>
+                <Input style={{ display: 'none ' }} accept="image/*" id="contained-button-file" multiple type="file" />
+                <IconButton sx={{ ml: -2 }} color="primary" aria-label="upload picture" component="span">
+                  <PhotoCamera />
+                </IconButton>
+                Upload Image
+              </FormLabel>
+            </Grid>
+
             <Grid item xs={5} sx={{ m: 2 }}>
               <LoadingButton
                 style={{ width: 150 }}
