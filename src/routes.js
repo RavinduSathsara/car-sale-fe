@@ -15,6 +15,7 @@ import AddStaff from './pages/Staff/AddStaff';
 import AddCustomer from './pages/Customer/AddCustomer';
 import AddVehicle from './pages/Vehicle/AddVehicle';
 import CustomerForm from './pages/Customer/CustomerForm';
+import UpdateVehicle from './pages/Vehicle/UpdateVehicle';
 
 // ----------------------------------------------------------------------
 
@@ -28,6 +29,7 @@ export default function Router() {
         { path: 'staff', element: <Staff /> },
         { path: 'vehicle', element: <Vehicle /> },
         { path: 'add-vehicle', element: <AddVehicle /> },
+        { path: 'update-vehicle/:id', element: <UpdateVehicle /> },
         { path: 'blog', element: <Blog /> },
         { path: 'add-staff', element: <AddStaff /> },
         { path: 'add-customer', element: <AddCustomer /> },
