@@ -22,7 +22,8 @@ import useFetch from '../hooks/useFetch';
 // ----------------------------------------------------------------------
 
 export default function DashboardApp() {
-  const { data } = useFetch('http://127.0.0.1:8000/api/vehicles');
+  const { data: vehicleData } = useFetch('http://127.0.0.1:8000/api/vehicles');
+  const { data: staffData } = useFetch('http://127.0.0.1:8000/api/staff');
   const theme = useTheme();
 
   return (
@@ -38,13 +39,18 @@ export default function DashboardApp() {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Staff" total={1352831} color="info" icon={'fa6-solid:people-group'} />
+            <AppWidgetSummary
+              title="Staff"
+              total={staffData?.staff.length}
+              color="info"
+              icon={'fa6-solid:people-group'}
+            />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary
               title="Item Available"
-              total={data?.Vehicle.length}
+              total={vehicleData?.Vehicle.length}
               color="warning"
               icon={'carbon:vehicle-insights'}
             />
