@@ -2,7 +2,7 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Stack, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Skeleton } from '@mui/material';
 
-const VehicleList = ({ brand, model, price, modelYear, description, id, deleteVehicle, ownership, isLoading }) => {
+const VehicleList = ({ brand, model, price, modelYear, description, id, deleteVehicle, ownership, isLoading, img }) => {
   if (isLoading) {
     return (
       <>
@@ -16,7 +16,7 @@ const VehicleList = ({ brand, model, price, modelYear, description, id, deleteVe
     <>
       <Grid item xs={3} sx={{ m: 2 }}>
         <Card sx={{ maxWidth: 345 }}>
-          <CardMedia component="img" height="200" image={`https://picsum.photos/id/${id}/200/300`} alt="green iguana" />
+          <CardMedia component="img" height="200" image={`http://127.0.0.1:8000/storage/${img}`} alt="vehicle" />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {brand} {model}

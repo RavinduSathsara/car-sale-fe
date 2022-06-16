@@ -53,6 +53,7 @@ const AddVehicle = () => {
   const [cost, setCost] = useState('');
   const [unitPrice, setUnitPrice] = useState('');
   const [margin, setMargin] = useState('');
+  const [file, setFile] = useState();
 
   const handleReset = (event) => {
     event.preventDefault();
@@ -76,35 +77,42 @@ const AddVehicle = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios
-      .post('http://127.0.0.1:8000/api/vehicles', {
-        brand: `${brand}`,
-        model: `${model}`,
-        make: `${make}`,
-        year_manufacture: `${yearOfManufacture.getFullYear()}`,
-        year_registration: `${yearOfRegistration.getFullYear()}`,
-        ownership: `${ownership}`,
-        chassis_no: `${chassisNo}`,
-        fuel_type: `${fuelType}`,
-        reg_no: `${regNo}`,
-        mileage: `${mileAge}`,
-        remarks: `${remarks}`,
-        cost: `${cost}`,
-        unit_price: `${unitPrice}`,
-        margin: `${margin}`,
-        trans_no: `1234`,
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
+
+    const formData = new FormData();
+
+    formData.append('brand', `${brand}`);
+    formData.append('model', `${model}`);
+    formData.append('make', `${make}`);
+    formData.append('year_manufacture', `${yearOfManufacture.getFullYear()}`);
+    formData.append('year_registration', `${yearOfRegistration.getFullYear()}`);
+    formData.append('ownership', `${ownership}`);
+    formData.append('chassis_no', `${chassisNo}`);
+    formData.append('fuel_type', `${fuelType}`);
+    formData.append('reg_no', `${regNo}`);
+    formData.append('mileage', `${mileAge}`);
+    formData.append('remarks', `${remarks}`);
+    formData.append('cost', `${cost}`);
+    formData.append('unit_price', `${unitPrice}`);
+    formData.append('margin', `${margin}`);
+    formData.append('trans_no', `1231`);
+    formData.append('v_image', file);
+
+    axios.post('http://127.0.0.1:8000/api/vehicles', formData, config).then(
+      Swal.fire({
+        title: 'New Vehicle added sucessfully !',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
       })
-      .then(
-        Swal.fire({
-          title: 'New Vehicle added sucessfully !',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
-          },
-        })
-      );
+    );
 
     setBrand('');
     setModel('');
@@ -122,6 +130,10 @@ const AddVehicle = () => {
     setUnitPrice('');
     setMargin('');
   };
+
+  function handleChange(event) {
+    setFile(event.target.files[0]);
+  }
 
   return (
     <>
@@ -343,11 +355,21 @@ const AddVehicle = () => {
             </Grid>
             <Grid item xs={8} sx={{ m: 3 }}>
               <FormLabel>
-                <Input style={{ display: 'none ' }} accept="image/*" id="contained-button-file" multiple type="file" />
-                <IconButton sx={{ ml: -2 }} color="primary" aria-label="upload picture" component="span">
+                <h1>React File Upload</h1>
+                <input type="file" onChange={handleChange} />
+                {/* <button type="submit">Upload</button> */}
+                {/* <Input
+                  onChange={handleChange()}
+                  style={{ display: 'none ' }}
+                  accept="image/*"
+                  id="contained-button-file"
+                  multiple
+                  type="file"
+                /> */}
+                {/* <IconButton sx={{ ml: -2 }} color="primary" aria-label="upload picture" component="span">
                   <PhotoCamera />
                 </IconButton>
-                Upload Image
+                Upload Image */}
               </FormLabel>
             </Grid>
 
