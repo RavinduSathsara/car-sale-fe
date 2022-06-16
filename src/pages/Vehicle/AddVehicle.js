@@ -74,6 +74,12 @@ const AddVehicle = () => {
     setMargin('');
   };
 
+  // Api bind
+
+  function handleChange(event) {
+    setFile(event.target.files[0]);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -130,10 +136,6 @@ const AddVehicle = () => {
     setUnitPrice('');
     setMargin('');
   };
-
-  function handleChange(event) {
-    setFile(event.target.files[0]);
-  }
 
   return (
     <>
