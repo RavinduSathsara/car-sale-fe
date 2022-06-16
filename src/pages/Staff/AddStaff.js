@@ -205,9 +205,8 @@ const AddStaff = () => {
                     label="Shift"
                     onChange={(e) => setShift(e.target.value)}
                   >
-                    <MenuItem value={5}>Day</MenuItem>
-                    <MenuItem value={6}>Swing</MenuItem>
-                    <MenuItem value={7}>Night</MenuItem>
+                    <MenuItem value={'DT'}>Day time</MenuItem>
+                    <MenuItem value={'PT'}>Part Time</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
