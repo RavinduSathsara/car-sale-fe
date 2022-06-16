@@ -7,7 +7,6 @@ import LoadingLiner from '../../components/LoadingLiner';
 const BasicTable = () => {
   const { data, isLoading, error } = useFetch('http://127.0.0.1:8000/api/customers');
 
-  console.log('er', error);
   const rows = [];
   if (data) {
     data?.customer

@@ -74,6 +74,7 @@ export default function Vehicle() {
                 .reverse()
                 .map((item) => (
                   <VehicleList
+                    img={item.v_image}
                     key={item.id}
                     brand={item.brand}
                     model={item.model}
