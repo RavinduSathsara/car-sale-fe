@@ -22,7 +22,7 @@ const VehicleList = ({ brand, model, price, modelYear, description, id, deleteVe
               {brand} {model}
             </Typography>
             <Typography gutterBottom variant="h5" component="div" color="text.secondary">
-              LKR {price}
+              LKR {price}.00
             </Typography>
             <Typography gutterBottom variant="p" component="div">
               Model Year : {modelYear}
