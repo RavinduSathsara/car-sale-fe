@@ -7,7 +7,7 @@ import Iconify from '../../../components/Iconify';
 
 // ----------------------------------------------------------------------
 
-export default function UserMoreMenu() {
+export default function UserMoreMenu({ id }) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,7 +40,7 @@ export default function UserMoreMenu() {
           </ListItemIcon>
           <ListItemText primary="Edit" primaryTypographyProps={{ variant: 'body2' }} />
         </MenuItem>
-        <MenuItem component={RouterLink} to="/dashboard/view-staff" sx={{ color: 'text.secondary' }}>
+        <MenuItem component={RouterLink} to={`/dashboard/view-staff/${id}`} sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <Iconify icon="carbon:view" width={24} height={24} />
           </ListItemIcon>

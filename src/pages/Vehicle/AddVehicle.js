@@ -72,6 +72,7 @@ const AddVehicle = () => {
     setCost('');
     setUnitPrice('');
     setMargin('');
+    setFile('');
   };
 
   // Api bind
@@ -135,6 +136,7 @@ const AddVehicle = () => {
     setCost('');
     setUnitPrice('');
     setMargin('');
+    setFile('');
   };
 
   return (
@@ -357,21 +359,7 @@ const AddVehicle = () => {
             </Grid>
             <Grid item xs={8} sx={{ m: 3 }}>
               <FormLabel>
-                <h1>React File Upload</h1>
                 <input type="file" onChange={handleChange} />
-                {/* <button type="submit">Upload</button> */}
-                {/* <Input
-                  onChange={handleChange()}
-                  style={{ display: 'none ' }}
-                  accept="image/*"
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                /> */}
-                {/* <IconButton sx={{ ml: -2 }} color="primary" aria-label="upload picture" component="span">
-                  <PhotoCamera />
-                </IconButton>
-                Upload Image */}
               </FormLabel>
             </Grid>
 

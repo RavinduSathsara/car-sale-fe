@@ -49,8 +49,6 @@ export default function Staff() {
 
   const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/staff');
 
-  console.log('staff', data?.staff);
-
   const rows = [];
   if (data) {
     data?.staff
@@ -226,7 +224,7 @@ export default function Staff() {
                         </TableCell>
 
                         <TableCell align="right">
-                          <UserMoreMenu />
+                          <UserMoreMenu id={id} />
                         </TableCell>
                       </TableRow>
                     );
