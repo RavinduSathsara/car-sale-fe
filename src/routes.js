@@ -33,7 +33,7 @@ export default function Router() {
         { path: 'update-vehicle/:id', element: <UpdateVehicle /> },
         { path: 'blog', element: <Blog /> },
         { path: 'add-staff', element: <AddStaff /> },
-        { path: 'view-staff', element: <ViewStaff /> },
+        { path: 'view-staff/:id', element: <ViewStaff /> },
         { path: 'add-customer', element: <AddCustomer /> },
         { path: 'add-customer-form', element: <CustomerForm /> },
       ],
