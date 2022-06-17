@@ -95,17 +95,22 @@ const AddStaff = () => {
     formData.append('salary', `${salary}`);
     formData.append('image', file);
 
-    axios.post('http://127.0.0.1:8000/api/staff', formData, config).then(
-      Swal.fire({
-        title: 'Staff added sucessfully !',
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown',
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp',
-        },
+    axios
+      .post('http://127.0.0.1:8000/api/staff', formData, config)
+      .then((res) => {
+        // Swal.fire({
+        //   title: {res.message},
+        //   showClass: {
+        //     popup: 'animate__animated animate__fadeInDown',
+        //   },
+        //   hideClass: {
+        //     popup: 'animate__animated animate__fadeOutUp',
+        //   },
+        // });
       })
-    );
+      .catch((e) => {
+        console.log(e);
+      });
 
     setFirstName('');
     setLastName('');
