@@ -65,8 +65,10 @@ const AddStaff = () => {
     setGender('');
     setRole('');
     setShift('');
+    setNic('');
     setDateOfBirth(Date.now());
     setSalary('');
+    setFile('');
   };
 
   function handleChange(event) {
@@ -95,17 +97,26 @@ const AddStaff = () => {
     formData.append('salary', `${salary}`);
     formData.append('image', file);
 
-    axios.post('http://127.0.0.1:8000/api/staff', formData, config).then(
-      Swal.fire({
-        title: 'Staff added sucessfully !',
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown',
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp',
-        },
+    axios
+      .post('http://127.0.0.1:8000/api/staff', formData, config)
+      .then((res) => {
+        Swal.fire({
+          title: 'Staff Added Successfully !',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
       })
-    );
+      .catch((e) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: e.response.data.message,
+        });
+      });
 
     setFirstName('');
     setLastName('');
@@ -115,8 +126,10 @@ const AddStaff = () => {
     setGender('');
     setRole('');
     setShift('');
+    setNic('');
     setDateOfBirth(Date.now());
     setSalary('');
+    setFile('');
   };
 
   return (
