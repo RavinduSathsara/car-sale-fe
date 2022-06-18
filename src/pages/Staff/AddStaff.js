@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 // import { Grid, Button, Container, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import moment from 'moment';
 import {
   Link,
   Stack,
@@ -52,6 +53,7 @@ const AddStaff = () => {
   const [shift, setShift] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState(Date.now());
   const [salary, setSalary] = useState('');
+  const [file, setFile] = useState();
 
   const handleReset = (event) => {
     event.preventDefault();
@@ -63,13 +65,76 @@ const AddStaff = () => {
     setGender('');
     setRole('');
     setShift('');
+    setNic('');
     setDateOfBirth(Date.now());
     setSalary('');
+    setFile('');
+  };
+
+  function handleChange(event) {
+    setFile(event.target.files[0]);
+  }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
+
+    const formData = new FormData();
+
+    formData.append('first_name', `${firstName}`);
+    formData.append('last_name', `${lastName}`);
+    formData.append('ph_no', `${contact}`);
+    formData.append('address', `${address}`);
+    formData.append('nic', `${nic}`);
+    formData.append('email', `${email}`);
+    formData.append('gender', `${gender}`);
+    formData.append('d_o_b', moment(dateOfBirth).format('YYYY-MM-DD'));
+    formData.append('position', `${role}`);
+    formData.append('shift', `${shift}`);
+    formData.append('salary', `${salary}`);
+    formData.append('image', file);
+
+    axios
+      .post('http://127.0.0.1:8000/api/staff', formData, config)
+      .then((res) => {
+        Swal.fire({
+          title: 'Staff Added Successfully !',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
+      })
+      .catch((e) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: e.response.data.message,
+        });
+      });
+
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setContact('');
+    setAddress('');
+    setGender('');
+    setRole('');
+    setShift('');
+    setNic('');
+    setDateOfBirth(Date.now());
+    setSalary('');
+    setFile('');
   };
 
   return (
     <>
-      <Page title="Dashboard: Blog">
+      <Page title="Add Staff">
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography sx={{ ml: 2 }} variant="h4" gutterBottom>
@@ -79,7 +144,7 @@ const AddStaff = () => {
               <Icon icon="ant-design:rollback-outlined" />
             </IconButton>
           </Stack>
-          <form onReset={handleReset}>
+          <form onSubmit={handleSubmit} onReset={handleReset}>
             <Grid container>
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
@@ -125,7 +190,7 @@ const AddStaff = () => {
                   autoComplete=""
                   type="email"
                   label="Email"
-                  onChange={(e) => setAddress(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
@@ -187,10 +252,10 @@ const AddStaff = () => {
                     label="Role"
                     onChange={(e) => setRole(e.target.value)}
                   >
-                    <MenuItem value={1}>Mnager</MenuItem>
-                    <MenuItem value={2}>Seller</MenuItem>
-                    <MenuItem value={3}>Reception</MenuItem>
-                    <MenuItem value={4}>Security</MenuItem>
+                    <MenuItem value={'Manager'}>Manager</MenuItem>
+                    <MenuItem value={'Seller'}>Seller</MenuItem>
+                    <MenuItem value={'Reception'}>Reception</MenuItem>
+                    <MenuItem value={'Security'}>Security</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -205,7 +270,7 @@ const AddStaff = () => {
                     label="Shift"
                     onChange={(e) => setShift(e.target.value)}
                   >
-                    <MenuItem value={'DT'}>Day time</MenuItem>
+                    <MenuItem value={'DT'}>Day Time</MenuItem>
                     <MenuItem value={'PT'}>Part Time</MenuItem>
                   </Select>
                 </FormControl>
@@ -216,23 +281,12 @@ const AddStaff = () => {
                   <RadioGroup row item xs={4} value={gender} onChange={(e) => setGender(e.target.value)}>
                     <FormControlLabel value="male" control={<Radio />} label="Male" />
                     <FormControlLabel value="female" control={<Radio />} label="Female" />
-                    <FormControlLabel value="other" control={<Radio />} label="Other" />
                   </RadioGroup>
                 </FormControl>
               </Grid>
               <Grid item xs={8} sx={{ m: 3 }}>
                 <FormLabel>
-                  <Input
-                    style={{ display: 'none ' }}
-                    accept="image/*"
-                    id="contained-button-file"
-                    multiple
-                    type="file"
-                  />
-                  <IconButton sx={{ ml: -2 }} color="primary" aria-label="upload picture" component="span">
-                    <PhotoCamera />
-                  </IconButton>
-                  Upload Image
+                  <input type="file" onChange={handleChange} />
                 </FormLabel>
               </Grid>
 
