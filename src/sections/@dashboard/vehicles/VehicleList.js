@@ -18,10 +18,10 @@ const VehicleList = ({ brand, model, price, modelYear, description, id, deleteVe
         <Card sx={{ maxWidth: 345 }}>
           <CardMedia component="img" height="200" image={`http://127.0.0.1:8000/storage/${img}`} alt="vehicle" />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="h4" component="div">
               {brand} {model}
             </Typography>
-            <Typography gutterBottom variant="h5" component="div" color="text.secondary">
+            <Typography gutterBottom variant="h6" component="div" color="text.secondary">
               LKR {price}.00
             </Typography>
             <Typography gutterBottom variant="p" component="div">
