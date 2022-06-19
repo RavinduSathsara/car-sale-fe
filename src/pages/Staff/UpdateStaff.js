@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { Grid, Button, Container, Typography } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { useParams, Link as RouterLink } from 'react-router-dom';
 import moment from 'moment';
 import {
   Link,
@@ -40,8 +40,9 @@ import axios from 'axios';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LoadingButton, LocalizationProvider, DatePicker } from '@mui/lab';
 import Page from '../../components/Page';
+import useFetch from '../../hooks/useFetch';
 
-const AddStaff = () => {
+const UpdateStaff = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -54,6 +55,8 @@ const AddStaff = () => {
   const [dateOfBirth, setDateOfBirth] = useState(Date.now());
   const [salary, setSalary] = useState('');
   const [file, setFile] = useState();
+
+  const { id } = useParams();
 
   const handleReset = (event) => {
     event.preventDefault();
@@ -109,18 +112,6 @@ const AddStaff = () => {
             popup: 'animate__animated animate__fadeOutUp',
           },
         });
-        setFirstName('');
-        setLastName('');
-        setEmail('');
-        setContact('');
-        setAddress('');
-        setGender('');
-        setRole('');
-        setShift('');
-        setNic('');
-        setDateOfBirth(Date.now());
-        setSalary('');
-        setFile('');
       })
       .catch((e) => {
         Swal.fire({
@@ -129,7 +120,21 @@ const AddStaff = () => {
           text: e.response.data.message,
         });
       });
+
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setContact('');
+    setAddress('');
+    setGender('');
+    setRole('');
+    setShift('');
+    setNic('');
+    setDateOfBirth(Date.now());
+    setSalary('');
+    setFile('');
   };
+  const { data, isLoading } = useFetch(`http://127.0.0.1:8000/api/staff/${id}`);
 
   return (
     <>
@@ -137,7 +142,7 @@ const AddStaff = () => {
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography sx={{ ml: 2 }} variant="h4" gutterBottom>
-              Add New Staff
+              Update {data?.first_name} {data?.last_name}
             </Typography>
             <IconButton component={RouterLink} to="/dashboard/staff">
               <Icon icon="ant-design:rollback-outlined" />
@@ -291,7 +296,7 @@ const AddStaff = () => {
 
               <Grid item xs={4} sx={{ m: 2 }}>
                 <LoadingButton style={{ width: 150 }} id="sub" size="large" type="submit" variant="contained">
-                  Submit
+                  Save
                 </LoadingButton>
                 <LoadingButton
                   style={{ width: 150, marginLeft: 10 }}
@@ -300,7 +305,7 @@ const AddStaff = () => {
                   variant="outlined"
                   // loading={isSubmitting }
                 >
-                  Reset
+                  Cancel
                 </LoadingButton>
               </Grid>
             </Grid>
@@ -311,4 +316,4 @@ const AddStaff = () => {
   );
 };
 
-export default AddStaff;
+export default UpdateStaff;
