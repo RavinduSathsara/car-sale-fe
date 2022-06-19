@@ -58,23 +58,35 @@ const ViewStaff = () => {
           </Stack>
 
           <Card sx={{ display: 'flex', height: '560px', maxWidth: '1000px' }}>
-            {' '}
             <CardMedia component="img" sx={{ width: 250 }} image={`http://127.0.0.1:8000/storage/${staffData.image}`} />
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              {' '}
               <CardContent sx={{ flex: '1 0 auto' }}>
                 <Grid container>
-                  {' '}
                   <Grid item sx={{ m: 2 }}>
-                    <Typography component="div" variant="h5" color="text.secondary">
-                      Name :{staffData.first_name} {staffData.last_name}
-                    </Typography>{' '}
+                    <Stack direction="row">
+                      <Typography component="div" variant="h5">
+                        Name :
+                      </Typography>
+                      <Typography variant="h5" color="text.secondary">
+                        {staffData.first_name} {staffData.last_name}
+                      </Typography>{' '}
+                    </Stack>
                   </Grid>
                   <Grid item sx={{ m: 2 }}>
-                    <Typography variant="h5">NIC : {staffData.nic}</Typography>
+                    <Stack direction="row">
+                      <Typography component="div" variant="h5">
+                        NIC :
+                      </Typography>
+                      <Typography variant="h5" color="text.secondary">
+                        {staffData.nic}
+                      </Typography>
+                    </Stack>
                   </Grid>
+                  <Typography component="div" variant="h5">
+                    Email :
+                  </Typography>
                   <Typography component="div" variant="h5" sx={{ m: 2 }}>
-                    Email : {staffData.email}
+                    {staffData.email}
                   </Typography>{' '}
                 </Grid>
                 <Typography component="div" variant="h5" sx={{ m: 2 }}>
