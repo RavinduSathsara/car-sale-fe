@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { sample, filter } from 'lodash';
 import { faker } from '@faker-js/faker';
 import { Link as RouterLink } from 'react-router-dom';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 // material
 import {
   Card,
@@ -67,6 +69,24 @@ export default function Staff() {
         });
       });
   }
+
+  const removeStaff = (id, name) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://127.0.0.1:8000/api/staff/${id}`)
+          .then(Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success'));
+      }
+    });
+  };
 
   const TABLE_HEAD = [
     { id: 'name', label: 'Name', alignRight: false },
@@ -228,7 +248,7 @@ export default function Staff() {
                           </TableCell>
 
                           <TableCell align="right">
-                            <UserMoreMenu id={id} />
+                            <UserMoreMenu id={id} removeStaff={removeStaff} name={name} />
                           </TableCell>
                         </TableRow>
                       );

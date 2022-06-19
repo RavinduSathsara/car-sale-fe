@@ -4,28 +4,28 @@ import { useParams, Link as RouterLink } from 'react-router-dom';
 // material
 import {
   Card,
-  Table,
   Stack,
   Avatar,
   Button,
-  Checkbox,
-  TableRow,
-  TableBody,
-  TableCell,
   Container,
   Typography,
-  TableContainer,
-  TablePagination,
   IconButton,
+  CardMedia,
+  Box,
+  Grid,
+  CardContent,
+  Skeleton,
 } from '@mui/material';
 
 // ----------------------------------------------------------------------
+import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
 import Label from '../../components/Label';
 import Scrollbar from '../../components/Scrollbar';
 import Iconify from '../../components/Iconify';
 import SearchNotFound from '../../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../../sections/@dashboard/user';
+
 import useFetch from '../../hooks/useFetch';
 
 const ViewStaff = () => {
@@ -34,7 +34,15 @@ const ViewStaff = () => {
   const { data: staffData, isLoading } = useFetch(`http://127.0.0.1:8000/api/staff/${id}`);
 
   console.log(staffData);
-
+  if (isLoading) {
+    return (
+      <>
+        <Stack spacing={1} sx={{ m: 2 }}>
+          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={285} height={450} />
+        </Stack>
+      </>
+    );
+  }
   return (
     <>
       <Page title="View Staff">
@@ -44,15 +52,56 @@ const ViewStaff = () => {
               View Staff
             </Typography>
 
-            <Button
-              variant="contained"
-              component={RouterLink}
-              to="/dashboard/add-staff"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              New Staff
-            </Button>
+            <IconButton component={RouterLink} to="/dashboard/staff">
+              <Icon icon="ant-design:rollback-outlined" />
+            </IconButton>
           </Stack>
+
+          <Card sx={{ display: 'flex', height: '560px', maxWidth: '1000px' }}>
+            {' '}
+            <CardMedia component="img" sx={{ width: 250 }} image={`http://127.0.0.1:8000/storage/${staffData.image}`} />
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              {' '}
+              <CardContent sx={{ flex: '1 0 auto' }}>
+                <Grid container>
+                  {' '}
+                  <Grid item sx={{ m: 2 }}>
+                    <Typography component="div" variant="h5" color="text.secondary">
+                      Name :{staffData.first_name} {staffData.last_name}
+                    </Typography>{' '}
+                  </Grid>
+                  <Grid item sx={{ m: 2 }}>
+                    <Typography variant="h5">NIC : {staffData.nic}</Typography>
+                  </Grid>
+                  <Typography component="div" variant="h5" sx={{ m: 2 }}>
+                    Email : {staffData.email}
+                  </Typography>{' '}
+                </Grid>
+                <Typography component="div" variant="h5" sx={{ m: 2 }}>
+                  DOB : {staffData.d_o_b}
+                </Typography>
+                <Typography component="div" variant="h5" sx={{ m: 2 }}>
+                  gender: {staffData.gender}
+                </Typography>
+                <Typography component="div" variant="h5" sx={{ m: 2 }}>
+                  address: {staffData.address}
+                </Typography>
+                <Typography component="div" variant="h5" sx={{ m: 2 }}>
+                  phone no: {staffData.ph_no}
+                </Typography>
+                <Typography component="div" variant="h5" sx={{ m: 2 }}>
+                  position: {staffData.position}
+                </Typography>
+                <Typography component="div" variant="h5" sx={{ m: 2 }}>
+                  shift: {staffData.shift}
+                </Typography>
+                <Typography component="div" variant="h5" sx={{ m: 2 }}>
+                  salary: Rs {staffData.salary}
+                </Typography>
+              </CardContent>
+              {/* <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}></Box> */}
+            </Box>
+          </Card>
         </Container>
       </Page>
     </>
