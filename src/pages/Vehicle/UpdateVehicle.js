@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
-
+import moment from 'moment';
 import {
   Link,
   Stack,
@@ -40,6 +40,26 @@ import useFetch from '../../hooks/useFetch';
 
 const UpdateVehicle = () => {
   const { id } = useParams();
+  const { data, isLoading } = useFetch(`http://127.0.0.1:8000/api/vehicles/${id}`);
+  console.log(data);
+
+  useEffect(() => {
+    setBrand(data?.brand);
+    setModel(data?.model);
+    setMake(data?.make);
+    setYearOfManufacture(data?.year_manufacture);
+    setYearOfRegistration(data?.year_registration);
+    setOwnership(data?.ownership);
+    setChassisNo(data?.chassis_no);
+    setFuelType(data?.fuel_type);
+    setRegNo(data?.reg_no);
+    setMileAge(data?.mileage);
+    setRemarks(data?.remarks);
+
+    setCost(data?.cost);
+    setUnitPrice(data?.unit_price);
+    setMargin(data?.margin);
+  }, [data]);
 
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
@@ -52,22 +72,26 @@ const UpdateVehicle = () => {
   const [regNo, setRegNo] = useState('');
   const [mileAge, setMileAge] = useState('');
   const [remarks, setRemarks] = useState('');
-  const [timeStamp, setTimeStamp] = useState(Date.now());
   const [cost, setCost] = useState('');
   const [unitPrice, setUnitPrice] = useState('');
   const [margin, setMargin] = useState('');
-
+  // const [file, setFile] = useState();
   // load initial values
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
     axios
       .put(`http://127.0.0.1:8000/api/vehicles/${id}`, {
         brand: `${brand}`,
         model: `${model}`,
         make: `${make}`,
-        year_manufacture: `${yearOfManufacture.getFullYear()}`,
-        year_registration: `${yearOfRegistration.getFullYear()}`,
+        year_manufacture: `${moment(yearOfManufacture).format('YYYY')}`,
+        year_registration: `${moment(yearOfRegistration).format('YYYY')}`,
         ownership: `${ownership}`,
         chassis_no: `${chassisNo}`,
         fuel_type: `${fuelType}`,
@@ -78,8 +102,9 @@ const UpdateVehicle = () => {
         unit_price: `${unitPrice}`,
         margin: `${margin}`,
         trans_no: `1234`,
+        // v_image: `${file}`,
       })
-      .then(
+      .then((res) => {
         Swal.fire({
           title: 'Vehicle Update sucessfully !',
           showClass: {
@@ -88,24 +113,31 @@ const UpdateVehicle = () => {
           hideClass: {
             popup: 'animate__animated animate__fadeOutUp',
           },
-        })
-      );
+        });
+      })
+      .catch((e) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: e.response.data.message,
+        });
+      });
 
-    setBrand('');
-    setModel('');
-    setMake('');
-    setYearOfManufacture('');
-    setYearOfRegistration('');
-    setOwnership('');
-    setChassisNo('');
-    setFuelType('');
-    setRegNo('');
-    setMileAge('');
-    setRemarks('');
-    setTimeStamp('');
-    setCost('');
-    setUnitPrice('');
-    setMargin('');
+    // setBrand('');
+    // setModel('');
+    // setMake('');
+    // setYearOfManufacture('');
+    // setYearOfRegistration('');
+    // setOwnership('');
+    // setChassisNo('');
+    // setFuelType('');
+    // setRegNo('');
+    // setMileAge('');
+    // setRemarks('');
+    // setCost('');
+    // setUnitPrice('');
+    // setMargin('');
+    // setFile('');
   };
 
   const handleReset = (event) => {
@@ -121,12 +153,17 @@ const UpdateVehicle = () => {
     setRegNo('');
     setMileAge('');
     setRemarks('');
-    setTimeStamp('');
     setCost('');
     setUnitPrice('');
     setMargin('');
+    // setFile('');
   };
-
+  function handleChange(event) {
+    // setFile(event.target.files[0]);
+  }
+  if (isLoading) {
+    return <>loading...</>;
+  }
   return (
     <div>
       <Page title="Update Vehicle">
@@ -146,7 +183,7 @@ const UpdateVehicle = () => {
                   fullWidth
                   required
                   autoComplete="username"
-                  defaultValue="ssss"
+                  defaultValue={data?.brand}
                   type="text"
                   label="Brand"
                   value={brand}
@@ -157,6 +194,7 @@ const UpdateVehicle = () => {
                 <TextField
                   fullWidth
                   required
+                  defaultValue={data?.model}
                   // autoComplete="username"
                   type="text"
                   label="Model"
@@ -169,6 +207,7 @@ const UpdateVehicle = () => {
                   <InputLabel id="demo-simple-select-label">Make</InputLabel>
                   <Select
                     required
+                    defaultValue={data?.make}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={make}
@@ -189,10 +228,11 @@ const UpdateVehicle = () => {
                   <InputLabel id="demo-simple-select-label">Ownership</InputLabel>
                   <Select
                     required
+                    defaultValue={data?.ownership}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={ownership}
-                    label="Owership"
+                    label="Ownership"
                     onChange={(e) => {
                       setOwnership(e.target.value);
                     }}
@@ -206,6 +246,7 @@ const UpdateVehicle = () => {
               <Grid item xs={4} sx={{ m: 2 }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
+                    defaultValue={data?.year_manufacture}
                     label="Year of make"
                     views={['year']}
                     value={yearOfManufacture}
@@ -220,6 +261,7 @@ const UpdateVehicle = () => {
               <Grid item xs={4} sx={{ m: 2 }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
+                    defaultValue={data?.year_registration}
                     label="Year of Registration"
                     views={['year']}
                     value={yearOfRegistration}
@@ -234,12 +276,15 @@ const UpdateVehicle = () => {
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
+                  defaultValue={data?.chassis_no}
                   // autoComplete="username"
                   type="number"
                   required
                   label="Chasis No"
                   value={chassisNo}
-                  onChange={(e) => setChassisNo(e.target.value)}
+                  onChange={(e) => {
+                    setChassisNo(e.target.value);
+                  }}
                   // error={Boolean(touched.email && errors.email)}
                   // helperText={touched.email && errors.email}
                 />
@@ -251,6 +296,7 @@ const UpdateVehicle = () => {
                     required
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
+                    defaultValue={data?.fuel_type}
                     value={fuelType}
                     label="Fuel Type"
                     onChange={(e) => {
@@ -266,6 +312,7 @@ const UpdateVehicle = () => {
                 <TextField
                   fullWidth
                   // autoComplete="username"
+                  defaultValue={data?.reg_no}
                   type="number"
                   required
                   label="Registration No"
@@ -279,6 +326,7 @@ const UpdateVehicle = () => {
                 <TextField
                   fullWidth
                   required
+                  defaultValue={data?.mileage}
                   // autoComplete="username"
                   type="number"
                   label="Mileage:"
@@ -291,6 +339,7 @@ const UpdateVehicle = () => {
                 <TextField
                   fullWidth
                   required
+                  defaultValue={data?.cost}
                   // autoComplete="username"
                   type="number"
                   label="Cost"
@@ -302,6 +351,7 @@ const UpdateVehicle = () => {
                 <TextField
                   fullWidth
                   required
+                  defaultValue={data?.unit_price}
                   // autoComplete="username"
                   type="number"
                   label="Unit Price"
@@ -313,6 +363,7 @@ const UpdateVehicle = () => {
                 <TextField
                   fullWidth
                   required
+                  defaultValue={data?.margin}
                   // autoComplete="username"
                   type="text"
                   label="Margin"
@@ -320,24 +371,13 @@ const UpdateVehicle = () => {
                   onChange={(e) => setMargin(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={4} sx={{ m: 2 }}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label="Time Stamps"
-                    value={timeStamp}
-                    onChange={(newValue) => {
-                      setTimeStamp(newValue);
-                    }}
-                    renderInput={(params) => <TextField required fullWidth {...params} />}
-                  />
-                </LocalizationProvider>
-              </Grid>
             </Grid>
 
             <Grid item xs={8.75} sx={{ m: 2 }}>
               <TextField
                 style={{ width: 800 }}
                 required
+                defaultValue={data?.remarks}
                 // autoComplete="username"
                 type="text"
                 label="Remarks"
@@ -346,13 +386,18 @@ const UpdateVehicle = () => {
                 onChange={(e) => setRemarks(e.target.value)}
               />
             </Grid>
-            <Grid item xs={8} sx={{ m: 3 }}>
+            {/* <Grid item xs={8} sx={{ m: 3 }}>
               <FormLabel>
                 <Input style={{ display: 'none ' }} accept="image/*" id="contained-button-file" multiple type="file" />
                 <IconButton sx={{ ml: -2 }} color="primary" aria-label="upload picture" component="span">
                   <PhotoCamera />
                 </IconButton>
                 Upload Image
+              </FormLabel>
+            </Grid> */}
+            <Grid item xs={8} sx={{ m: 3 }}>
+              <FormLabel>
+                <input type="file" onChange={handleChange} />
               </FormLabel>
             </Grid>
 
