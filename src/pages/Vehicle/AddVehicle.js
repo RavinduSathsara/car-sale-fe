@@ -49,7 +49,7 @@ const AddVehicle = () => {
   const [regNo, setRegNo] = useState('');
   const [mileAge, setMileAge] = useState('');
   const [remarks, setRemarks] = useState('');
-  const [timeStamp, setTimeStamp] = useState(Date.now());
+
   const [cost, setCost] = useState('');
   const [unitPrice, setUnitPrice] = useState('');
   const [margin, setMargin] = useState('');
@@ -68,7 +68,7 @@ const AddVehicle = () => {
     setRegNo('');
     setMileAge('');
     setRemarks('');
-    setTimeStamp('');
+
     setCost('');
     setUnitPrice('');
     setMargin('');
@@ -132,7 +132,7 @@ const AddVehicle = () => {
     setRegNo('');
     setMileAge('');
     setRemarks('');
-    setTimeStamp('');
+
     setCost('');
     setUnitPrice('');
     setMargin('');
@@ -330,18 +330,6 @@ const AddVehicle = () => {
                   value={margin}
                   onChange={(e) => setMargin(e.target.value)}
                 />
-              </Grid>
-              <Grid item xs={4} sx={{ m: 2 }}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label="Time Stamps"
-                    value={timeStamp}
-                    onChange={(newValue) => {
-                      setTimeStamp(newValue);
-                    }}
-                    renderInput={(params) => <TextField required fullWidth {...params} />}
-                  />
-                </LocalizationProvider>
               </Grid>
             </Grid>
 
