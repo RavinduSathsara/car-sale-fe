@@ -27,9 +27,14 @@ const navConfig = [
     icon: getIcon('material-symbols:record-voice-over-rounded'),
   },
   {
-    title: 'blog',
-    path: '/dashboard/blog',
-    icon: getIcon('eva:file-text-fill'),
+    title: 'Swap',
+    path: '/dashboard/swap',
+    icon: getIcon('ic:baseline-swap-horizontal-circle'),
+  },
+  {
+    title: 'Inquiry',
+    path: '/dashboard/inquiry',
+    icon: getIcon('fa-solid:question-circle'),
   },
 ];
 

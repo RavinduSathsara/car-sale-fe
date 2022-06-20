@@ -18,6 +18,8 @@ import CustomerForm from './pages/Customer/CustomerForm';
 import UpdateVehicle from './pages/Vehicle/UpdateVehicle';
 import ViewStaff from './pages/Staff/ViewStaff';
 import UpdateStaff from './pages/Staff/UpdateStaff';
+import SwapDeal from './pages/Swap/SwapDeal';
+import VehicleInquiry from './pages/VehicleInquiry/VehicleInquiry';
 
 // ----------------------------------------------------------------------
 
@@ -38,6 +40,8 @@ export default function Router() {
         { path: 'update-staff/:id', element: <UpdateStaff /> },
         { path: 'add-customer', element: <AddCustomer /> },
         { path: 'add-customer-form', element: <CustomerForm /> },
+        { path: 'swap', element: <SwapDeal /> },
+        { path: 'inquiry', element: <VehicleInquiry /> },
       ],
     },
     {

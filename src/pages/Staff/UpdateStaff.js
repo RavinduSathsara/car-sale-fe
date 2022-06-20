@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { Grid, Button, Container, Typography } from '@mui/material';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import moment from 'moment';
@@ -43,6 +43,24 @@ import Page from '../../components/Page';
 import useFetch from '../../hooks/useFetch';
 
 const UpdateStaff = () => {
+  const { id } = useParams();
+  const { data, isLoading } = useFetch(`http://127.0.0.1:8000/api/staff/${id}`);
+  console.log(data);
+
+  useEffect(() => {
+    setFirstName(data?.first_name);
+    setLastName(data?.last_name);
+    setAddress(data?.address);
+    setEmail(data?.email);
+    setNic(data?.nic);
+    setContact(data?.ph_no);
+    setDateOfBirth(data?.d_o_b);
+    setSalary(data?.salary);
+    setRole(data?.position);
+    setShift(data?.shift);
+    setGender(data?.gender);
+  }, [data]);
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -55,8 +73,6 @@ const UpdateStaff = () => {
   const [dateOfBirth, setDateOfBirth] = useState(Date.now());
   const [salary, setSalary] = useState('');
   const [file, setFile] = useState();
-
-  const { id } = useParams();
 
   const handleReset = (event) => {
     event.preventDefault();
@@ -85,26 +101,40 @@ const UpdateStaff = () => {
       },
     };
 
-    const formData = new FormData();
+    // const formData = new FormData();
 
-    formData.append('first_name', `${firstName}`);
-    formData.append('last_name', `${lastName}`);
-    formData.append('ph_no', `${contact}`);
-    formData.append('address', `${address}`);
-    formData.append('nic', `${nic}`);
-    formData.append('email', `${email}`);
-    formData.append('gender', `${gender}`);
-    formData.append('d_o_b', moment(dateOfBirth).format('YYYY-MM-DD'));
-    formData.append('position', `${role}`);
-    formData.append('shift', `${shift}`);
-    formData.append('salary', `${salary}`);
-    formData.append('image', file);
+    // formData.append('first_name', `${firstName}`);
+    // formData.append('last_name', `${lastName}`);
+    // formData.append('ph_no', `${contact}`);
+    // formData.append('address', `${address}`);
+    // formData.append('nic', `${nic}`);
+    // formData.append('email', `${email}`);
+    // formData.append('gender', `${gender}`);
+    // formData.append('d_o_b', moment(dateOfBirth).format('YYYY-MM-DD'));
+    // formData.append('position', `${role}`);
+    // formData.append('shift', `${shift}`);
+    // formData.append('salary', `${salary}`);
+    // formData.append('image', file);
 
     axios
-      .post('http://127.0.0.1:8000/api/staff', formData, config)
+      .put(`http://127.0.0.1:8000/api/staff/${id}`, {
+        first_name: `${firstName}`,
+        last_name: `${lastName}`,
+        ph_no: `${contact}`,
+        address: `${address}`,
+        nic: `${nic}`,
+        email: `${email}`,
+        gender: `${gender}`,
+        d_o_b: `${moment(dateOfBirth).format('YYYY-MM-DD')}`,
+        position: `${role}`,
+        shift: `${shift}`,
+        salary: `${salary}`,
+        margin: `${file}`,
+      })
+
       .then((res) => {
         Swal.fire({
-          title: 'Staff Added Successfully !',
+          title: 'Staff Updated Successfully !',
           showClass: {
             popup: 'animate__animated animate__fadeInDown',
           },
@@ -121,21 +151,23 @@ const UpdateStaff = () => {
         });
       });
 
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setContact('');
-    setAddress('');
-    setGender('');
-    setRole('');
-    setShift('');
-    setNic('');
-    setDateOfBirth(Date.now());
-    setSalary('');
-    setFile('');
+    // setFirstName('');
+    // setLastName('');
+    // setEmail('');
+    // setContact('');
+    // setAddress('');
+    // setGender('');
+    // setRole('');
+    // setShift('');
+    // setNic('');
+    // setDateOfBirth(Date.now());
+    // setSalary('');
+    // setFile('');
   };
-  const { data, isLoading } = useFetch(`http://127.0.0.1:8000/api/staff/${id}`);
 
+  if (isLoading) {
+    return <>loading...</>;
+  }
   return (
     <>
       <Page title="Add Staff">
@@ -154,7 +186,7 @@ const UpdateStaff = () => {
                 <TextField
                   fullWidth
                   required
-                  autoComplete=""
+                  defaultValue={data?.first_name}
                   type="text"
                   value={firstName}
                   label="First Name"
@@ -166,7 +198,7 @@ const UpdateStaff = () => {
                 <TextField
                   fullWidth
                   required
-                  autoComplete=""
+                  defaultValue={data?.last_name}
                   value={lastName}
                   type="text"
                   label="Last Name"
@@ -178,6 +210,7 @@ const UpdateStaff = () => {
                 <TextField
                   fullWidth
                   required
+                  defaultValue={data?.address}
                   value={address}
                   autoComplete=""
                   type="text"
@@ -192,6 +225,7 @@ const UpdateStaff = () => {
                   required
                   value={email}
                   autoComplete=""
+                  defaultValue={data?.email}
                   type="email"
                   label="Email"
                   onChange={(e) => setEmail(e.target.value)}
@@ -202,6 +236,7 @@ const UpdateStaff = () => {
                   fullWidth
                   required
                   value={nic}
+                  defaultValue={data?.nic}
                   autoComplete="nic"
                   type="text"
                   label="NIC"
@@ -215,6 +250,7 @@ const UpdateStaff = () => {
                   required
                   autoComplete=""
                   type="number"
+                  defaultValue={data?.ph_no}
                   label="Contact No."
                   value={contact}
                   onChange={(e) => setContact(e.target.value)}
@@ -224,6 +260,7 @@ const UpdateStaff = () => {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     label="Date of birth  "
+                    defaultValue={data?.d_o_b}
                     value={dateOfBirth}
                     onChange={(newValue) => {
                       setDateOfBirth(newValue);
@@ -239,6 +276,7 @@ const UpdateStaff = () => {
                   autoComplete=""
                   type="number"
                   label="Salary"
+                  defaultValue={data?.salary}
                   placeholder="lkr"
                   value={salary}
                   onChange={(e) => setSalary(e.target.value)}
@@ -252,6 +290,7 @@ const UpdateStaff = () => {
                     fullWidth
                     labeltext="demo-simple-select-label"
                     text="demo-simple-select"
+                    defaultValue={data?.position}
                     value={role}
                     label="Role"
                     onChange={(e) => setRole(e.target.value)}
@@ -272,6 +311,7 @@ const UpdateStaff = () => {
                     text="demo-simple-select"
                     value={shift}
                     label="Shift"
+                    defaultValue={data?.shift}
                     onChange={(e) => setShift(e.target.value)}
                   >
                     <MenuItem value={'DT'}>Day Time</MenuItem>
@@ -282,7 +322,14 @@ const UpdateStaff = () => {
               <Grid item xs={8}>
                 <FormControl style={{ marginLeft: 20 }}>
                   <FormLabel> Gender </FormLabel>
-                  <RadioGroup row item xs={4} value={gender} onChange={(e) => setGender(e.target.value)}>
+                  <RadioGroup
+                    defaultValue={data?.gender}
+                    row
+                    item
+                    xs={4}
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                  >
                     <FormControlLabel value="male" control={<Radio />} label="Male" />
                     <FormControlLabel value="female" control={<Radio />} label="Female" />
                   </RadioGroup>
