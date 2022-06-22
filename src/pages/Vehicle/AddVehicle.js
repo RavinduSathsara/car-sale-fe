@@ -107,6 +107,7 @@ const AddVehicle = () => {
     formData.append('unit_price', `${unitPrice}`);
     formData.append('margin', `${margin}`);
     formData.append('trans_no', `1231`);
+    formData.append('availability', `true`);
     formData.append('v_image', file);
 
     axios.post('http://127.0.0.1:8000/api/vehicles', formData, config).then(

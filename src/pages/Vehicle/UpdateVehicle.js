@@ -55,7 +55,7 @@ const UpdateVehicle = () => {
     setRegNo(data?.reg_no);
     setMileAge(data?.mileage);
     setRemarks(data?.remarks);
-
+    setIsSold(data?.availability);
     setCost(data?.cost);
     setUnitPrice(data?.unit_price);
     setMargin(data?.margin);
@@ -64,6 +64,7 @@ const UpdateVehicle = () => {
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [make, setMake] = useState('');
+  const [isSold, setIsSold] = useState('');
   const [yearOfManufacture, setYearOfManufacture] = useState(Date.now());
   const [yearOfRegistration, setYearOfRegistration] = useState(Date.now());
   const [ownership, setOwnership] = useState('');
@@ -78,6 +79,7 @@ const UpdateVehicle = () => {
   // const [file, setFile] = useState();
   // load initial values
 
+  console.log(isSold);
   const handleSubmit = (event) => {
     event.preventDefault();
     const config = {
@@ -101,6 +103,7 @@ const UpdateVehicle = () => {
         cost: `${cost}`,
         unit_price: `${unitPrice}`,
         margin: `${margin}`,
+        availability: `${isSold}`,
         trans_no: `1234`,
         // v_image: `${file}`,
       })
@@ -222,7 +225,6 @@ const UpdateVehicle = () => {
                   </Select>
                 </FormControl>
               </Grid>
-
               <Grid item xs={4} sx={{ m: 2 }}>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Ownership</InputLabel>
@@ -257,7 +259,6 @@ const UpdateVehicle = () => {
                   />
                 </LocalizationProvider>
               </Grid>
-
               <Grid item xs={4} sx={{ m: 2 }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
@@ -272,7 +273,6 @@ const UpdateVehicle = () => {
                   />
                 </LocalizationProvider>
               </Grid>
-
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
@@ -334,7 +334,6 @@ const UpdateVehicle = () => {
                   onChange={(e) => setMileAge(e.target.value)}
                 />
               </Grid>
-
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
@@ -370,6 +369,25 @@ const UpdateVehicle = () => {
                   value={margin}
                   onChange={(e) => setMargin(e.target.value)}
                 />
+              </Grid>
+              <Grid item xs={4} sx={{ m: 2 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Availability</InputLabel>
+                  <Select
+                    required
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    defaultValue={data?.availability}
+                    value={isSold}
+                    label="Availability"
+                    onChange={(e) => {
+                      setIsSold(e.target.value);
+                    }}
+                  >
+                    <MenuItem value={'true'}>For Sale</MenuItem>
+                    <MenuItem value={'false'}>Sold Out</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid>
             </Grid>
 
