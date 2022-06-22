@@ -2,7 +2,19 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Stack, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Skeleton } from '@mui/material';
 
-const VehicleList = ({ brand, model, price, modelYear, description, id, deleteVehicle, ownership, isLoading, img }) => {
+const VehicleList = ({
+  brand,
+  model,
+  price,
+  modelYear,
+  description,
+  id,
+  deleteVehicle,
+  ownership,
+  isLoading,
+  img,
+  availability,
+}) => {
   if (isLoading) {
     return (
       <>
@@ -29,6 +41,9 @@ const VehicleList = ({ brand, model, price, modelYear, description, id, deleteVe
             </Typography>
             <Typography gutterBottom variant="p" component="div">
               Ownership : {ownership}
+            </Typography>
+            <Typography gutterBottom variant="p" component="div">
+              {availability === 'true' ? 'For Sale' : 'Sold Out'}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {description}

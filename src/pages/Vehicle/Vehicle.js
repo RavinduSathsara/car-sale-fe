@@ -68,12 +68,14 @@ export default function Vehicle() {
         </Stack> */}
 
         <Grid container>
+          {console.log(data?.Vehicle)}
           {data?.Vehicle.length === 0
             ? 'Vehicle is not availble !'
             : data?.Vehicle.slice()
                 .reverse()
                 .map((item) => (
                   <VehicleList
+                    availability={item.availability}
                     img={item.v_image}
                     key={item.id}
                     brand={item.brand}
