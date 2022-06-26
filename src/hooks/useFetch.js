@@ -13,7 +13,7 @@ const useFetch = (url) => {
       .then(
         setTimeout(() => {
           setIsLoading(false);
-        }, 3000)
+        }, 800)
       )
 
       .catch((err) => {
