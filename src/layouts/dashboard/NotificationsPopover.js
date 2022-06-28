@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import { set, sub } from 'date-fns';
 import { noCase } from 'change-case';
 import { faker } from '@faker-js/faker';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import moment from 'moment';
 // @mui
 import {
   Box,
@@ -25,61 +26,54 @@ import { fToNow } from '../../utils/formatTime';
 import Iconify from '../../components/Iconify';
 import Scrollbar from '../../components/Scrollbar';
 import MenuPopover from '../../components/MenuPopover';
+import useFetch from '../../hooks/useFetch';
 
 // ----------------------------------------------------------------------
 
 const NOTIFICATIONS = [
-  {
-    id: faker.datatype.uuid(),
-    title: 'Your order is placed',
-    description: 'waiting for shipping',
-    avatar: null,
-    type: 'order_placed',
-    createdAt: set(new Date(), { hours: 10, minutes: 30 }),
-    isUnRead: true,
-  },
-  {
-    id: faker.datatype.uuid(),
-    title: faker.name.findName(),
-    description: 'answered to your comment on the Minimal',
-    avatar: '/static/mock-images/avatars/avatar_2.jpg',
-    type: 'friend_interactive',
-    createdAt: sub(new Date(), { hours: 3, minutes: 30 }),
-    isUnRead: true,
-  },
-  {
-    id: faker.datatype.uuid(),
-    title: 'You have new message',
-    description: '5 unread messages',
-    avatar: null,
-    type: 'chat_message',
-    createdAt: sub(new Date(), { days: 1, hours: 3, minutes: 30 }),
-    isUnRead: false,
-  },
-  {
-    id: faker.datatype.uuid(),
-    title: 'You have new mail',
-    description: 'sent from Guido Padberg',
-    avatar: null,
-    type: 'mail',
-    createdAt: sub(new Date(), { days: 2, hours: 3, minutes: 30 }),
-    isUnRead: false,
-  },
-  {
-    id: faker.datatype.uuid(),
-    title: 'Delivery processing',
-    description: 'Your order is being shipped',
-    avatar: null,
-    type: 'order_shipped',
-    createdAt: sub(new Date(), { days: 3, hours: 3, minutes: 30 }),
-    isUnRead: false,
-  },
+  // {
+  //   id: faker.datatype.uuid(),
+  //   title: 'Your order is placed',
+  //   description: 'waiting for shipping',
+  //   avatar: null,
+  //   type: 'order_placed',
+  //   createdAt: set(new Date(), { hours: 10, minutes: 30 }),
+  //   isUnRead: true,
+  // },
 ];
 
 export default function NotificationsPopover() {
+  const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/swapvehicle');
+
+  const rows = [];
+  // console.log(
+  //   data?.posts.map((item) => {
+  //     item.name;
+  //   })
+  // );
+
+  data?.posts
+    .slice()
+    .reverse()
+    .forEach((item) => {
+      rows.push({
+        id: faker.datatype.uuid(),
+        title: `${item.name}`,
+        description: 'waiting for Swap Dealing',
+        avatar: null,
+        type: 'order_placed',
+        createdAt: set(new Date(), {
+          hours: moment(item?.created_at).hours(),
+          minutes: moment(item?.created_at).minutes(),
+        }),
+        // createdAt: set(new Date(), { hours: 10, minutes: 30 }),
+        isUnRead: true,
+      });
+    });
+
   const anchorRef = useRef(null);
 
-  const [notifications, setNotifications] = useState(NOTIFICATIONS);
+  const [notifications, setNotifications] = useState(rows);
 
   const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
 
@@ -110,7 +104,7 @@ export default function NotificationsPopover() {
         onClick={handleOpen}
         sx={{ width: 40, height: 40 }}
       >
-        <Badge badgeContent={totalUnRead} color="error">
+        <Badge badgeContent={data?.posts.length} color="error">
           <Iconify icon="eva:bell-fill" width={20} height={20} />
         </Badge>
       </IconButton>
@@ -149,32 +143,11 @@ export default function NotificationsPopover() {
               </ListSubheader>
             }
           >
-            {notifications.slice(0, 2).map((notification) => (
-              <NotificationItem key={notification.id} notification={notification} />
-            ))}
-          </List>
-
-          <List
-            disablePadding
-            subheader={
-              <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                Before that
-              </ListSubheader>
-            }
-          >
-            {notifications.slice(2, 5).map((notification) => (
+            {rows?.slice(0, 4).map((notification) => (
               <NotificationItem key={notification.id} notification={notification} />
             ))}
           </List>
         </Scrollbar>
-
-        <Divider sx={{ borderStyle: 'dashed' }} />
-
-        <Box sx={{ p: 1 }}>
-          <Button fullWidth disableRipple>
-            View All
-          </Button>
-        </Box>
       </MenuPopover>
     </>
   );

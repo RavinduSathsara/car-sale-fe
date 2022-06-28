@@ -24,6 +24,7 @@ import {
 
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
+import PreviewIcon from '@mui/icons-material/Preview';
 import axios from 'axios';
 // components
 import Page from '../../components/Page';
@@ -38,8 +39,6 @@ import LoadingLiner from '../../components/LoadingLiner';
 export default function SwapDeal() {
   const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/swapvehicle');
 
-  console.log(data?.posts);
-
   const rows = [];
   if (data) {
     data?.posts
@@ -49,8 +48,10 @@ export default function SwapDeal() {
         rows.push({
           id: item.id,
           name: item?.name,
-          model: item?.cus_model,
-          year: item?.cus_year_manufacture,
+          cus_model: item?.cus_model,
+          model: item?.model,
+          cus_year_manufacture: item?.cus_year_manufacture,
+          year: item?.year_manufacture,
           contact: item?.contact,
           // moblieNum: item?.ph_no,
           // salary: item?.salary,
@@ -116,8 +117,10 @@ export default function SwapDeal() {
               <TableHead>
                 <TableRow>
                   <StyledTableCell>Full Name</StyledTableCell>
-                  <StyledTableCell>Model</StyledTableCell>
-                  <StyledTableCell>Year</StyledTableCell>
+                  <StyledTableCell>Cus. Model</StyledTableCell>
+                  <StyledTableCell>Req. Model</StyledTableCell>
+                  <StyledTableCell>Cus. YOM</StyledTableCell>
+                  <StyledTableCell>Req. YOM</StyledTableCell>
                   <StyledTableCell>Contact</StyledTableCell>
                   <StyledTableCell>Actions</StyledTableCell>
                 </TableRow>
@@ -128,11 +131,13 @@ export default function SwapDeal() {
                     <StyledTableCell component="th" scope="row">
                       {row.name}
                     </StyledTableCell>
+                    <StyledTableCell>{row.cus_model}</StyledTableCell>
                     <StyledTableCell>{row.model}</StyledTableCell>
+                    <StyledTableCell>{row.cus_year_manufacture}</StyledTableCell>
                     <StyledTableCell>{row.year}</StyledTableCell>
                     <StyledTableCell>{row.contact}</StyledTableCell>
                     <StyledTableCell>
-                      <IconButton>
+                      <IconButton color="success">
                         <CheckIcon />
                       </IconButton>
                       <IconButton
@@ -142,6 +147,9 @@ export default function SwapDeal() {
                         }}
                       >
                         <ClearIcon />
+                      </IconButton>
+                      <IconButton>
+                        <PreviewIcon />
                       </IconButton>
                     </StyledTableCell>
                   </StyledTableRow>
