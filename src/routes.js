@@ -20,6 +20,7 @@ import ViewStaff from './pages/Staff/ViewStaff';
 import UpdateStaff from './pages/Staff/UpdateStaff';
 import SwapDeal from './pages/Swap/SwapDeal';
 import VehicleInquiry from './pages/VehicleInquiry/VehicleInquiry';
+import TestRun from './pages/TestRun/TestRun';
 
 // ----------------------------------------------------------------------
 
@@ -42,6 +43,7 @@ export default function Router() {
         { path: 'add-customer-form', element: <CustomerForm /> },
         { path: 'swap', element: <SwapDeal /> },
         { path: 'inquiry', element: <VehicleInquiry /> },
+        { path: 'test-run', element: <TestRun /> },
       ],
     },
     {
