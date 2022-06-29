@@ -36,6 +36,11 @@ const navConfig = [
     path: '/dashboard/inquiry',
     icon: getIcon('fa-solid:question-circle'),
   },
+  {
+    title: 'Test Runs',
+    path: '/dashboard/test-run',
+    icon: getIcon('ic:baseline-run-circle'),
+  },
 ];
 
 export default navConfig;
