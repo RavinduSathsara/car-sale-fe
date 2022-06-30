@@ -26,11 +26,13 @@ import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import PreviewIcon from '@mui/icons-material/Preview';
 import axios from 'axios';
+import Label from '../../components/Label';
 // components
 import Page from '../../components/Page';
 
 import useFetch from '../../hooks/useFetch';
 import LoadingLiner from '../../components/LoadingLiner';
+
 // mock
 // import rows from '../../_mock/user';
 
@@ -100,7 +102,7 @@ export default function SwapDeal() {
       }
     });
   };
-
+  console.log(data);
   return (
     <Page title="SwapDeal">
       <Container>
@@ -122,6 +124,7 @@ export default function SwapDeal() {
                   <StyledTableCell>Cus. YOM</StyledTableCell>
                   <StyledTableCell>Req. YOM</StyledTableCell>
                   <StyledTableCell>Contact</StyledTableCell>
+                  <StyledTableCell>Status</StyledTableCell>
                   <StyledTableCell>Actions</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -136,6 +139,12 @@ export default function SwapDeal() {
                     <StyledTableCell>{row.cus_year_manufacture}</StyledTableCell>
                     <StyledTableCell>{row.year}</StyledTableCell>
                     <StyledTableCell>{row.contact}</StyledTableCell>
+                    <StyledTableCell>
+                      <TableCell>
+                        <Label color={row.decision === 1 ? 'success' : 'error'} />
+                      </TableCell>
+                    </StyledTableCell>
+
                     <StyledTableCell>
                       <IconButton color="success">
                         <CheckIcon />
