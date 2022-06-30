@@ -26,11 +26,13 @@ import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import PreviewIcon from '@mui/icons-material/Preview';
 import axios from 'axios';
+import Label from '../../components/Label';
 // components
 import Page from '../../components/Page';
 
 import useFetch from '../../hooks/useFetch';
 import LoadingLiner from '../../components/LoadingLiner';
+
 // mock
 // import rows from '../../_mock/user';
 
@@ -122,6 +124,7 @@ export default function SwapDeal() {
                   <StyledTableCell>Cus. YOM</StyledTableCell>
                   <StyledTableCell>Req. YOM</StyledTableCell>
                   <StyledTableCell>Contact</StyledTableCell>
+                  <StyledTableCell>Status</StyledTableCell>
                   <StyledTableCell>Actions</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -137,18 +140,11 @@ export default function SwapDeal() {
                     <StyledTableCell>{row.year}</StyledTableCell>
                     <StyledTableCell>{row.contact}</StyledTableCell>
                     <StyledTableCell>
-                      <IconButton color="success">
-                        <CheckIcon />
-                      </IconButton>
-                      <IconButton
-                        color="error"
-                        onClick={() => {
-                          removeSwap(row.id, row.name);
-                        }}
-                      >
-                        <ClearIcon />
-                      </IconButton>
-                      <IconButton>
+                      <Label variant="ghost">{row.decision === 0 ? 'Rejected' : 'Pending'}</Label>
+                    </StyledTableCell>
+
+                    <StyledTableCell>
+                      <IconButton component={RouterLink} to={`/dashboard/view-swap-deal/${row.id}`}>
                         <PreviewIcon />
                       </IconButton>
                     </StyledTableCell>

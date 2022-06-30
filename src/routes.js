@@ -21,6 +21,8 @@ import UpdateStaff from './pages/Staff/UpdateStaff';
 import SwapDeal from './pages/Swap/SwapDeal';
 import VehicleInquiry from './pages/VehicleInquiry/VehicleInquiry';
 import TestRun from './pages/TestRun/TestRun';
+import ViewVehicleInquiry from './pages/VehicleInquiry/ViewVehicleInquiry';
+import ViewSwapDeal from './pages/Swap/ViewSwapDeal';
 
 // ----------------------------------------------------------------------
 
@@ -42,7 +44,9 @@ export default function Router() {
         { path: 'add-customer', element: <AddCustomer /> },
         { path: 'add-customer-form', element: <CustomerForm /> },
         { path: 'swap', element: <SwapDeal /> },
+        { path: 'view-swap-deal/:id', element: <ViewSwapDeal /> },
         { path: 'inquiry', element: <VehicleInquiry /> },
+        { path: 'view-vehicle-inquiry/:id', element: <ViewVehicleInquiry /> },
         { path: 'test-run', element: <TestRun /> },
       ],
     },
