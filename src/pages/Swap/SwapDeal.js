@@ -102,7 +102,7 @@ export default function SwapDeal() {
       }
     });
   };
-  console.log(data);
+
   return (
     <Page title="SwapDeal">
       <Container>
@@ -140,24 +140,11 @@ export default function SwapDeal() {
                     <StyledTableCell>{row.year}</StyledTableCell>
                     <StyledTableCell>{row.contact}</StyledTableCell>
                     <StyledTableCell>
-                      <TableCell>
-                        <Label color={row.decision === 1 ? 'success' : 'error'} />
-                      </TableCell>
+                      <Label variant="ghost">{row.decision === 0 ? 'Rejected' : 'Pending'}</Label>
                     </StyledTableCell>
 
                     <StyledTableCell>
-                      <IconButton color="success">
-                        <CheckIcon />
-                      </IconButton>
-                      <IconButton
-                        color="error"
-                        onClick={() => {
-                          removeSwap(row.id, row.name);
-                        }}
-                      >
-                        <ClearIcon />
-                      </IconButton>
-                      <IconButton>
+                      <IconButton component={RouterLink} to={`/dashboard/view-swap-deal/${row.id}`}>
                         <PreviewIcon />
                       </IconButton>
                     </StyledTableCell>
