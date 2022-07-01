@@ -21,7 +21,8 @@ import useFetch from '../../hooks/useFetch';
 
 const ViewVehicleInquiry = () => {
   const { id } = useParams();
-  const { data, isLoading } = useFetch(`http://127.0.0.1:8000/api/staff/${id}`);
+  const { data: inquiryData, isLoading } = useFetch(`http://127.0.0.1:8000/api/vehicle_inquiry/${id}`);
+  console.log(inquiryData);
 
   if (isLoading) {
     return (
@@ -41,7 +42,7 @@ const ViewVehicleInquiry = () => {
               View VehicleInquiry
             </Typography>
 
-            <IconButton component={RouterLink} to="/dashboard/VehicleInquiry">
+            <IconButton component={RouterLink} to="/dashboard/inquiry">
               <Icon icon="ant-design:rollback-outlined" />
             </IconButton>
           </Stack>
@@ -56,7 +57,7 @@ const ViewVehicleInquiry = () => {
                         Name :
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        oshini dilunika nawarathna
+                        {inquiryData.name}
                       </Typography>{' '}
                     </Stack>
                   </Grid>
@@ -66,7 +67,7 @@ const ViewVehicleInquiry = () => {
                         contact:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        0778495821
+                        {inquiryData.contact}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -76,7 +77,7 @@ const ViewVehicleInquiry = () => {
                         Profession:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        seller
+                        {inquiryData.profession}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -87,7 +88,7 @@ const ViewVehicleInquiry = () => {
                         Brand:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        audi
+                        {inquiryData.brand}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -97,7 +98,7 @@ const ViewVehicleInquiry = () => {
                         Model:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        I8
+                        {inquiryData.model}
                       </Typography>
                     </Stack>
                   </Grid>

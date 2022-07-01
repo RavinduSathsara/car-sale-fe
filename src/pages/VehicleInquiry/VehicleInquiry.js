@@ -133,7 +133,7 @@ export default function VehicleInquiry() {
                     >
                       <ClearIcon />
                     </IconButton>
-                    <IconButton>
+                    <IconButton component={RouterLink} to={`/dashboard/view-vehicle-inquiry/${row.id}`}>
                       <PreviewIcon />
                     </IconButton>
                   </StyledTableCell>
