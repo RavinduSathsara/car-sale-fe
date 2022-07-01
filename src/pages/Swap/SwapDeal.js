@@ -55,6 +55,7 @@ export default function SwapDeal() {
           cus_year_manufacture: item?.cus_year_manufacture,
           year: item?.year_manufacture,
           contact: item?.contact,
+          decision: item?.decision,
           // moblieNum: item?.ph_no,
           // salary: item?.salary,
           // shift: item?.shift,
@@ -84,24 +85,6 @@ export default function SwapDeal() {
   }));
 
   // ----------------------------------------------------------------------
-
-  const removeSwap = (id, name) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`http://127.0.0.1:8000/api/swapvehicle/${id}`)
-          .then(Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success'));
-      }
-    });
-  };
 
   return (
     <Page title="SwapDeal">
@@ -140,7 +123,8 @@ export default function SwapDeal() {
                     <StyledTableCell>{row.year}</StyledTableCell>
                     <StyledTableCell>{row.contact}</StyledTableCell>
                     <StyledTableCell>
-                      <Label variant="ghost">{row.decision === 0 ? 'Rejected' : 'Pending'}</Label>
+                      <Label variant="ghost">{row.decision === 1 ? 'Accepted' : 'Pending'}</Label>
+                      {console.log(row.decision)}
                     </StyledTableCell>
 
                     <StyledTableCell>

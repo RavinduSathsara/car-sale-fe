@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 import {
   Card,
   Stack,
@@ -23,6 +25,184 @@ const ViewSwapDeal = () => {
   const { id } = useParams();
   const { data: swapData, isLoading } = useFetch(`http://127.0.0.1:8000/api/swapvehicle/${id}`);
 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [contacts, setContact] = useState('');
+  const [profession, setProfession] = useState('');
+  const [address, setAddress] = useState('');
+  const [cusMake, setCusMake] = useState('');
+  const [cusBrand, setCusBrand] = useState('');
+  const [cusModel, setCusModel] = useState('');
+  const [cusYearManufacture, setCusYearManufacture] = useState('');
+  const [yearRegistration, setYearRegistration] = useState('');
+  const [cusOwnership, setCusOwnership] = useState('');
+  const [chassisNo, setChassisNo] = useState('');
+  const [cusFuelType, setCusFuelType] = useState('');
+  const [mileage, setMileage] = useState('');
+  const [brand, setBrand] = useState('');
+  const [model, setModel] = useState('');
+  const [make, setMake] = useState('');
+  const [ownership, setOwnership] = useState('');
+  const [yearManufacture, setYearManufacture] = useState('');
+  const [fuelType, setFuelType] = useState('');
+  const [remark, setRemark] = useState('');
+
+  useEffect(() => {
+    setName(swapData?.name);
+    setEmail(swapData?.email);
+    setContact(swapData?.contact);
+    setProfession(swapData?.profession);
+    setAddress(swapData?.address);
+    setCusMake(swapData?.cus_make);
+    setCusBrand(swapData?.cus_brand);
+    setCusModel(swapData?.cus_model);
+    setCusYearManufacture(swapData?.cus_year_manufacture);
+    setYearRegistration(swapData?.year_registration);
+    setCusOwnership(swapData?.cus_ownership);
+    setChassisNo(swapData?.chassis_no);
+    setCusFuelType(swapData?.cus_fuel_type);
+    setMileage(swapData?.mileage);
+    setRemark(swapData?.remarks);
+    setBrand(swapData?.brand);
+    setModel(swapData?.model);
+    setMake(swapData?.make);
+    setOwnership(swapData?.ownership);
+    setYearManufacture(swapData?.year_manufacture);
+    setFuelType(swapData?.fuel_type);
+  }, [isLoading, swapData]);
+
+  const removeSwap = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://127.0.0.1:8000/api/swapvehicle/${id}`)
+          .then(Swal.fire(`Swap deal  Deleted!  `, 'Your file has been deleted.', 'success'));
+      }
+    });
+  };
+
+  const swapAccept = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      // text: "You won't be able to revert this!",
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Accepted it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .put(`http://127.0.0.1:8000/api/swapvehicle/${id}`, {
+            name: `${name}`,
+            contact: `0${contacts}`,
+            email: `${email}`,
+            profession: `${profession}`,
+            address: `${address}`,
+            cus_make: `${cusMake}`,
+            cus_brand: `${cusBrand}`,
+            cus_model: `${cusModel}`,
+            cus_year_manufacture: `${cusYearManufacture}`,
+            year_registration: `${yearRegistration}`,
+            cus_ownership: `${cusOwnership}`,
+            chassis_no: `${chassisNo}`,
+            cus_fuel_type: `${cusFuelType}`,
+            mileage: `${mileage}`,
+            remarks: `${remark}`,
+            brand: `${brand}`,
+            model: `${model}`,
+            make: `${make}`,
+            ownership: `${ownership}`,
+            year_manufacture: `${yearManufacture}`,
+            fuel_type: `${fuelType}`,
+            decision: 1,
+          })
+          .then((res) => {
+            Swal.fire({
+              title: 'Swap Deal Accepted !',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown',
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp',
+              },
+            });
+          })
+          .catch((e) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: e.response.data.message,
+            });
+          });
+      }
+    });
+  };
+  const swapReject = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      // text: "You won't be able to revert this!",
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Accepted it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .put(`http://127.0.0.1:8000/api/swapvehicle/${id}`, {
+            name: `${name}`,
+            contact: `0${contacts}`,
+            email: `${email}`,
+            profession: `${profession}`,
+            address: `${address}`,
+            cus_make: `${cusMake}`,
+            cus_brand: `${cusBrand}`,
+            cus_model: `${cusModel}`,
+            cus_year_manufacture: `${cusYearManufacture}`,
+            year_registration: `${yearRegistration}`,
+            cus_ownership: `${cusOwnership}`,
+            chassis_no: `${chassisNo}`,
+            cus_fuel_type: `${cusFuelType}`,
+            mileage: `${mileage}`,
+            remarks: `${remark}`,
+            brand: `${brand}`,
+            model: `${model}`,
+            make: `${make}`,
+            ownership: `${ownership}`,
+            year_manufacture: `${yearManufacture}`,
+            fuel_type: `${fuelType}`,
+            decision: 0,
+          })
+          .then((res) => {
+            Swal.fire({
+              title: 'Swap Deal Rejected !',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown',
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp',
+              },
+            });
+          })
+          .catch((e) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: e.response.data.message,
+            });
+          });
+      }
+    });
+  };
   return (
     <>
       <Page title=" View SwapDeal">
@@ -272,13 +452,34 @@ const ViewSwapDeal = () => {
                   </Box>
                 </Card>
                 <Grid item sx={{ m: 4 }} style={{ padding: '2px' }}>
-                  <Button variant="outlined" color="success" sx={{ margin: '10px' }}>
+                  <Button
+                    onClick={() => {
+                      swapAccept(id);
+                    }}
+                    variant="outlined"
+                    color="success"
+                    sx={{ margin: '10px' }}
+                  >
                     Accept
                   </Button>
-                  <Button variant="outlined" color="error" sx={{ margin: '10px' }}>
+                  <Button
+                    onClick={() => {
+                      swapReject(id);
+                    }}
+                    variant="outlined"
+                    color="error"
+                    sx={{ margin: '10px' }}
+                  >
                     Decline
                   </Button>
-                  <Button variant="outlined" color="primary" sx={{ margin: '10px' }}>
+                  <Button
+                    onClick={() => {
+                      removeSwap(id);
+                    }}
+                    variant="outlined"
+                    color="primary"
+                    sx={{ margin: '10px' }}
+                  >
                     Delete
                   </Button>
                 </Grid>
