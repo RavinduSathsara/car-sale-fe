@@ -141,7 +141,7 @@ export default function TestRun() {
                       >
                         <ClearIcon />
                       </IconButton>
-                      <IconButton>
+                      <IconButton component={RouterLink} to={`/dashboard/view-test-run/${row.id}`}>
                         <PreviewIcon />
                       </IconButton>
                     </StyledTableCell>

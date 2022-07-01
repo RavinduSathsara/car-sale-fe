@@ -23,6 +23,7 @@ import VehicleInquiry from './pages/VehicleInquiry/VehicleInquiry';
 import TestRun from './pages/TestRun/TestRun';
 import ViewVehicleInquiry from './pages/VehicleInquiry/ViewVehicleInquiry';
 import ViewSwapDeal from './pages/Swap/ViewSwapDeal';
+import ViewTestRun from './pages/TestRun/ViewTestRun';
 
 // ----------------------------------------------------------------------
 
@@ -48,6 +49,7 @@ export default function Router() {
         { path: 'inquiry', element: <VehicleInquiry /> },
         { path: 'view-vehicle-inquiry/:id', element: <ViewVehicleInquiry /> },
         { path: 'test-run', element: <TestRun /> },
+        { path: 'view-test-run/:id', element: <ViewTestRun /> },
       ],
     },
     {
