@@ -24,6 +24,10 @@ import useFetch from '../hooks/useFetch';
 export default function DashboardApp() {
   const { data: vehicleData } = useFetch('http://127.0.0.1:8000/api/vehicles');
   const { data: staffData } = useFetch('http://127.0.0.1:8000/api/staff');
+  const { data: swapDealData, isLoading } = useFetch('http://127.0.0.1:8000/api/swapvehicle');
+
+  console.log(swapDealData);
+
   const theme = useTheme();
 
   return (
@@ -57,7 +61,11 @@ export default function DashboardApp() {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Swap Deals" total={234} icon={'fluent:people-swap-20-filled'} />
+            <AppWidgetSummary
+              title="Swap Deals"
+              total={swapDealData?.posts.length}
+              icon={'fluent:people-swap-20-filled'}
+            />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
