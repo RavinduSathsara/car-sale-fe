@@ -26,7 +26,17 @@ export default function DashboardApp() {
   const { data: staffData } = useFetch('http://127.0.0.1:8000/api/staff');
   const { data: swapDealData, isLoading } = useFetch('http://127.0.0.1:8000/api/swapvehicle');
 
-  console.log(swapDealData);
+  const cars = vehicleData?.Vehicle.filter((car) => {
+    return car.make === 'Car';
+  });
+
+  const vans = vehicleData?.Vehicle.filter((van) => {
+    return van.make === 'Van';
+  });
+
+  const jeeps = vehicleData?.Vehicle.filter((jeep) => {
+    return jeep.make === 'Jeep';
+  });
 
   const theme = useTheme();
 
@@ -110,19 +120,13 @@ export default function DashboardApp() {
 
           <Grid item xs={12} md={6} lg={4}>
             <AppCurrentVisits
-              title="Current Visits"
+              title="Available Vehicles"
               chartData={[
-                { label: 'America', value: 4344 },
-                { label: 'Asia', value: 5435 },
-                { label: 'Europe', value: 1443 },
-                { label: 'Africa', value: 4443 },
+                { label: 'Cars', value: cars?.length },
+                { label: 'Vans', value: vans?.length },
+                { label: 'Jeep', value: jeeps?.length },
               ]}
-              chartColors={[
-                theme.palette.primary.main,
-                theme.palette.chart.blue[0],
-                theme.palette.chart.violet[0],
-                theme.palette.chart.yellow[0],
-              ]}
+              chartColors={[theme.palette.primary.main, theme.palette.chart.violet[0], theme.palette.chart.yellow[0]]}
             />
           </Grid>
 
