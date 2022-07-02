@@ -22,9 +22,9 @@ import useFetch from '../hooks/useFetch';
 // ----------------------------------------------------------------------
 
 export default function DashboardApp() {
-  const { data: vehicleData } = useFetch('http://127.0.0.1:8000/api/vehicles');
-  const { data: staffData } = useFetch('http://127.0.0.1:8000/api/staff');
-  const { data: swapDealData, isLoading } = useFetch('http://127.0.0.1:8000/api/swapvehicle');
+  const { data: vehicleData, isLoading: vehicleLoding } = useFetch('http://127.0.0.1:8000/api/vehicles');
+  const { data: staffData, isLoading: staffLoading } = useFetch('http://127.0.0.1:8000/api/staff');
+  const { data: swapDealData, isLoading: swapLoading } = useFetch('http://127.0.0.1:8000/api/swapvehicle');
 
   const cars = vehicleData?.Vehicle.filter((car) => {
     return car.make === 'Car';
@@ -55,7 +55,7 @@ export default function DashboardApp() {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary
               title="Staff"
-              total={staffData?.staff.length}
+              total={staffLoading ? 0 : staffData?.staff.length}
               color="info"
               icon={'fa6-solid:people-group'}
             />
@@ -64,7 +64,7 @@ export default function DashboardApp() {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary
               title="Item Available"
-              total={vehicleData?.Vehicle.length}
+              total={vehicleLoding ? 0 : vehicleData?.Vehicle.length}
               color="warning"
               icon={'carbon:vehicle-insights'}
             />
@@ -73,7 +73,7 @@ export default function DashboardApp() {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary
               title="Swap Deals"
-              total={swapDealData?.posts.length}
+              total={swapLoading ? 0 : swapDealData?.posts.length}
               icon={'fluent:people-swap-20-filled'}
             />
           </Grid>
@@ -122,9 +122,9 @@ export default function DashboardApp() {
             <AppCurrentVisits
               title="Available Vehicles"
               chartData={[
-                { label: 'Cars', value: cars?.length },
-                { label: 'Vans', value: vans?.length },
-                { label: 'Jeep', value: jeeps?.length },
+                { label: 'Cars', value: 0 + cars?.length },
+                { label: 'Vans', value: 0 + vans?.length },
+                { label: 'Jeep', value: 0 + jeeps?.length },
               ]}
               chartColors={[theme.palette.primary.main, theme.palette.chart.violet[0], theme.palette.chart.yellow[0]]}
             />
