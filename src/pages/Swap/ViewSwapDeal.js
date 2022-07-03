@@ -451,17 +451,33 @@ const ViewSwapDeal = () => {
                     </CardContent>
                   </Box>
                 </Card>
+                {console.log(swapData?.decision)}
                 <Grid item sx={{ m: 4 }} style={{ padding: '2px' }}>
-                  <Button
-                    onClick={() => {
-                      swapAccept(id);
-                    }}
-                    variant="outlined"
-                    color="success"
-                    sx={{ margin: '10px' }}
-                  >
-                    Accept
-                  </Button>
+                  {swapData?.decision === 1 ? (
+                    <Button
+                      disabled
+                      onClick={() => {
+                        swapAccept(id);
+                      }}
+                      variant="outlined"
+                      color="success"
+                      sx={{ margin: '10px' }}
+                    >
+                      Accept
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => {
+                        swapAccept(id);
+                      }}
+                      variant="outlined"
+                      color="success"
+                      sx={{ margin: '10px' }}
+                    >
+                      Accept
+                    </Button>
+                  )}
+
                   <Button
                     onClick={() => {
                       swapReject(id);

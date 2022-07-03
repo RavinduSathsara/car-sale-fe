@@ -22,8 +22,22 @@ import useFetch from '../hooks/useFetch';
 // ----------------------------------------------------------------------
 
 export default function DashboardApp() {
-  const { data: vehicleData } = useFetch('http://127.0.0.1:8000/api/vehicles');
-  const { data: staffData } = useFetch('http://127.0.0.1:8000/api/staff');
+  const { data: vehicleData, isLoading: vehicleLoding } = useFetch('http://127.0.0.1:8000/api/vehicles');
+  const { data: staffData, isLoading: staffLoading } = useFetch('http://127.0.0.1:8000/api/staff');
+  const { data: swapDealData, isLoading: swapLoading } = useFetch('http://127.0.0.1:8000/api/swapvehicle');
+
+  const cars = vehicleData?.Vehicle.filter((car) => {
+    return car.make === 'Car';
+  });
+
+  const vans = vehicleData?.Vehicle.filter((van) => {
+    return van.make === 'Van';
+  });
+
+  const jeeps = vehicleData?.Vehicle.filter((jeep) => {
+    return jeep.make === 'Jeep';
+  });
+
   const theme = useTheme();
 
   return (
@@ -41,7 +55,7 @@ export default function DashboardApp() {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary
               title="Staff"
-              total={staffData?.staff.length}
+              total={staffLoading ? 0 : staffData?.staff.length}
               color="info"
               icon={'fa6-solid:people-group'}
             />
@@ -50,14 +64,18 @@ export default function DashboardApp() {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary
               title="Item Available"
-              total={vehicleData?.Vehicle.length}
+              total={vehicleLoding ? 0 : vehicleData?.Vehicle.length}
               color="warning"
               icon={'carbon:vehicle-insights'}
             />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Swap Deals" total={234} icon={'fluent:people-swap-20-filled'} />
+            <AppWidgetSummary
+              title="Swap Deals"
+              total={swapLoading ? 0 : swapDealData?.posts.length}
+              icon={'fluent:people-swap-20-filled'}
+            />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
@@ -102,19 +120,13 @@ export default function DashboardApp() {
 
           <Grid item xs={12} md={6} lg={4}>
             <AppCurrentVisits
-              title="Current Visits"
+              title="Available Vehicles"
               chartData={[
-                { label: 'America', value: 4344 },
-                { label: 'Asia', value: 5435 },
-                { label: 'Europe', value: 1443 },
-                { label: 'Africa', value: 4443 },
+                { label: 'Cars', value: 0 + cars?.length },
+                { label: 'Vans', value: 0 + vans?.length },
+                { label: 'Jeep', value: 0 + jeeps?.length },
               ]}
-              chartColors={[
-                theme.palette.primary.main,
-                theme.palette.chart.blue[0],
-                theme.palette.chart.violet[0],
-                theme.palette.chart.yellow[0],
-              ]}
+              chartColors={[theme.palette.primary.main, theme.palette.chart.violet[0], theme.palette.chart.yellow[0]]}
             />
           </Grid>
 
