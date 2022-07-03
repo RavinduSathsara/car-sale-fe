@@ -37,7 +37,7 @@ const ViewTestRun = () => {
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography variant="h4" gutterBottom>
-              View SwapDeal
+              View TestRun
             </Typography>
 
             <IconButton component={RouterLink} to="/dashboard/test-run">
