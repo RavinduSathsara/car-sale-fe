@@ -50,6 +50,8 @@ export default function DashboardApp() {
 
   const theme = useTheme();
 
+  const percentage = ((july?.length - 68) * 100) / 68;
+
   return (
     <Page title="Dashboard">
       <Container maxWidth="xl">
@@ -91,7 +93,7 @@ export default function DashboardApp() {
           <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
               title="Website Visits"
-              subheader="(+43%) than last year"
+              subheader={`(${Math.round(percentage)}%) than last month`}
               chartLabels={[
                 '01/02/2022',
                 '02/02/2022',
@@ -117,7 +119,7 @@ export default function DashboardApp() {
                   name: 'Site Visits',
                   type: 'area',
                   fill: 'gradient',
-                  data: [4, 5, 1, 7, 2, 3, july?.length, august?.length, 0, 0, 0, 0],
+                  data: [4, 5, 1, 7, 2, 68, july?.length, august?.length, 0, 0, 0, 0],
                 },
                 // {
                 //   name: 'Team C',
@@ -135,7 +137,7 @@ export default function DashboardApp() {
               chartData={[
                 { label: 'Cars', value: 0 + cars?.length },
                 { label: 'Vans', value: 0 + vans?.length },
-                { label: 'Jeep', value: 0 + jeeps?.length },
+                { label: 'Jeeps', value: 0 + jeeps?.length },
               ]}
               chartColors={[theme.palette.primary.main, theme.palette.chart.violet[0], theme.palette.chart.yellow[0]]}
             />
