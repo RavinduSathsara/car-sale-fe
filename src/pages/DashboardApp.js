@@ -28,6 +28,8 @@ export default function DashboardApp() {
   const { data: swapDealData, isLoading: swapLoading } = useFetch('http://127.0.0.1:8000/api/swapvehicle');
   const { data: currntVist, isLoading: crrntVistLoading } = useFetch('http://127.0.0.1:8000/api/currentvisits');
 
+  const [j, setJ] = useState(0);
+
   const july = currntVist?.currentvisits.filter((jul) => {
     return jul.month === 7;
   });
@@ -50,7 +52,11 @@ export default function DashboardApp() {
 
   const theme = useTheme();
 
-  const percentage = ((july?.length - 68) * 100) / 68;
+  const percentage = ((july?.length - 8) * 100) / 8;
+
+  useEffect(() => {
+    setJ(july?.length);
+  }, [july]);
 
   return (
     <Page title="Dashboard">
@@ -92,8 +98,8 @@ export default function DashboardApp() {
 
           <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
-              title="Website Visits"
-              subheader={`(${Math.round(percentage)}%) than last month`}
+              title="Performance"
+              subheader={`Site visits (${Math.round(percentage)}%) than last month`}
               chartLabels={[
                 '01/02/2022',
                 '02/02/2022',
@@ -109,24 +115,24 @@ export default function DashboardApp() {
                 '12/02/2022',
               ]}
               chartData={[
-                // {
-                //   name: 'Team A',
-                //   type: 'column',
-                //   fill: 'solid',
-                //   data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 30],
-                // },
+                {
+                  name: 'Sales',
+                  type: 'column',
+                  fill: 'solid',
+                  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 30],
+                },
                 {
                   name: 'Site Visits',
                   type: 'area',
                   fill: 'gradient',
-                  data: [4, 5, 1, 7, 2, 68, july?.length, august?.length, 0, 0, 0, 0],
+                  data: [4, 5, 1, 7, 2, 8, july?.length, august?.length, 0, 0, 0, 0],
                 },
-                // {
-                //   name: 'Team C',
-                //   type: 'line',
-                //   fill: 'solid',
-                //   data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 15],
-                // },
+                {
+                  name: 'Swap Deals',
+                  type: 'line',
+                  fill: 'solid',
+                  data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 15],
+                },
               ]}
             />
           </Grid>
