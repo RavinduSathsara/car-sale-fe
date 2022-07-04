@@ -198,7 +198,6 @@ const UpdateVehicle = () => {
                   fullWidth
                   required
                   defaultValue={data?.model}
-                  // autoComplete="username"
                   type="text"
                   label="Model"
                   value={model}
@@ -242,6 +241,8 @@ const UpdateVehicle = () => {
                     <MenuItem value={'First Owner'}>First Owner</MenuItem>
                     <MenuItem value={'Second Owner'}>Second Owner</MenuItem>
                     <MenuItem value={'Third Owner'}>Third Owner</MenuItem>
+                    <MenuItem value={'Open Papers'}>Open Papers</MenuItem>
+                    <MenuItem value={'Other'}>Other</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -277,7 +278,6 @@ const UpdateVehicle = () => {
                 <TextField
                   fullWidth
                   defaultValue={data?.chassis_no}
-                  // autoComplete="username"
                   type="number"
                   required
                   label="Chasis No"
@@ -285,8 +285,6 @@ const UpdateVehicle = () => {
                   onChange={(e) => {
                     setChassisNo(e.target.value);
                   }}
-                  // error={Boolean(touched.email && errors.email)}
-                  // helperText={touched.email && errors.email}
                 />
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
@@ -311,15 +309,13 @@ const UpdateVehicle = () => {
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
-                  // autoComplete="username"
                   defaultValue={data?.reg_no}
-                  type="number"
+                  type="text"
+                  inputProps={{ maxLength: 7 }}
                   required
                   label="Registration No"
                   value={regNo}
                   onChange={(e) => setRegNo(e.target.value)}
-                  // error={Boolean(touched.email && errors.email)}
-                  // helperText={touched.email && errors.email}
                 />
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
@@ -327,7 +323,6 @@ const UpdateVehicle = () => {
                   fullWidth
                   required
                   defaultValue={data?.mileage}
-                  // autoComplete="username"
                   type="number"
                   label="Mileage:"
                   value={mileAge}
@@ -339,7 +334,6 @@ const UpdateVehicle = () => {
                   fullWidth
                   required
                   defaultValue={data?.cost}
-                  // autoComplete="username"
                   type="number"
                   label="Cost"
                   value={cost}
@@ -351,7 +345,6 @@ const UpdateVehicle = () => {
                   fullWidth
                   required
                   defaultValue={data?.unit_price}
-                  // autoComplete="username"
                   type="number"
                   label="Unit Price"
                   value={unitPrice}
@@ -363,7 +356,6 @@ const UpdateVehicle = () => {
                   fullWidth
                   required
                   defaultValue={data?.margin}
-                  // autoComplete="username"
                   type="text"
                   label="Margin"
                   value={margin}
@@ -396,10 +388,9 @@ const UpdateVehicle = () => {
                 style={{ width: 800 }}
                 required
                 defaultValue={data?.remarks}
-                // autoComplete="username"
                 type="text"
                 label="Remarks"
-                placeholder="Add yor comment here"
+                placeholder="Add your comment here"
                 value={remarks}
                 onChange={(e) => setRemarks(e.target.value)}
               />
@@ -420,22 +411,10 @@ const UpdateVehicle = () => {
             </Grid>
 
             <Grid item xs={5} sx={{ m: 2 }}>
-              <LoadingButton
-                style={{ width: 150 }}
-                size="large"
-                type="submit"
-                variant="contained"
-                // loading={isSubmitting }
-              >
+              <LoadingButton style={{ width: 150 }} size="large" type="submit" variant="contained">
                 Submit
               </LoadingButton>
-              <LoadingButton
-                style={{ width: 150, marginLeft: 10 }}
-                size="large"
-                type="reset"
-                variant="outlined"
-                // loading={isSubmitting }
-              >
+              <LoadingButton style={{ width: 150, marginLeft: 10 }} size="large" type="reset" variant="outlined">
                 Reset
               </LoadingButton>
             </Grid>

@@ -7,7 +7,7 @@ import Iconify from '../../../components/Iconify';
 
 // ----------------------------------------------------------------------
 
-export default function UserMoreMenu({ id, removeStaff, name }) {
+export default function UserMoreMenu({ id, removeStaff, name, isPopUp }) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -33,6 +33,7 @@ export default function UserMoreMenu({ id, removeStaff, name }) {
           </ListItemIcon>
           <ListItemText
             onClick={() => {
+              setIsOpen(false);
               removeStaff(id, name);
             }}
             primary="Delete"
