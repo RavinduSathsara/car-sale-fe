@@ -47,7 +47,7 @@ const CustomerForm = () => {
     });
 
     Swal.fire({
-      title: 'New costomer added sucessfully !',
+      title: 'New customer added sucessfully !',
       showClass: {
         popup: 'animate__animated animate__fadeInDown',
       },
