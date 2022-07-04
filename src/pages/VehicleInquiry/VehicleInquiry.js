@@ -4,8 +4,6 @@ import { sample, filter } from 'lodash';
 import { faker } from '@faker-js/faker';
 import { Link as RouterLink } from 'react-router-dom';
 
-import Swal from 'sweetalert2';
-
 import {
   Table,
   Stack,
@@ -22,10 +20,7 @@ import {
   TableHead,
 } from '@mui/material';
 
-import CheckIcon from '@mui/icons-material/Check';
-import ClearIcon from '@mui/icons-material/Clear';
 import PreviewIcon from '@mui/icons-material/Preview';
-import axios from 'axios';
 
 import Page from '../../components/Page';
 
@@ -72,24 +67,6 @@ export default function VehicleInquiry() {
     },
   }));
 
-  const removeInquiry = (id, name) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`http://127.0.0.1:8000/api/vehicle_inquiry/${id}`)
-          .then(Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success'));
-      }
-    });
-  };
-
   return (
     <Page title="VehicleInquiry">
       <Container>
@@ -99,48 +76,42 @@ export default function VehicleInquiry() {
           </Typography>
         </Stack>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell> Name</StyledTableCell>
-                <StyledTableCell>Contact</StyledTableCell>
-                <StyledTableCell>Brand</StyledTableCell>
-                <StyledTableCell>Model</StyledTableCell>
-                <StyledTableCell>Custom Request</StyledTableCell>
-                <StyledTableCell>Actions</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow key={row.name}>
-                  <StyledTableCell component="th" scope="row">
-                    {row.name}
-                  </StyledTableCell>
-                  <StyledTableCell>{row.contact}</StyledTableCell>
-                  <StyledTableCell>{row.brand}</StyledTableCell>
-                  <StyledTableCell>{row.model}</StyledTableCell>
-                  <StyledTableCell>{row.cus_req}</StyledTableCell>
+          {' '}
+          {isLoading ? (
+            <LoadingLiner />
+          ) : (
+            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell> Name</StyledTableCell>
+                  <StyledTableCell>Contact</StyledTableCell>
+                  <StyledTableCell>Brand</StyledTableCell>
+                  <StyledTableCell>Model</StyledTableCell>
+                  <StyledTableCell>Custom Request</StyledTableCell>
+                  <StyledTableCell>Actions</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <StyledTableRow key={row.name}>
+                    <StyledTableCell component="th" scope="row">
+                      {row.name}
+                    </StyledTableCell>
+                    <StyledTableCell>{row.contact}</StyledTableCell>
+                    <StyledTableCell>{row.brand}</StyledTableCell>
+                    <StyledTableCell>{row.model}</StyledTableCell>
+                    <StyledTableCell>{row.cus_req}</StyledTableCell>
 
-                  <StyledTableCell>
-                    <IconButton color="success">
-                      <CheckIcon />
-                    </IconButton>
-                    <IconButton
-                      color="error"
-                      onClick={() => {
-                        removeInquiry(row.id, row.name);
-                      }}
-                    >
-                      <ClearIcon />
-                    </IconButton>
-                    <IconButton component={RouterLink} to={`/dashboard/view-vehicle-inquiry/${row.id}`}>
-                      <PreviewIcon />
-                    </IconButton>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
+                    <StyledTableCell>
+                      <IconButton component={RouterLink} to={`/dashboard/view-vehicle-inquiry/${row.id}`}>
+                        <PreviewIcon />
+                      </IconButton>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
         </TableContainer>
       </Container>
     </Page>

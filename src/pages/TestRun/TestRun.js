@@ -4,7 +4,6 @@ import { sample, filter } from 'lodash';
 import { faker } from '@faker-js/faker';
 import { Link as RouterLink } from 'react-router-dom';
 
-import Swal from 'sweetalert2';
 // material
 import {
   Table,
@@ -22,10 +21,8 @@ import {
   TableHead,
 } from '@mui/material';
 
-import CheckIcon from '@mui/icons-material/Check';
-import ClearIcon from '@mui/icons-material/Clear';
 import PreviewIcon from '@mui/icons-material/Preview';
-import axios from 'axios';
+
 // components
 import Page from '../../components/Page';
 
@@ -78,24 +75,6 @@ export default function TestRun() {
 
   // ----------------------------------------------------------------------
 
-  const removeSwap = (id, name) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`http://127.0.0.1:8000/api/testdrive/${id}`)
-          .then(Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success'));
-      }
-    });
-  };
-
   return (
     <Page title="TestRun">
       <Container>
@@ -130,17 +109,6 @@ export default function TestRun() {
                     <StyledTableCell>{row.year}</StyledTableCell>
                     <StyledTableCell>{row.cus_req}</StyledTableCell>
                     <StyledTableCell>
-                      <IconButton color="success">
-                        <CheckIcon />
-                      </IconButton>
-                      <IconButton
-                        color="error"
-                        onClick={() => {
-                          removeSwap(row.name);
-                        }}
-                      >
-                        <ClearIcon />
-                      </IconButton>
                       <IconButton component={RouterLink} to={`/dashboard/view-test-run/${row.id}`}>
                         <PreviewIcon />
                       </IconButton>

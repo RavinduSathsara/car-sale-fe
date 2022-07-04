@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, Link as RouterLink } from 'react-router-dom';
+import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
   Card,
   Stack,
@@ -14,21 +14,44 @@ import {
   CardContent,
   Skeleton,
 } from '@mui/material';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import ClearIcon from '@mui/icons-material/Clear';
 import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
 
 import useFetch from '../../hooks/useFetch';
 
 const ViewVehicleInquiry = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { data: inquiryData, isLoading } = useFetch(`http://127.0.0.1:8000/api/vehicle_inquiry/${id}`);
   console.log(inquiryData);
+
+  const removeInquiry = (id, name) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://127.0.0.1:8000/api/vehicle_inquiry/${id}`)
+          .then(Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success'));
+      }
+      navigate('/dashboard/inquiry');
+    });
+  };
 
   if (isLoading) {
     return (
       <>
         <Stack spacing={1} sx={{ marginTop: '130px', marginLeft: '230px' }}>
-          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={700} height={650} />
+          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={700} height={700} />
         </Stack>
       </>
     );
@@ -47,7 +70,7 @@ const ViewVehicleInquiry = () => {
             </IconButton>
           </Stack>
 
-          <Card sx={{ display: 'flex', height: '650px', maxWidth: '700px', marginLeft: '190px', marginTop: '80px' }}>
+          <Card sx={{ display: 'flex', height: '700px', maxWidth: '700px', marginLeft: '190px', marginTop: '80px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <CardContent sx={{ flex: '1 0 auto', margin: '40px' }}>
                 <Grid container>
@@ -57,7 +80,7 @@ const ViewVehicleInquiry = () => {
                         Name :
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData.name}
+                        {inquiryData?.name}
                       </Typography>{' '}
                     </Stack>
                   </Grid>
@@ -67,7 +90,7 @@ const ViewVehicleInquiry = () => {
                         contact:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData.contact}
+                        {inquiryData?.contact}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -77,7 +100,7 @@ const ViewVehicleInquiry = () => {
                         Email:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData.email}
+                        {inquiryData?.email}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -87,7 +110,7 @@ const ViewVehicleInquiry = () => {
                         Address:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData.address}
+                        {inquiryData?.address}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -97,7 +120,7 @@ const ViewVehicleInquiry = () => {
                         Profession:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData.profession}
+                        {inquiryData?.profession}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -107,7 +130,7 @@ const ViewVehicleInquiry = () => {
                         Brand:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData.brand}
+                        {inquiryData?.brand}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -117,7 +140,7 @@ const ViewVehicleInquiry = () => {
                         Model:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData.model}
+                        {inquiryData?.model}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -127,7 +150,7 @@ const ViewVehicleInquiry = () => {
                         Make:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData.make}
+                        {inquiryData?.make}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -137,7 +160,7 @@ const ViewVehicleInquiry = () => {
                         Payment:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData.payment}
+                        {inquiryData?.payment}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -147,7 +170,7 @@ const ViewVehicleInquiry = () => {
                         Insurance:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData.insurance}
+                        {inquiryData?.insurance}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -157,7 +180,7 @@ const ViewVehicleInquiry = () => {
                         Remark:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData.remarks}
+                        {inquiryData?.remarks}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -168,11 +191,22 @@ const ViewVehicleInquiry = () => {
                         Customer Request:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData.cus_req}
+                        {inquiryData?.cus_req}
                       </Typography>
                     </Stack>
                   </Grid>
                 </Grid>
+
+                <Button
+                  onClick={() => {
+                    removeInquiry(id, inquiryData?.name);
+                  }}
+                  variant="outlined"
+                  color="error"
+                  sx={{ margin: '20px' }}
+                >
+                  Delete
+                </Button>
               </CardContent>
             </Box>
           </Card>
