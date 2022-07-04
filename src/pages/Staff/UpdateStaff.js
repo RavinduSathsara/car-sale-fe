@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import { Grid, Button, Container, Typography } from '@mui/material';
-import { useParams, Link as RouterLink } from 'react-router-dom';
+import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import {
   Link,
@@ -36,16 +36,18 @@ import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import { useFormik, Form, FormikProvider } from 'formik';
 import axios from 'axios';
+
 // material
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LoadingButton, LocalizationProvider, DatePicker } from '@mui/lab';
 import Page from '../../components/Page';
 import useFetch from '../../hooks/useFetch';
+import AlertDialog from '../../components/AlertDialog';
 
 const UpdateStaff = () => {
   const { id } = useParams();
   const { data, isLoading } = useFetch(`http://127.0.0.1:8000/api/staff/${id}`);
-
+  const navigate = useNavigate();
   useEffect(() => {
     setFirstName(data?.first_name);
     setLastName(data?.last_name);
@@ -73,20 +75,21 @@ const UpdateStaff = () => {
   const [salary, setSalary] = useState('');
   const [file, setFile] = useState();
 
-  const handleReset = (event) => {
+  const handleCancel = (event) => {
     event.preventDefault();
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setContact('');
-    setAddress('');
-    setGender('');
-    setRole('');
-    setShift('');
-    setNic('');
-    setDateOfBirth(Date.now());
-    setSalary('');
-    setFile('');
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to cancel',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate('/dashboard/staff');
+      }
+    });
   };
 
   function handleChange(event) {
@@ -164,7 +167,7 @@ const UpdateStaff = () => {
               <Icon icon="ant-design:rollback-outlined" />
             </IconButton>
           </Stack>
-          <form onSubmit={handleSubmit} onReset={handleReset}>
+          <form onSubmit={handleSubmit}>
             <Grid container>
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
@@ -332,9 +335,8 @@ const UpdateStaff = () => {
                 <LoadingButton
                   style={{ width: 150, marginLeft: 10 }}
                   size="large"
-                  type="reset"
+                  onClick={handleCancel}
                   variant="outlined"
-                  // loading={isSubmitting }
                 >
                   Cancel
                 </LoadingButton>
