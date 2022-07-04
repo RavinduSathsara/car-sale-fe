@@ -269,7 +269,7 @@ const AddStaff = () => {
                     label="Shift"
                     onChange={(e) => setShift(e.target.value)}
                   >
-                    <MenuItem value={'DT'}>Day Time</MenuItem>
+                    <MenuItem value={'DT'}>Full Time</MenuItem>
                     <MenuItem value={'PT'}>Part Time</MenuItem>
                   </Select>
                 </FormControl>
