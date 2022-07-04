@@ -45,7 +45,6 @@ import useFetch from '../../hooks/useFetch';
 const UpdateStaff = () => {
   const { id } = useParams();
   const { data, isLoading } = useFetch(`http://127.0.0.1:8000/api/staff/${id}`);
-  console.log(data);
 
   useEffect(() => {
     setFirstName(data?.first_name);
@@ -100,21 +99,6 @@ const UpdateStaff = () => {
         'content-type': 'multipart/form-data',
       },
     };
-
-    // const formData = new FormData();
-
-    // formData.append('first_name', `${firstName}`);
-    // formData.append('last_name', `${lastName}`);
-    // formData.append('ph_no', `${contact}`);
-    // formData.append('address', `${address}`);
-    // formData.append('nic', `${nic}`);
-    // formData.append('email', `${email}`);
-    // formData.append('gender', `${gender}`);
-    // formData.append('d_o_b', moment(dateOfBirth).format('YYYY-MM-DD'));
-    // formData.append('position', `${role}`);
-    // formData.append('shift', `${shift}`);
-    // formData.append('salary', `${salary}`);
-    // formData.append('image', file);
 
     axios
       .put(`http://127.0.0.1:8000/api/staff/${id}`, {
@@ -314,7 +298,7 @@ const UpdateStaff = () => {
                     defaultValue={data?.shift}
                     onChange={(e) => setShift(e.target.value)}
                   >
-                    <MenuItem value={'DT'}>Day Time</MenuItem>
+                    <MenuItem value={'FT'}>Full Time</MenuItem>
                     <MenuItem value={'PT'}>Part Time</MenuItem>
                   </Select>
                 </FormControl>

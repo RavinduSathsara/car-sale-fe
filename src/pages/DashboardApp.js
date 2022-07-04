@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import axios from 'axios';
 import { Grid, Container, Typography } from '@mui/material';
+import moment from 'moment';
 // components
 import Page from '../components/Page';
 import Iconify from '../components/Iconify';
@@ -22,9 +23,40 @@ import useFetch from '../hooks/useFetch';
 // ----------------------------------------------------------------------
 
 export default function DashboardApp() {
-  const { data: vehicleData } = useFetch('http://127.0.0.1:8000/api/vehicles');
-  const { data: staffData } = useFetch('http://127.0.0.1:8000/api/staff');
+  const { data: vehicleData, isLoading: vehicleLoding } = useFetch('http://127.0.0.1:8000/api/vehicles');
+  const { data: staffData, isLoading: staffLoading } = useFetch('http://127.0.0.1:8000/api/staff');
+  const { data: swapDealData, isLoading: swapLoading } = useFetch('http://127.0.0.1:8000/api/swapvehicle');
+  const { data: currntVist, isLoading: crrntVistLoading } = useFetch('http://127.0.0.1:8000/api/currentvisits');
+
+  const [j, setJ] = useState(0);
+
+  const july = currntVist?.currentvisits.filter((jul) => {
+    return jul.month === 7;
+  });
+
+  const august = currntVist?.currentvisits.filter((aug) => {
+    return aug.month === 8;
+  });
+
+  const cars = vehicleData?.Vehicle.filter((car) => {
+    return car.make === 'Car';
+  });
+
+  const vans = vehicleData?.Vehicle.filter((van) => {
+    return van.make === 'Van';
+  });
+
+  const jeeps = vehicleData?.Vehicle.filter((jeep) => {
+    return jeep.make === 'Jeep';
+  });
+
   const theme = useTheme();
+
+  const percentage = ((july?.length - 8) * 100) / 8;
+
+  useEffect(() => {
+    setJ(july?.length);
+  }, [july]);
 
   return (
     <Page title="Dashboard">
@@ -41,7 +73,7 @@ export default function DashboardApp() {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary
               title="Staff"
-              total={staffData?.staff.length}
+              total={staffLoading ? 0 : staffData?.staff.length}
               color="info"
               icon={'fa6-solid:people-group'}
             />
@@ -50,51 +82,56 @@ export default function DashboardApp() {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary
               title="Item Available"
-              total={vehicleData?.Vehicle.length}
+              total={vehicleLoding ? 0 : vehicleData?.Vehicle.length}
               color="warning"
               icon={'carbon:vehicle-insights'}
             />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Swap Deals" total={234} icon={'fluent:people-swap-20-filled'} />
+            <AppWidgetSummary
+              title="Swap Deals"
+              total={swapLoading ? 0 : swapDealData?.posts.length}
+              icon={'fluent:people-swap-20-filled'}
+            />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
-              title="Website Visits"
-              subheader="(+43%) than last year"
+              title="Performance"
+              subheader={`Site visits (${Math.round(percentage)}%) than last month`}
               chartLabels={[
-                '01/01/2003',
-                '02/01/2003',
-                '03/01/2003',
-                '04/01/2003',
-                '05/01/2003',
-                '06/01/2003',
-                '07/01/2003',
-                '08/01/2003',
-                '09/01/2003',
-                '10/01/2003',
-                '11/01/2003',
+                '01/02/2022',
+                '02/02/2022',
+                '03/02/2022',
+                '04/02/2022',
+                '05/02/2022',
+                '06/02/2022',
+                '07/02/2022',
+                '08/02/2022',
+                '09/02/2022',
+                '10/02/2022',
+                '11/02/2022',
+                '12/02/2022',
               ]}
               chartData={[
                 {
-                  name: 'Team A',
+                  name: 'Sales',
                   type: 'column',
                   fill: 'solid',
-                  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
+                  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 30],
                 },
                 {
-                  name: 'Team B',
+                  name: 'Site Visits',
                   type: 'area',
                   fill: 'gradient',
-                  data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
+                  data: [4, 5, 1, 7, 2, 8, july?.length, august?.length, 0, 0, 0, 0],
                 },
                 {
-                  name: 'Team C',
+                  name: 'Swap Deals',
                   type: 'line',
                   fill: 'solid',
-                  data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
+                  data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 15],
                 },
               ]}
             />
@@ -102,19 +139,13 @@ export default function DashboardApp() {
 
           <Grid item xs={12} md={6} lg={4}>
             <AppCurrentVisits
-              title="Current Visits"
+              title="Available Vehicles"
               chartData={[
-                { label: 'America', value: 4344 },
-                { label: 'Asia', value: 5435 },
-                { label: 'Europe', value: 1443 },
-                { label: 'Africa', value: 4443 },
+                { label: 'Cars', value: 0 + cars?.length },
+                { label: 'Vans', value: 0 + vans?.length },
+                { label: 'Jeeps', value: 0 + jeeps?.length },
               ]}
-              chartColors={[
-                theme.palette.primary.main,
-                theme.palette.chart.blue[0],
-                theme.palette.chart.violet[0],
-                theme.palette.chart.yellow[0],
-              ]}
+              chartColors={[theme.palette.primary.main, theme.palette.chart.violet[0], theme.palette.chart.yellow[0]]}
             />
           </Grid>
 

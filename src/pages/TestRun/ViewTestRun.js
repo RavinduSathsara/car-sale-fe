@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import {
   Card,
   Stack,
@@ -15,20 +16,17 @@ import {
   Skeleton,
 } from '@mui/material';
 import axios from 'axios';
-import Swal from 'sweetalert2';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
-
 import useFetch from '../../hooks/useFetch';
 
-const ViewVehicleInquiry = () => {
+const ViewTestRun = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data: inquiryData, isLoading } = useFetch(`http://127.0.0.1:8000/api/vehicle_inquiry/${id}`);
-  console.log(inquiryData);
+  const { data: testData, isLoading } = useFetch(`http://127.0.0.1:8000/api/testdrive/${id}`);
 
-  const removeInquiry = (id, name) => {
+  const removeTestRun = (id, name) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -40,10 +38,10 @@ const ViewVehicleInquiry = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://127.0.0.1:8000/api/vehicle_inquiry/${id}`)
+          .delete(`http://127.0.0.1:8000/api/testdrive/${id}`)
           .then(Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success'));
       }
-      navigate('/dashboard/inquiry');
+      navigate('/dashboard/test-run');
     });
   };
 
@@ -51,36 +49,35 @@ const ViewVehicleInquiry = () => {
     return (
       <>
         <Stack spacing={1} sx={{ marginTop: '130px', marginLeft: '230px' }}>
-          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={700} height={700} />
+          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={600} height={650} />
         </Stack>
       </>
     );
   }
   return (
     <>
-      <Page title=" View VehicleInquiry">
+      <Page title=" View TestRun">
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography variant="h4" gutterBottom>
-              View VehicleInquiry
+              View TestRun
             </Typography>
 
-            <IconButton component={RouterLink} to="/dashboard/inquiry">
+            <IconButton component={RouterLink} to="/dashboard/test-run">
               <Icon icon="ant-design:rollback-outlined" />
             </IconButton>
           </Stack>
-
-          <Card sx={{ display: 'flex', height: '700px', maxWidth: '700px', marginLeft: '190px', marginTop: '80px' }}>
+          <Card sx={{ display: 'flex', height: '650px', maxWidth: '600px', marginLeft: '190px', marginTop: '80px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <CardContent sx={{ flex: '1 0 auto', margin: '40px' }}>
+              <CardContent sx={{ flex: '1 0 auto', margin: '30px' }}>
                 <Grid container>
-                  <Grid item sx={{ m: 2 }} xs={6}>
+                  <Grid item sx={{ m: 2 }}>
                     <Stack direction="row">
                       <Typography component="div" variant="h5">
                         Name :
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData?.name}
+                        {testData?.name}
                       </Typography>{' '}
                     </Stack>
                   </Grid>
@@ -90,7 +87,7 @@ const ViewVehicleInquiry = () => {
                         contact:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData?.contact}
+                        {testData?.contact}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -100,106 +97,94 @@ const ViewVehicleInquiry = () => {
                         Email:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData?.email}
+                        {testData?.email}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }} xs={12}>
-                    <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Address:
-                      </Typography>
-                      <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData?.address}
-                      </Typography>
-                    </Stack>
-                  </Grid>
-                  <Grid item sx={{ m: 2 }} xs={8}>
+                  <Grid item sx={{ m: 2 }} xs={4}>
                     <Stack direction="row">
                       <Typography component="div" variant="h5">
                         Profession:
                       </Typography>
-                      <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData?.profession}
+                      <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                        {testData?.profession}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }} xs={5}>
+                  <Grid item sx={{ m: 2 }}>
                     <Stack direction="row">
                       <Typography component="div" variant="h5">
-                        Brand:
+                        Address:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData?.brand}
+                        {testData?.address}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }} xs={3}>
-                    <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Model:
-                      </Typography>
-                      <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData?.model}
-                      </Typography>
-                    </Stack>
-                  </Grid>
-                  <Grid item sx={{ m: 2 }} xs={8}>
+                  <Grid item sx={{ m: 2 }} xs={4}>
                     <Stack direction="row">
                       <Typography component="div" variant="h5">
                         Make:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData?.make}
+                        {testData?.make}
                       </Typography>
                     </Stack>
-                  </Grid>
-                  <Grid item sx={{ m: 2 }} xs={5}>
+                  </Grid>{' '}
+                  <Grid item sx={{ m: 2 }}>
                     <Stack direction="row">
                       <Typography component="div" variant="h5">
-                        Payment:
+                        Brand:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData?.payment}
+                        {testData?.brand}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }} xs={3}>
+                  <Grid item sx={{ m: 2 }} xs={4}>
                     <Stack direction="row">
                       <Typography component="div" variant="h5">
-                        Insurance:
+                        Model:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData?.insurance}
+                        {testData?.model}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }} xs={8}>
+                  <Grid item sx={{ m: 2 }}>
                     <Stack direction="row">
                       <Typography component="div" variant="h5">
-                        Remark:
+                        Ownership:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData?.remarks}
+                        {testData?.ownership}
                       </Typography>
                     </Stack>
                   </Grid>
-
-                  <Grid item sx={{ m: 2 }} xs={12}>
+                  <Grid item sx={{ m: 2 }}>
                     <Stack direction="row">
                       <Typography component="div" variant="h5">
-                        Customer Request:
+                        Customer Request :
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {inquiryData?.cus_req}
+                        {testData?.cus_req}
                       </Typography>
                     </Stack>
                   </Grid>
-                </Grid>
-
+                  <Grid item sx={{ m: 2 }}>
+                    <Stack direction="row">
+                      <Typography component="div" variant="h5">
+                        Year Manufacture :
+                      </Typography>
+                      <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                        {testData?.year_manufacture}
+                      </Typography>
+                    </Stack>
+                  </Grid>
+                </Grid>{' '}
                 <Button
                   onClick={() => {
-                    removeInquiry(id, inquiryData?.name);
+                    removeTestRun(id, testData?.name);
                   }}
                   variant="outlined"
                   color="error"
@@ -216,4 +201,4 @@ const ViewVehicleInquiry = () => {
   );
 };
 
-export default ViewVehicleInquiry;
+export default ViewTestRun;
