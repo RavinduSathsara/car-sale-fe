@@ -298,7 +298,7 @@ const UpdateStaff = () => {
                     defaultValue={data?.shift}
                     onChange={(e) => setShift(e.target.value)}
                   >
-                    <MenuItem value={'DT'}>Day Time</MenuItem>
+                    <MenuItem value={'FT'}>Full Time</MenuItem>
                     <MenuItem value={'PT'}>Part Time</MenuItem>
                   </Select>
                 </FormControl>
