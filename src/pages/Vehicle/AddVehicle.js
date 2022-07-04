@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-// import { Grid, Button, Container, Typography } from '@mui/material';
+
 import {
   Link,
   Stack,
@@ -158,7 +158,6 @@ const AddVehicle = () => {
                 <TextField
                   fullWidth
                   required
-                  // autoComplete="username"
                   type="text"
                   label="Brand"
                   value={brand}
@@ -169,7 +168,6 @@ const AddVehicle = () => {
                 <TextField
                   fullWidth
                   required
-                  // autoComplete="username"
                   type="text"
                   label="Model"
                   value={model}
@@ -211,7 +209,8 @@ const AddVehicle = () => {
                   >
                     <MenuItem value={'First Owner'}>First Owner</MenuItem>
                     <MenuItem value={'Second Owner'}>Second Owner</MenuItem>
-                    <MenuItem value={'Third Owner'}>Third Owner</MenuItem>
+                    <MenuItem value={'Open Papers'}>Open Papers</MenuItem>
+                    <MenuItem value={'Other'}> Other</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -246,14 +245,11 @@ const AddVehicle = () => {
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
-                  // autoComplete="username"
                   type="number"
                   required
                   label="Chasis No"
                   value={chassisNo}
                   onChange={(e) => setChassisNo(e.target.value)}
-                  // error={Boolean(touched.email && errors.email)}
-                  // helperText={touched.email && errors.email}
                 />
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
@@ -277,21 +273,18 @@ const AddVehicle = () => {
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
-                  // autoComplete="username"
-                  type="number"
+                  inputProps={{ maxLength: 7 }}
+                  type="text"
                   required
                   label="Registration No"
                   value={regNo}
                   onChange={(e) => setRegNo(e.target.value)}
-                  // error={Boolean(touched.email && errors.email)}
-                  // helperText={touched.email && errors.email}
                 />
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
                   required
-                  // autoComplete="username"
                   type="number"
                   label="Mileage:"
                   value={mileAge}
@@ -303,7 +296,6 @@ const AddVehicle = () => {
                 <TextField
                   fullWidth
                   required
-                  // autoComplete="username"
                   type="number"
                   label="Cost"
                   value={cost}
@@ -314,7 +306,6 @@ const AddVehicle = () => {
                 <TextField
                   fullWidth
                   required
-                  // autoComplete="username"
                   type="number"
                   label="Unit Price"
                   value={unitPrice}
@@ -325,7 +316,6 @@ const AddVehicle = () => {
                 <TextField
                   fullWidth
                   required
-                  // autoComplete="username"
                   type="text"
                   label="Margin"
                   value={margin}
@@ -338,10 +328,9 @@ const AddVehicle = () => {
               <TextField
                 style={{ width: 800 }}
                 required
-                // autoComplete="username"
                 type="text"
                 label="Remarks"
-                placeholder="Add yor comment here"
+                placeholder="Add your comment here"
                 value={remarks}
                 onChange={(e) => setRemarks(e.target.value)}
               />
@@ -353,22 +342,10 @@ const AddVehicle = () => {
             </Grid>
 
             <Grid item xs={5} sx={{ m: 2 }}>
-              <LoadingButton
-                style={{ width: 150 }}
-                size="large"
-                type="submit"
-                variant="contained"
-                // loading={isSubmitting }
-              >
+              <LoadingButton style={{ width: 150 }} size="large" type="submit" variant="contained">
                 Submit
               </LoadingButton>
-              <LoadingButton
-                style={{ width: 150, marginLeft: 10 }}
-                size="large"
-                type="reset"
-                variant="outlined"
-                // loading={isSubmitting }
-              >
+              <LoadingButton style={{ width: 150, marginLeft: 10 }} size="large" type="reset" variant="outlined">
                 Reset
               </LoadingButton>
             </Grid>
