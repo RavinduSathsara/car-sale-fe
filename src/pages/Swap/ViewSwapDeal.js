@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link as RouterLink } from 'react-router-dom';
+import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import {
@@ -22,6 +23,8 @@ import LoadingLiner from '../../components/LoadingLiner';
 import useFetch from '../../hooks/useFetch';
 
 const ViewSwapDeal = () => {
+  const navigate = useNavigate();
+
   const { id } = useParams();
   const { data: swapData, isLoading } = useFetch(`http://127.0.0.1:8000/api/swapvehicle/${id}`);
 
@@ -79,13 +82,14 @@ const ViewSwapDeal = () => {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Yes, Decline',
     }).then((result) => {
       if (result.isConfirmed) {
         axios
           .delete(`http://127.0.0.1:8000/api/swapvehicle/${id}`)
-          .then(Swal.fire(`Swap deal  Deleted!  `, 'Your file has been deleted.', 'success'));
+          .then(Swal.fire(`Swap deal declined !  `, 'swap deal removed', 'success'));
       }
+      navigate('/dashboard/swap');
     });
   };
 
@@ -146,63 +150,7 @@ const ViewSwapDeal = () => {
       }
     });
   };
-  const swapReject = (id) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      // text: "You won't be able to revert this!",
-      icon: 'success',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Accepted it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .put(`http://127.0.0.1:8000/api/swapvehicle/${id}`, {
-            name: `${name}`,
-            contact: `0${contacts}`,
-            email: `${email}`,
-            profession: `${profession}`,
-            address: `${address}`,
-            cus_make: `${cusMake}`,
-            cus_brand: `${cusBrand}`,
-            cus_model: `${cusModel}`,
-            cus_year_manufacture: `${cusYearManufacture}`,
-            year_registration: `${yearRegistration}`,
-            cus_ownership: `${cusOwnership}`,
-            chassis_no: `${chassisNo}`,
-            cus_fuel_type: `${cusFuelType}`,
-            mileage: `${mileage}`,
-            remarks: `${remark}`,
-            brand: `${brand}`,
-            model: `${model}`,
-            make: `${make}`,
-            ownership: `${ownership}`,
-            year_manufacture: `${yearManufacture}`,
-            fuel_type: `${fuelType}`,
-            decision: 0,
-          })
-          .then((res) => {
-            Swal.fire({
-              title: 'Swap Deal Rejected !',
-              showClass: {
-                popup: 'animate__animated animate__fadeInDown',
-              },
-              hideClass: {
-                popup: 'animate__animated animate__fadeOutUp',
-              },
-            });
-          })
-          .catch((e) => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: e.response.data.message,
-            });
-          });
-      }
-    });
-  };
+
   return (
     <>
       <Page title=" View SwapDeal">
@@ -232,7 +180,7 @@ const ViewSwapDeal = () => {
                               Name :
                             </Typography>
                             <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.name}
+                              {swapData?.name}
                             </Typography>{' '}
                           </Stack>
                         </Grid>
@@ -242,7 +190,7 @@ const ViewSwapDeal = () => {
                               Contact:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.contact}
+                              {swapData?.contact}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -252,7 +200,7 @@ const ViewSwapDeal = () => {
                               Email:
                             </Typography>
                             <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.email}
+                              {swapData?.email}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -262,7 +210,7 @@ const ViewSwapDeal = () => {
                               Address:
                             </Typography>
                             <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.address}
+                              {swapData?.address}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -272,7 +220,7 @@ const ViewSwapDeal = () => {
                               Profession:
                             </Typography>
                             <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.profession}
+                              {swapData?.profession}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -282,7 +230,7 @@ const ViewSwapDeal = () => {
                               Customer Make :
                             </Typography>
                             <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.cus_make}
+                              {swapData?.cus_make}
                             </Typography>{' '}
                           </Stack>
                         </Grid>{' '}
@@ -292,7 +240,7 @@ const ViewSwapDeal = () => {
                               Customer Brand:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.cus_brand}
+                              {swapData?.cus_brand}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -302,7 +250,7 @@ const ViewSwapDeal = () => {
                               Customer Model:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.cus_model}
+                              {swapData?.cus_model}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -312,7 +260,7 @@ const ViewSwapDeal = () => {
                               Customer year Manufacture:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.cus_year_manufacture}
+                              {swapData?.cus_year_manufacture}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -322,7 +270,7 @@ const ViewSwapDeal = () => {
                               Year Registration:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.year_registration}
+                              {swapData?.year_registration}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -332,7 +280,7 @@ const ViewSwapDeal = () => {
                               Customer Ownership:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.cus_ownership}
+                              {swapData?.cus_ownership}
                             </Typography>
                           </Stack>
                         </Grid>{' '}
@@ -342,7 +290,7 @@ const ViewSwapDeal = () => {
                               Chassis No:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.chassis_no}
+                              {swapData?.chassis_no}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -352,7 +300,7 @@ const ViewSwapDeal = () => {
                               FuelType:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.cus_fuel_type}
+                              {swapData?.cus_fuel_type}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -362,7 +310,7 @@ const ViewSwapDeal = () => {
                               Mileage:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.mileage}
+                              {swapData?.mileage}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -372,7 +320,7 @@ const ViewSwapDeal = () => {
                               Remark:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.remarks}
+                              {swapData?.remarks}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -393,7 +341,7 @@ const ViewSwapDeal = () => {
                               Brand:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.brand}
+                              {swapData?.brand}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -403,7 +351,7 @@ const ViewSwapDeal = () => {
                               Model:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.model}
+                              {swapData?.model}
                             </Typography>
                           </Stack>
                         </Grid>{' '}
@@ -413,7 +361,7 @@ const ViewSwapDeal = () => {
                               Make:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.make}
+                              {swapData?.make}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -423,7 +371,7 @@ const ViewSwapDeal = () => {
                               Ownership:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.ownership}
+                              {swapData?.ownership}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -433,7 +381,7 @@ const ViewSwapDeal = () => {
                               Year Manufacture:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.year_manufacture}
+                              {swapData?.year_manufacture}
                             </Typography>
                           </Stack>
                         </Grid>{' '}
@@ -443,7 +391,7 @@ const ViewSwapDeal = () => {
                               FuelType:
                             </Typography>
                             <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                              {swapData.fuel_type}
+                              {swapData?.fuel_type}
                             </Typography>
                           </Stack>
                         </Grid>
@@ -480,23 +428,13 @@ const ViewSwapDeal = () => {
 
                   <Button
                     onClick={() => {
-                      swapReject(id);
-                    }}
-                    variant="outlined"
-                    color="error"
-                    sx={{ margin: '10px' }}
-                  >
-                    Decline
-                  </Button>
-                  <Button
-                    onClick={() => {
                       removeSwap(id);
                     }}
                     variant="outlined"
                     color="primary"
                     sx={{ margin: '10px' }}
                   >
-                    Delete
+                    Decline
                   </Button>
                 </Grid>
               </Grid>

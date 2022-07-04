@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import axios from 'axios';
 import { Grid, Container, Typography } from '@mui/material';
+import moment from 'moment';
 // components
 import Page from '../components/Page';
 import Iconify from '../components/Iconify';
@@ -25,6 +26,17 @@ export default function DashboardApp() {
   const { data: vehicleData, isLoading: vehicleLoding } = useFetch('http://127.0.0.1:8000/api/vehicles');
   const { data: staffData, isLoading: staffLoading } = useFetch('http://127.0.0.1:8000/api/staff');
   const { data: swapDealData, isLoading: swapLoading } = useFetch('http://127.0.0.1:8000/api/swapvehicle');
+  const { data: currntVist, isLoading: crrntVistLoading } = useFetch('http://127.0.0.1:8000/api/currentvisits');
+
+  const [j, setJ] = useState(0);
+
+  const july = currntVist?.currentvisits.filter((jul) => {
+    return jul.month === 7;
+  });
+
+  const august = currntVist?.currentvisits.filter((aug) => {
+    return aug.month === 8;
+  });
 
   const cars = vehicleData?.Vehicle.filter((car) => {
     return car.make === 'Car';
@@ -39,6 +51,12 @@ export default function DashboardApp() {
   });
 
   const theme = useTheme();
+
+  const percentage = ((july?.length - 8) * 100) / 8;
+
+  useEffect(() => {
+    setJ(july?.length);
+  }, [july]);
 
   return (
     <Page title="Dashboard">
@@ -80,39 +98,40 @@ export default function DashboardApp() {
 
           <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
-              title="Website Visits"
-              subheader="(+43%) than last year"
+              title="Performance"
+              subheader={`Site visits (${Math.round(percentage)}%) than last month`}
               chartLabels={[
-                '01/01/2003',
-                '02/01/2003',
-                '03/01/2003',
-                '04/01/2003',
-                '05/01/2003',
-                '06/01/2003',
-                '07/01/2003',
-                '08/01/2003',
-                '09/01/2003',
-                '10/01/2003',
-                '11/01/2003',
+                '01/02/2022',
+                '02/02/2022',
+                '03/02/2022',
+                '04/02/2022',
+                '05/02/2022',
+                '06/02/2022',
+                '07/02/2022',
+                '08/02/2022',
+                '09/02/2022',
+                '10/02/2022',
+                '11/02/2022',
+                '12/02/2022',
               ]}
               chartData={[
                 {
-                  name: 'Team A',
+                  name: 'Sales',
                   type: 'column',
                   fill: 'solid',
-                  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
+                  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 30],
                 },
                 {
-                  name: 'Team B',
+                  name: 'Site Visits',
                   type: 'area',
                   fill: 'gradient',
-                  data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
+                  data: [4, 5, 1, 7, 2, 8, july?.length, august?.length, 0, 0, 0, 0],
                 },
                 {
-                  name: 'Team C',
+                  name: 'Swap Deals',
                   type: 'line',
                   fill: 'solid',
-                  data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
+                  data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 15],
                 },
               ]}
             />
@@ -124,7 +143,7 @@ export default function DashboardApp() {
               chartData={[
                 { label: 'Cars', value: 0 + cars?.length },
                 { label: 'Vans', value: 0 + vans?.length },
-                { label: 'Jeep', value: 0 + jeeps?.length },
+                { label: 'Jeeps', value: 0 + jeeps?.length },
               ]}
               chartColors={[theme.palette.primary.main, theme.palette.chart.violet[0], theme.palette.chart.yellow[0]]}
             />
