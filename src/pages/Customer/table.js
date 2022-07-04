@@ -40,7 +40,7 @@ const BasicTable = () => {
         <TableHead>
           <TableRow style={{ background: ' #ffebee' }}>
             <TableCell>Full Name</TableCell>
-            <TableCell align="left">contact</TableCell>
+            <TableCell align="left">Contact</TableCell>
             <TableCell align="left">Email</TableCell>
             <TableCell align="left">Address</TableCell>
           </TableRow>
