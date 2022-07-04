@@ -431,7 +431,7 @@ const ViewSwapDeal = () => {
                       removeSwap(id);
                     }}
                     variant="outlined"
-                    color="primary"
+                    color="error"
                     sx={{ margin: '10px' }}
                   >
                     Decline

@@ -1,5 +1,6 @@
 import React from 'react';
-import { useParams, Link as RouterLink } from 'react-router-dom';
+import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import {
   Card,
   Stack,
@@ -14,19 +15,41 @@ import {
   CardContent,
   Skeleton,
 } from '@mui/material';
+import axios from 'axios';
+import ClearIcon from '@mui/icons-material/Clear';
 import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
 import useFetch from '../../hooks/useFetch';
 
 const ViewTestRun = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { data: testData, isLoading } = useFetch(`http://127.0.0.1:8000/api/testdrive/${id}`);
+
+  const removeTestRun = (id, name) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://127.0.0.1:8000/api/testdrive/${id}`)
+          .then(Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success'));
+      }
+      navigate('/dashboard/test-run');
+    });
+  };
 
   if (isLoading) {
     return (
       <>
         <Stack spacing={1} sx={{ marginTop: '130px', marginLeft: '230px' }}>
-          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={600} height={610} />
+          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={600} height={650} />
         </Stack>
       </>
     );
@@ -44,7 +67,7 @@ const ViewTestRun = () => {
               <Icon icon="ant-design:rollback-outlined" />
             </IconButton>
           </Stack>
-          <Card sx={{ display: 'flex', height: '610px', maxWidth: '600px', marginLeft: '190px', marginTop: '80px' }}>
+          <Card sx={{ display: 'flex', height: '650px', maxWidth: '600px', marginLeft: '190px', marginTop: '80px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <CardContent sx={{ flex: '1 0 auto', margin: '30px' }}>
                 <Grid container>
@@ -54,7 +77,7 @@ const ViewTestRun = () => {
                         Name :
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData.name}
+                        {testData?.name}
                       </Typography>{' '}
                     </Stack>
                   </Grid>
@@ -64,7 +87,7 @@ const ViewTestRun = () => {
                         contact:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData.contact}
+                        {testData?.contact}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -74,7 +97,7 @@ const ViewTestRun = () => {
                         Email:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData.email}
+                        {testData?.email}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -84,7 +107,7 @@ const ViewTestRun = () => {
                         Profession:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData.profession}
+                        {testData?.profession}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -94,7 +117,7 @@ const ViewTestRun = () => {
                         Address:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData.address}
+                        {testData?.address}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -104,7 +127,7 @@ const ViewTestRun = () => {
                         Make:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData.make}
+                        {testData?.make}
                       </Typography>
                     </Stack>
                   </Grid>{' '}
@@ -114,7 +137,7 @@ const ViewTestRun = () => {
                         Brand:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData.brand}
+                        {testData?.brand}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -124,7 +147,7 @@ const ViewTestRun = () => {
                         Model:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData.model}
+                        {testData?.model}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -134,7 +157,7 @@ const ViewTestRun = () => {
                         Ownership:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData.ownership}
+                        {testData?.ownership}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -144,7 +167,7 @@ const ViewTestRun = () => {
                         Customer Request :
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData.cus_req}
+                        {testData?.cus_req}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -154,11 +177,21 @@ const ViewTestRun = () => {
                         Year Manufacture :
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData.year_manufacture}
+                        {testData?.year_manufacture}
                       </Typography>
                     </Stack>
                   </Grid>
-                </Grid>
+                </Grid>{' '}
+                <Button
+                  onClick={() => {
+                    removeTestRun(id, testData?.name);
+                  }}
+                  variant="outlined"
+                  color="error"
+                  sx={{ margin: '20px' }}
+                >
+                  Delete
+                </Button>
               </CardContent>
             </Box>
           </Card>
