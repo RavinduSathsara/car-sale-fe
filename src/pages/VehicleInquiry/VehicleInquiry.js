@@ -18,6 +18,7 @@ import {
   styled,
   Paper,
   TableHead,
+  Tooltip,
 } from '@mui/material';
 
 import PreviewIcon from '@mui/icons-material/Preview';
@@ -87,7 +88,9 @@ export default function VehicleInquiry() {
                   <StyledTableCell>Contact</StyledTableCell>
                   <StyledTableCell>Brand</StyledTableCell>
                   <StyledTableCell>Model</StyledTableCell>
-                  <StyledTableCell>Custom Request</StyledTableCell>
+                  <Tooltip title="Custom Request">
+                    <StyledTableCell>Cus.Req</StyledTableCell>
+                  </Tooltip>
                   <StyledTableCell>Actions</StyledTableCell>
                 </TableRow>
               </TableHead>
