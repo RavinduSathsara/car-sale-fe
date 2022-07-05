@@ -1,4 +1,3 @@
-import { useState } from 'react';
 // material
 import { Container, Stack, Typography, Button, Grid } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
@@ -10,13 +9,12 @@ import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
 import { VehicleList } from '../../sections/@dashboard/vehicles';
 // mock
-import PRODUCTS from '../../_mock/products';
+
 import useFetch from '../../hooks/useFetch';
 
 // ----------------------------------------------------------------------
 
 export default function Vehicle() {
-  const [openFilter, setOpenFilter] = useState(false);
   const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/vehicles');
 
   const deleteVehicle = (id, brand) => {
@@ -35,14 +33,6 @@ export default function Vehicle() {
           .then(Swal.fire(`${brand}  Deleted!  `, 'Your file has been deleted.', 'success'));
       }
     });
-  };
-
-  const handleOpenFilter = () => {
-    setOpenFilter(true);
-  };
-
-  const handleCloseFilter = () => {
-    setOpenFilter(false);
   };
 
   return (

@@ -1,8 +1,6 @@
-import * as Yup from 'yup';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { useFormik, Form, FormikProvider } from 'formik';
 import axios from 'axios';
 // material
 import { Link, Stack, Checkbox, TextField, IconButton, InputAdornment, FormControlLabel } from '@mui/material';
@@ -14,7 +12,6 @@ import Iconify from '../../../components/Iconify';
 
 export default function LoginForm() {
   const navigate = useNavigate();
-
   const [showPassword, setShowPassword] = useState(false);
   const [userName, setUserName] = useState('');
   const [passWord, setPassword] = useState('');
@@ -23,20 +20,21 @@ export default function LoginForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    localStorage.setItem('name', userName);
+
     axios
       .post('http://127.0.0.1:8000/api/login', {
         user_name: `${userName}`,
         password: `${passWord}`,
       })
+
       .then((res) => {
-        console.log('login', res?.data.success);
         if (res?.data.success) {
+          localStorage.setItem('name', `${res.data.data.first_name}  ${res.data.data.last_name}`);
+          localStorage.setItem('email', res.data.data.email);
           navigate('dashboard/app', { replace: true });
         }
       })
-      .catch((err) => {
-        console.log('err', err);
+      .catch(() => {
         Swal.fire({
           title: 'Username or password incorrect',
           showClass: {
