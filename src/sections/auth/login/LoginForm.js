@@ -55,7 +55,13 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit}>
       <Stack spacing={3}>
-        <TextField fullWidth type="text" label="Email" value={userName} onChange={(e) => setUserName(e.target.value)} />
+        <TextField
+          fullWidth
+          type="text"
+          label="User Name"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
 
         <TextField
           fullWidth
