@@ -23,6 +23,7 @@ export default function LoginForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    localStorage.setItem('name', userName);
     axios
       .post('http://127.0.0.1:8000/api/login', {
         user_name: `${userName}`,
