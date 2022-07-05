@@ -23,6 +23,7 @@ export default function LoginForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    localStorage.setItem('name', userName);
     axios
       .post('http://127.0.0.1:8000/api/login', {
         user_name: `${userName}`,
@@ -55,7 +56,13 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit}>
       <Stack spacing={3}>
-        <TextField fullWidth type="text" label="Email" value={userName} onChange={(e) => setUserName(e.target.value)} />
+        <TextField
+          fullWidth
+          type="text"
+          label="User Name"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
 
         <TextField
           fullWidth

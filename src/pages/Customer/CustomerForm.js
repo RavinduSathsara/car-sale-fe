@@ -39,28 +39,37 @@ const CustomerForm = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://127.0.0.1:8000/api/customers', {
-      name: `${firstName} ${lastName}`,
-      contact: `${contact}`,
-      address: `${address}`,
-      email: `${email}`,
-    });
+    axios
+      .post('http://127.0.0.1:8000/api/customers', {
+        name: `${firstName} ${lastName}`,
+        contact: `${contact}`,
+        address: `${address}`,
+        email: `${email}`,
+      })
+      .then((res) => {
+        Swal.fire({
+          title: 'New customer added sucessfully !',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
 
-    Swal.fire({
-      title: 'New customer added sucessfully !',
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown',
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp',
-      },
-    });
-
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setContact('');
-    setAddress('');
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setContact('');
+        setAddress('');
+      })
+      .catch((e) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: e.response.data.message,
+        });
+      });
   };
 
   return (
@@ -81,7 +90,6 @@ const CustomerForm = () => {
                 <TextField
                   fullWidth
                   required
-                  // autoComplete="username"
                   type="text"
                   label="First Name"
                   value={firstName}
@@ -92,7 +100,6 @@ const CustomerForm = () => {
                 <TextField
                   fullWidth
                   required
-                  // autoComplete="username"
                   type="text"
                   label="Last Name"
                   value={lastName}
@@ -103,9 +110,13 @@ const CustomerForm = () => {
                 <TextField
                   fullWidth
                   required
-                  autoComplete="username"
-                  type="number"
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                  }}
                   label="Contact No."
+                  inputProps={{
+                    maxLength: 10,
+                  }}
                   value={contact}
                   onChange={(e) => setContact(e.target.value)}
                 />
@@ -114,7 +125,6 @@ const CustomerForm = () => {
                 <TextField
                   fullWidth
                   required
-                  // autoComplete="username"
                   type="email"
                   label="Email"
                   value={email}
@@ -124,7 +134,6 @@ const CustomerForm = () => {
               <Grid item xs={8.35} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
-                  // autoComplete="username"
                   type="text"
                   required
                   label="Address"

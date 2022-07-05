@@ -227,6 +227,7 @@ const UpdateStaff = () => {
                   autoComplete="nic"
                   type="text"
                   label="NIC"
+                  inputProps={{ maxLength: 12 }}
                   onChange={(e) => setNic(e.target.value)}
                 />
               </Grid>
@@ -236,10 +237,10 @@ const UpdateStaff = () => {
                   fullWidth
                   required
                   autoComplete=""
-                  type="number"
                   defaultValue={data?.ph_no}
                   label="Contact No."
                   value={contact}
+                  inputProps={{ maxLength: 10 }}
                   onChange={(e) => setContact(e.target.value)}
                 />
               </Grid>

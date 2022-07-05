@@ -198,6 +198,7 @@ const AddStaff = () => {
                   required
                   value={nic}
                   autoComplete="nic"
+                  inputProps={{ maxLength: 12 }}
                   type="text"
                   label="NIC"
                   onChange={(e) => setNic(e.target.value)}
@@ -209,8 +210,15 @@ const AddStaff = () => {
                   fullWidth
                   required
                   autoComplete=""
-                  type="number"
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                  }}
+                  // type="number"
+                  maxLength={4}
                   label="Contact No."
+                  inputProps={{
+                    maxLength: 10,
+                  }}
                   value={contact}
                   onChange={(e) => setContact(e.target.value)}
                 />
@@ -232,8 +240,13 @@ const AddStaff = () => {
                   fullWidth
                   required
                   autoComplete=""
-                  type="number"
                   label="Salary"
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                  }}
+                  inputProps={{
+                    maxLength: 7,
+                  }}
                   placeholder="lkr"
                   value={salary}
                   onChange={(e) => setSalary(e.target.value)}
