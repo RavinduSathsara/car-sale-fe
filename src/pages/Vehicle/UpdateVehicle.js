@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link as RouterLink } from 'react-router-dom';
+import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import {
   Link,
@@ -41,6 +41,7 @@ import useFetch from '../../hooks/useFetch';
 const UpdateVehicle = () => {
   const { id } = useParams();
   const { data, isLoading } = useFetch(`http://127.0.0.1:8000/api/vehicles/${id}`);
+  const navigate = useNavigate();
   console.log(data);
 
   useEffect(() => {
@@ -80,6 +81,22 @@ const UpdateVehicle = () => {
   // load initial values
 
   console.log(isSold);
+  const handleCancel = (event) => {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to cancel',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate('/dashboard/vehicle');
+      }
+    });
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const config = {
@@ -412,10 +429,16 @@ const UpdateVehicle = () => {
 
             <Grid item xs={5} sx={{ m: 2 }}>
               <LoadingButton style={{ width: 150 }} size="large" type="submit" variant="contained">
-                Submit
+                Save
               </LoadingButton>
-              <LoadingButton style={{ width: 150, marginLeft: 10 }} size="large" type="reset" variant="outlined">
-                Reset
+              <LoadingButton
+                style={{ width: 150, marginLeft: 10 }}
+                size="large"
+                onClick={handleCancel}
+                type="reset"
+                variant="outlined"
+              >
+                Cancel
               </LoadingButton>
             </Grid>
           </form>
