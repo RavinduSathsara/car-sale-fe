@@ -19,6 +19,7 @@ import {
   styled,
   Paper,
   TableHead,
+  Tooltip,
 } from '@mui/material';
 
 import PreviewIcon from '@mui/icons-material/Preview';
@@ -93,8 +94,13 @@ export default function TestRun() {
                   <StyledTableCell> Name</StyledTableCell>
                   <StyledTableCell>Brand</StyledTableCell>
                   <StyledTableCell>Model</StyledTableCell>
-                  <StyledTableCell>Year of Manufacture</StyledTableCell>
-                  <StyledTableCell>Customer Request Date and Time</StyledTableCell>
+                  <Tooltip title="Year Of Manufacture">
+                    <StyledTableCell>YOM</StyledTableCell>
+                  </Tooltip>
+                  <Tooltip title="Customer Request Date and Time">
+                    <StyledTableCell>Cus.Req DT</StyledTableCell>
+                  </Tooltip>
+
                   <StyledTableCell>Actions</StyledTableCell>
                 </TableRow>
               </TableHead>
