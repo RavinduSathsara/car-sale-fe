@@ -20,6 +20,7 @@ import {
   styled,
   Paper,
   TableHead,
+  Tooltip,
 } from '@mui/material';
 
 import CheckIcon from '@mui/icons-material/Check';
@@ -102,10 +103,18 @@ export default function SwapDeal() {
               <TableHead>
                 <TableRow>
                   <StyledTableCell>Full Name</StyledTableCell>
-                  <StyledTableCell>Cus. Model</StyledTableCell>
-                  <StyledTableCell>Req. Model</StyledTableCell>
-                  <StyledTableCell>Cus. YOM</StyledTableCell>
-                  <StyledTableCell>Req. YOM</StyledTableCell>
+                  <Tooltip title="Custom Model">
+                    <StyledTableCell>Cus. Model</StyledTableCell>
+                  </Tooltip>
+                  <Tooltip title="Request Model">
+                    <StyledTableCell>Req. Model</StyledTableCell>
+                  </Tooltip>
+                  <Tooltip title="Custom Year Of Manufacture">
+                    <StyledTableCell>Cus. YOM</StyledTableCell>
+                  </Tooltip>
+                  <Tooltip title="Request Year Of Month">
+                    <StyledTableCell>Req. YOM</StyledTableCell>
+                  </Tooltip>
                   <StyledTableCell>Contact</StyledTableCell>
                   <StyledTableCell>Status</StyledTableCell>
                   <StyledTableCell>Actions</StyledTableCell>
