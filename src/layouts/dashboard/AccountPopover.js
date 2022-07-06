@@ -100,7 +100,7 @@ export default function AccountPopover() {
         }}
       >
         <Avatar sx={{ bgcolor: theme.palette.primary.main }} alt="Remy Sharp" src="/broken-image.jpg">
-          {localStorage.getItem('name').charAt(0)}
+          {localStorage.getItem('name') ? localStorage.getItem('name').charAt(0) : navigate('/')}
         </Avatar>
         {/* <Avatar src={account.photoURL} alt="photoURL" /> */}
       </IconButton>

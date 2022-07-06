@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 // material
 import { styled, useTheme } from '@mui/material/styles';
 
@@ -43,6 +43,7 @@ DashboardSidebar.propTypes = {
 };
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const theme = useTheme();
   const isDesktop = useResponsive('up', 'lg');
@@ -69,7 +70,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         <Link underline="none" component={RouterLink} to="#">
           <AccountStyle>
             <Avatar sx={{ bgcolor: theme.palette.primary.main }} alt="Remy Sharp" src="/broken-image.jpg">
-              {localStorage.getItem('name').charAt(0)}
+              {localStorage.getItem('name') ? localStorage.getItem('name').charAt(0) : navigate('/')}
             </Avatar>
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
