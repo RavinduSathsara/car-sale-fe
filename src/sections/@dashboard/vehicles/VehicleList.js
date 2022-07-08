@@ -62,6 +62,9 @@ const VehicleList = ({
             >
               Remove
             </Button>
+            <Button size="small" component={RouterLink} to={`/dashboard/view-vehicle/${id}`}>
+              View
+            </Button>
           </CardActions>
         </Card>
       </Grid>

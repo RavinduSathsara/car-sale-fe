@@ -33,7 +33,6 @@ const ViewStaff = () => {
 
   const { data: staffData, isLoading } = useFetch(`http://127.0.0.1:8000/api/staff/${id}`);
 
-  console.log(staffData);
   if (isLoading) {
     return (
       <>
@@ -68,7 +67,7 @@ const ViewStaff = () => {
                         Name :
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {staffData.first_name} {staffData.last_name}
+                        {staffData?.first_name} {staffData.last_name}
                       </Typography>{' '}
                     </Stack>
                   </Grid>
@@ -78,7 +77,7 @@ const ViewStaff = () => {
                         NIC:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {staffData.nic}
+                        {staffData?.nic}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -88,7 +87,7 @@ const ViewStaff = () => {
                         Email:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {staffData.email}
+                        {staffData?.email}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -98,7 +97,7 @@ const ViewStaff = () => {
                         DOB :
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {staffData.d_o_b}
+                        {staffData?.d_o_b}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -108,7 +107,7 @@ const ViewStaff = () => {
                         Gender:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {staffData.gender}
+                        {staffData?.gender}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -118,7 +117,7 @@ const ViewStaff = () => {
                         Address:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {staffData.address}
+                        {staffData?.address}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -128,7 +127,7 @@ const ViewStaff = () => {
                         Phone no:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {staffData.ph_no}
+                        {staffData?.ph_no}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -138,7 +137,7 @@ const ViewStaff = () => {
                         Position:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {staffData.position}
+                        {staffData?.position}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -148,7 +147,7 @@ const ViewStaff = () => {
                         Shift:
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {staffData.shift}
+                        {staffData?.shift}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -158,7 +157,7 @@ const ViewStaff = () => {
                         Salary: Rs
                       </Typography>
                       <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {staffData.salary}
+                        {staffData?.salary}
                       </Typography>
                     </Stack>
                   </Grid>
