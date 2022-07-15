@@ -22,6 +22,19 @@ import useFetch from '../../hooks/useFetch';
 const ViewVehicle = () => {
   const { id } = useParams();
   const { data: viewData, isLoading } = useFetch(`http://127.0.0.1:8000/api/vehicles/${id}`);
+  const { data: maintenancesData, isLoading: maintenceLoading } = useFetch(`http://127.0.0.1:8000/api/maintenances`);
+
+  const vehicleMaintenceCost = maintenancesData?.posts.filter((vehicle) => {
+    return +vehicle.vehicleid === parseInt(id, 10);
+  });
+
+  const arr = [];
+
+  for (let index = 0; index < vehicleMaintenceCost?.length; index += 1) {
+    arr.push(parseInt(vehicleMaintenceCost[index]?.cost, 10));
+  }
+
+  const sum = arr.reduce((partialSum, a) => partialSum + a, 0);
 
   if (isLoading) {
     return (
@@ -45,11 +58,11 @@ const ViewVehicle = () => {
               <Icon icon="ant-design:rollback-outlined" />
             </IconButton>
           </Stack>
-          <Card sx={{ display: 'flex', height: '700px', maxWidth: '900px', marginLeft: '90px', marginTop: '80px' }}>
+          <Card sx={{ display: 'flex', height: '700px', maxWidth: '1000px', marginLeft: '90px', marginTop: '80px' }}>
             <CardMedia
               component="img"
               sx={{ width: 300 }}
-              image={`http://127.0.0.1:8000/storage/${viewData.v_image}`}
+              image={`http://127.0.0.1:8000/storage/${viewData?.v_image}`}
             />{' '}
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <CardContent sx={{ flex: '1 0 auto', margin: '40px' }}>
@@ -202,6 +215,16 @@ const ViewVehicle = () => {
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
                         {viewData?.availability}
+                      </Typography>
+                    </Stack>
+                  </Grid>
+                  <Grid item sx={{ m: 2 }}>
+                    <Stack direction="row">
+                      <Typography component="div" variant="h6">
+                        Maintence Cost:
+                      </Typography>
+                      <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                        {sum.toFixed(2)}
                       </Typography>
                     </Stack>
                   </Grid>
