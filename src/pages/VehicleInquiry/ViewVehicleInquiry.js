@@ -3,12 +3,10 @@ import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
   Card,
   Stack,
-  Avatar,
   Button,
   Container,
   Typography,
   IconButton,
-  CardMedia,
   Box,
   Grid,
   CardContent,
@@ -16,7 +14,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import ClearIcon from '@mui/icons-material/Clear';
+
 import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
 
@@ -26,7 +24,6 @@ const ViewVehicleInquiry = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: inquiryData, isLoading } = useFetch(`http://127.0.0.1:8000/api/vehicle_inquiry/${id}`);
-  console.log(inquiryData);
 
   const removeInquiry = (id, name) => {
     Swal.fire({

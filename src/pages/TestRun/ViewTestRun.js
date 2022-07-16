@@ -9,14 +9,13 @@ import {
   Container,
   Typography,
   IconButton,
-  CardMedia,
   Box,
   Grid,
   CardContent,
   Skeleton,
 } from '@mui/material';
 import axios from 'axios';
-import ClearIcon from '@mui/icons-material/Clear';
+
 import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
 import useFetch from '../../hooks/useFetch';

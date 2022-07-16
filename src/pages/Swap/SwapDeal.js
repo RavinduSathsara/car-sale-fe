@@ -1,10 +1,5 @@
-import { sentenceCase } from 'change-case';
-import { useState } from 'react';
-import { sample, filter } from 'lodash';
-import { faker } from '@faker-js/faker';
 import { Link as RouterLink } from 'react-router-dom';
 
-import Swal from 'sweetalert2';
 // material
 import {
   Table,
@@ -23,10 +18,8 @@ import {
   Tooltip,
 } from '@mui/material';
 
-import CheckIcon from '@mui/icons-material/Check';
-import ClearIcon from '@mui/icons-material/Clear';
 import PreviewIcon from '@mui/icons-material/Preview';
-import axios from 'axios';
+
 import Label from '../../components/Label';
 // components
 import Page from '../../components/Page';
@@ -57,10 +50,6 @@ export default function SwapDeal() {
           year: item?.year_manufacture,
           contact: item?.contact,
           decision: item?.decision,
-          // moblieNum: item?.ph_no,
-          // salary: item?.salary,
-          // shift: item?.shift,
-          // role: item?.position,
         });
       });
   }

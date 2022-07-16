@@ -25,6 +25,8 @@ import ViewVehicleInquiry from './pages/VehicleInquiry/ViewVehicleInquiry';
 import ViewSwapDeal from './pages/Swap/ViewSwapDeal';
 import ViewTestRun from './pages/TestRun/ViewTestRun';
 import ViewVehicle from './pages/Vehicle/ViewVehicle';
+import Transaction from './pages/Transactions/Transaction';
+import AddTransaction from './pages/Transactions/AddTransaction';
 
 // ----------------------------------------------------------------------
 
@@ -45,13 +47,15 @@ export default function Router() {
         { path: 'view-staff/:id', element: <ViewStaff /> },
         { path: 'update-staff/:id', element: <UpdateStaff /> },
         { path: 'add-customer', element: <AddCustomer /> },
-        { path: 'add-customer-form', element: <CustomerForm /> },
+        { path: 'add-customer-form/:id', element: <CustomerForm /> },
         { path: 'swap', element: <SwapDeal /> },
         { path: 'view-swap-deal/:id', element: <ViewSwapDeal /> },
         { path: 'inquiry', element: <VehicleInquiry /> },
         { path: 'view-vehicle-inquiry/:id', element: <ViewVehicleInquiry /> },
         { path: 'test-run', element: <TestRun /> },
         { path: 'view-test-run/:id', element: <ViewTestRun /> },
+        { path: 'transaction', element: <Transaction /> },
+        { path: 'add-transaction', element: <AddTransaction /> },
       ],
     },
     {

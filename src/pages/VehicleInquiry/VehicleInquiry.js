@@ -1,7 +1,3 @@
-import { sentenceCase } from 'change-case';
-import { useState } from 'react';
-import { sample, filter } from 'lodash';
-import { faker } from '@faker-js/faker';
 import { Link as RouterLink } from 'react-router-dom';
 
 import {

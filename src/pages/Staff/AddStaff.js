@@ -3,15 +3,12 @@ import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import moment from 'moment';
 import {
-  Link,
   Stack,
   Grid,
-  Checkbox,
   Container,
   TextField,
   Typography,
   IconButton,
-  InputAdornment,
   FormControlLabel,
   FormControl,
   FormLabel,
@@ -19,22 +16,15 @@ import {
   Radio,
   InputLabel,
   Select,
-  Menu,
   MenuItem,
-  handleChange,
-  Input,
-  Button,
-  label,
 
   // LocalizationProvider,
 } from '@mui/material';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 import { Icon } from '@iconify/react';
 
-import * as Yup from 'yup';
 import Swal from 'sweetalert2';
-import { useFormik, Form, FormikProvider } from 'formik';
+
 import axios from 'axios';
 // material
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -306,13 +296,7 @@ const AddStaff = () => {
                 <LoadingButton style={{ width: 150 }} id="sub" size="large" type="submit" variant="contained">
                   Submit
                 </LoadingButton>
-                <LoadingButton
-                  style={{ width: 150, marginLeft: 10 }}
-                  size="large"
-                  type="reset"
-                  variant="outlined"
-                  // loading={isSubmitting }
-                >
+                <LoadingButton style={{ width: 150, marginLeft: 10 }} size="large" type="reset" variant="outlined">
                   Reset
                 </LoadingButton>
               </Grid>

@@ -3,8 +3,6 @@ import { useParams, Link as RouterLink } from 'react-router-dom';
 import {
   Card,
   Stack,
-  Avatar,
-  Button,
   Container,
   Typography,
   IconButton,

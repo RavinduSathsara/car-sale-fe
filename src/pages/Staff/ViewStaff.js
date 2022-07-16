@@ -5,8 +5,6 @@ import { useParams, Link as RouterLink } from 'react-router-dom';
 import {
   Card,
   Stack,
-  Avatar,
-  Button,
   Container,
   Typography,
   IconButton,
@@ -20,11 +18,7 @@ import {
 // ----------------------------------------------------------------------
 import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
-import Label from '../../components/Label';
-import Scrollbar from '../../components/Scrollbar';
-import Iconify from '../../components/Iconify';
-import SearchNotFound from '../../components/SearchNotFound';
-import { UserListHead, UserListToolbar, UserMoreMenu } from '../../sections/@dashboard/user';
+
 import LoadingLiner from '../../components/LoadingLiner';
 import useFetch from '../../hooks/useFetch';
 
