@@ -1,7 +1,3 @@
-import { sentenceCase } from 'change-case';
-import { useState } from 'react';
-import { sample, filter } from 'lodash';
-import { faker } from '@faker-js/faker';
 import { Link as RouterLink } from 'react-router-dom';
 
 // material
@@ -36,7 +32,7 @@ import LoadingLiner from '../../components/LoadingLiner';
 
 export default function TestRun() {
   const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/testdrive');
-  // console.log(data);
+
   const rows = [];
   if (data) {
     data?.posts

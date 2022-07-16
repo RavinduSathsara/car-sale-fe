@@ -10,32 +10,24 @@ import {
   TextField,
   Typography,
   IconButton,
-  InputAdornment,
-  FormControlLabel,
   FormControl,
   FormLabel,
-  Input,
   InputLabel,
   MenuItem,
   Select,
 } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
-import * as Yup from 'yup';
 import Swal from 'sweetalert2';
-import { useFormik, Form, FormikProvider } from 'formik';
+
 import axios from 'axios';
 import { Icon } from '@iconify/react';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+
 // material
-import TextareaAutosize from '@mui/base/TextareaAutosize';
+
 import { LoadingButton, DatePicker } from '@mui/lab';
 import Page from '../../components/Page';
-import Iconify from '../../components/Iconify';
 
 const AddVehicle = () => {
   const [brand, setBrand] = useState('');

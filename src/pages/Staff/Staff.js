@@ -1,7 +1,7 @@
 import { sentenceCase } from 'change-case';
 import { useState } from 'react';
-import { sample, filter } from 'lodash';
-import { faker } from '@faker-js/faker';
+import { filter } from 'lodash';
+
 import { Link as RouterLink } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -20,7 +20,6 @@ import {
   Typography,
   TableContainer,
   TablePagination,
-  IconButton,
 } from '@mui/material';
 
 // components
