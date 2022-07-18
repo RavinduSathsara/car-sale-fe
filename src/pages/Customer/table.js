@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import moment from 'moment';
-import Swal from 'sweetalert2';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 import useFetch from '../../hooks/useFetch';

@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
-// import { Grid, Button, Container, Typography } from '@mui/material';
+
 import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import {
   Link,
   Stack,
   Grid,
-  Checkbox,
   Container,
   TextField,
   Typography,
   IconButton,
-  InputAdornment,
   FormControlLabel,
   FormControl,
   FormLabel,
@@ -19,22 +17,15 @@ import {
   Radio,
   InputLabel,
   Select,
-  Menu,
   MenuItem,
-  handleChange,
-  Input,
-  Button,
-  label,
 
   // LocalizationProvider,
 } from '@mui/material';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 import { Icon } from '@iconify/react';
 
-import * as Yup from 'yup';
 import Swal from 'sweetalert2';
-import { useFormik, Form, FormikProvider } from 'formik';
+
 import axios from 'axios';
 
 // material
@@ -42,7 +33,6 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LoadingButton, LocalizationProvider, DatePicker } from '@mui/lab';
 import Page from '../../components/Page';
 import useFetch from '../../hooks/useFetch';
-import AlertDialog from '../../components/AlertDialog';
 
 const UpdateStaff = () => {
   const { id } = useParams();

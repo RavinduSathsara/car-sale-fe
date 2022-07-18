@@ -3,20 +3,7 @@ import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import {
-  Card,
-  Stack,
-  Avatar,
-  Button,
-  Container,
-  Typography,
-  IconButton,
-  CardMedia,
-  Box,
-  Grid,
-  CardContent,
-  Skeleton,
-} from '@mui/material';
+import { Card, Stack, Button, Container, Typography, IconButton, Box, Grid, CardContent } from '@mui/material';
 import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
 import LoadingLiner from '../../components/LoadingLiner';

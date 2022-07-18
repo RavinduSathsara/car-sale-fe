@@ -1,28 +1,17 @@
 import React, { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import {
-  Link,
-  Stack,
-  Grid,
-  Checkbox,
-  Container,
-  TextField,
-  Typography,
-  IconButton,
-  InputAdornment,
-  FormControlLabel,
-} from '@mui/material';
+import { useParams, Link as RouterLink } from 'react-router-dom';
+import { Link, Stack, Grid, Checkbox, Container, TextField, Typography, IconButton } from '@mui/material';
 import Swal from 'sweetalert2';
-import { useFormik, Form, FormikProvider } from 'formik';
+
 import axios from 'axios';
 import { Icon } from '@iconify/react';
 // material
 import { LoadingButton } from '@mui/lab';
 import Page from '../../components/Page';
-import Iconify from '../../components/Iconify';
-import BasicTable from './table';
 
 const CustomerForm = () => {
+  const { id } = useParams();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -45,6 +34,7 @@ const CustomerForm = () => {
         contact: `${contact}`,
         address: `${address}`,
         email: `${email}`,
+        transid: `${id}`,
       })
       .then((res) => {
         Swal.fire({
@@ -139,28 +129,14 @@ const CustomerForm = () => {
                   label="Address"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  // error={Boolean(touched.email && errors.email)}
-                  // helperText={touched.email && errors.email}
                 />
               </Grid>
             </Grid>
             <Grid item xs={5} sx={{ m: 2 }}>
-              <LoadingButton
-                style={{ width: 150 }}
-                size="large"
-                type="submit"
-                variant="contained"
-                // loading={isSubmitting }
-              >
+              <LoadingButton style={{ width: 150 }} size="large" type="submit" variant="contained">
                 Create
               </LoadingButton>
-              <LoadingButton
-                style={{ width: 150, marginLeft: 10 }}
-                size="large"
-                type="reset"
-                variant="outlined"
-                // loading={isSubmitting }
-              >
+              <LoadingButton style={{ width: 150, marginLeft: 10 }} size="large" type="reset" variant="outlined">
                 Reset
               </LoadingButton>
             </Grid>
