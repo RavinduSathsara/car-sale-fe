@@ -41,6 +41,11 @@ const navConfig = [
     path: '/dashboard/test-run',
     icon: getIcon('ic:baseline-run-circle'),
   },
+  {
+    title: 'Maintenances',
+    path: '/dashboard/maintenance',
+    icon: getIcon('ic:baseline-run-circle'),
+  },
 ];
 
 export default navConfig;

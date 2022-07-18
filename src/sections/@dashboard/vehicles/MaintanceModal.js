@@ -71,7 +71,7 @@ export default function MaintanceModal({ open, handleClose, id, setOpen }) {
         <Box sx={style}>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography variant="h4" gutterBottom>
-              Add Maintain Cost
+              Add Maintenance Cost
             </Typography>
           </Stack>
           <Grid style={{ margin: 14 }}>
