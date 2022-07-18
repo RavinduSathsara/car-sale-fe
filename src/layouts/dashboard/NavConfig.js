@@ -42,6 +42,9 @@ const navConfig = [
     icon: getIcon('ic:baseline-run-circle'),
   },
   {
+    title: 'Maintenances',
+    path: '/dashboard/maintenance',
+    icon: getIcon('ic:baseline-run-circle'),
     title: 'Transactions',
     path: '/dashboard/transaction',
     icon: getIcon('icon-park-twotone:transaction'),
