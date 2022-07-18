@@ -36,8 +36,8 @@ import LoadingLiner from '../../components/LoadingLiner';
 
 export default function ViewMaintenance() {
   const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/maintenances');
-  const { data: vehicleData, isLoading: vehicleLoading } = useFetch('http://127.0.0.1:8000/api/vehicles/');
-  console.log(vehicleData);
+
+  console.log('sss', data);
   const rows = [];
   if (data) {
     data?.posts
@@ -48,7 +48,8 @@ export default function ViewMaintenance() {
           vehicleid: item?.vehicleid,
           maintenance_id: item?.maintenance_id,
           brand: item?.brand,
-          regNo: item?.regNo,
+          chassis_no: item?.chassis_no,
+          model: item?.model,
           cost: item?.cost,
         });
       });
@@ -94,7 +95,8 @@ export default function ViewMaintenance() {
                   <StyledTableCell> Vehicle Id</StyledTableCell>
                   <StyledTableCell>Maintenance Id</StyledTableCell>
                   <StyledTableCell>Brand</StyledTableCell>
-                  <StyledTableCell>Register No</StyledTableCell>
+                  <StyledTableCell>Chassis No</StyledTableCell>
+                  <StyledTableCell>Model</StyledTableCell>
                   <StyledTableCell>Cost</StyledTableCell>
                   <StyledTableCell>Actions</StyledTableCell>
                 </TableRow>
@@ -107,7 +109,8 @@ export default function ViewMaintenance() {
                     </StyledTableCell>
                     <StyledTableCell>{row.maintenance_id}</StyledTableCell>
                     <StyledTableCell>{row.brand}</StyledTableCell>
-                    <StyledTableCell>{row.regNo}</StyledTableCell>
+                    <StyledTableCell>{row.chassis_no}</StyledTableCell>
+                    <StyledTableCell>{row.model}</StyledTableCell>
                     <StyledTableCell>{row.cost}</StyledTableCell>
                     <StyledTableCell>
                       <IconButton component={RouterLink} to={`/dashboard/ViewMaintenance/${row.id}`}>

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
 import { Grid, TextField, Stack } from '@mui/material';
 import { LoadingButton, DatePicker } from '@mui/lab';
 import Modal from '@mui/material/Modal';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import EditIcon from '@mui/icons-material/Edit';
+import useFetch from '../../../hooks/useFetch';
 
 const style = {
   position: 'absolute',
@@ -29,6 +29,8 @@ export default function MaintanceModal({ open, handleClose, id, setOpen }) {
   const [msg, setMsg] = useState('');
   const [color, setColor] = useState('success');
 
+  const { data: vehicleData, isLoading: vehicleLoading } = useFetch(`http://127.0.0.1:8000/api/vehicles/${id}`);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
@@ -37,6 +39,9 @@ export default function MaintanceModal({ open, handleClose, id, setOpen }) {
         cost: `${cost}`,
         comment: `${comment}`,
         vehicleid: `${id}`,
+        brand: vehicleData?.brand,
+        model: vehicleData?.model,
+        chassis_no: vehicleData?.chassis_no,
       })
       .then((res) => {
         setLoading(false);
