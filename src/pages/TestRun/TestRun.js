@@ -25,6 +25,7 @@ import Page from '../../components/Page';
 
 import useFetch from '../../hooks/useFetch';
 import LoadingLiner from '../../components/LoadingLiner';
+import DataTable from '../../components/DataTable';
 // mock
 // import rows from '../../_mock/user';
 
@@ -121,6 +122,7 @@ export default function TestRun() {
             </Table>
           )}
         </TableContainer>
+        <DataTable />
       </Container>
     </Page>
   );
