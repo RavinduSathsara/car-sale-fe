@@ -24,6 +24,7 @@ const ViewLend = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: LendData, isLoading } = useFetch(`http://127.0.0.1:8000/api/lendeds/${id}`);
+  console.log(LendData);
 
   const removeLend = (id, name) => {
     Swal.fire({

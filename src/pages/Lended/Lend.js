@@ -114,7 +114,7 @@ const Lend = () => {
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
-                  <StyledTableRow key={row.lended_id}>
+                  <StyledTableRow key={row.id}>
                     <StyledTableCell component="th" scope="row">
                       {row.lendeds_name}
                     </StyledTableCell>
@@ -124,7 +124,7 @@ const Lend = () => {
                     <StyledTableCell>
                       <IconButton
                         component={RouterLink}
-                        to={`/dashboard/ViewLend/${row.lended_id}`}
+                        to={`/dashboard/view-lend/${row.id}`}
                         onClick={() => {
                           Lend(row.id, row.lendeds_name);
                         }}
