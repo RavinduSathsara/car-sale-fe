@@ -28,6 +28,9 @@ import ViewVehicle from './pages/Vehicle/ViewVehicle';
 import Maintenance from './pages/Maintenance/Maintenance';
 import Transaction from './pages/Transactions/Transaction';
 import AddTransaction from './pages/Transactions/AddTransaction';
+import AddLend from './pages/Lended/AddLend';
+import Lend from './pages/Lended/Lend';
+import ViewLend from './pages/Lended/ViewLend';
 
 // ----------------------------------------------------------------------
 
@@ -58,6 +61,9 @@ export default function Router() {
         { path: 'maintenance', element: <Maintenance /> },
         { path: 'transaction', element: <Transaction /> },
         { path: 'add-transaction', element: <AddTransaction /> },
+        { path: 'add-lend', element: <AddLend /> },
+        { path: 'lend', element: <Lend /> },
+        { path: 'view-lend/:lended_id', element: <ViewLend /> },
       ],
     },
     {

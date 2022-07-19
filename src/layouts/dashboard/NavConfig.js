@@ -51,6 +51,11 @@ const navConfig = [
     path: '/dashboard/transaction',
     icon: getIcon('icon-park-twotone:transaction'),
   },
+  {
+    title: 'Lendeds',
+    path: '/dashboard/lend',
+    icon: getIcon('icon-park-twotone:transaction'),
+  },
 ];
 
 export default navConfig;
