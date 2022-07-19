@@ -87,7 +87,6 @@ export default function MaintanceModal({ open, handleClose, id, setOpen }) {
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
-                  required
                   type="number"
                   label="Cost (LKR)"
                   value={cost}
@@ -97,7 +96,6 @@ export default function MaintanceModal({ open, handleClose, id, setOpen }) {
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
-                  required
                   type="text"
                   label="Comment"
                   value={comment}

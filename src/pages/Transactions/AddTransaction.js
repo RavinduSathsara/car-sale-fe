@@ -17,12 +17,12 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 import Swal from 'sweetalert2';
-
 import axios from 'axios';
 import { Icon } from '@iconify/react';
 // material
-
 import { LoadingButton, DatePicker } from '@mui/lab';
+
+import { createTransaction } from '../../services/Transaction';
 import Page from '../../components/Page';
 
 const AddTransaction = () => {
@@ -45,44 +45,66 @@ const AddTransaction = () => {
     setUnitPrice('');
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios
-      .post('http://127.0.0.1:8000/api/transactions', {
-        brand: `${brand}`,
-        model: `${model}`,
-        make: `${make}`,
-        year_manufacture: `${yearOfManufacture.getFullYear()}`,
-        year_registration: `${yearOfRegistration.getFullYear()}`,
-        chassis_no: `${chassisNo}`,
-        unit_price: `${unitPrice}`,
-      })
+    const result = await createTransaction({
+      brand: `${brand}`,
+      model: `${model}`,
+      make: `${make}`,
+      year_manufacture: `${yearOfManufacture.getFullYear()}`,
+      year_registration: `${yearOfRegistration.getFullYear()}`,
+      chassis_no: `${chassisNo}`,
+      unit_price: `${unitPrice}`,
+    });
 
-      .then((res) => {
-        Swal.fire({
-          title: 'New Transaction added sucessfully !',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
-          },
-        });
-        setBrand('');
-        setModel('');
-        setMake('');
-        setYearOfManufacture(Date.now());
-        setYearOfRegistration(Date.now());
-        setChassisNo('');
-        setUnitPrice('');
-      })
-      .catch((e) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: e.response.data.message,
-        });
+    if (result.data.status) {
+      Swal.fire({
+        title: 'New Transaction added sucessfully !',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
       });
+    }
+
+    // axios
+    //   .post('http://127.0.0.1:8000/api/transactions', {
+    //     brand: `${brand}`,
+    //     model: `${model}`,
+    //     make: `${make}`,
+    //     year_manufacture: `${yearOfManufacture.getFullYear()}`,
+    //     year_registration: `${yearOfRegistration.getFullYear()}`,
+    //     chassis_no: `${chassisNo}`,
+    //     unit_price: `${unitPrice}`,
+    //   })
+
+    //   .then((res) => {
+    //     Swal.fire({
+    //       title: 'New Transaction added sucessfully !',
+    //       showClass: {
+    //         popup: 'animate__animated animate__fadeInDown',
+    //       },
+    //       hideClass: {
+    //         popup: 'animate__animated animate__fadeOutUp',
+    //       },
+    //     });
+    //     setBrand('');
+    //     setModel('');
+    //     setMake('');
+    //     setYearOfManufacture(Date.now());
+    //     setYearOfRegistration(Date.now());
+    //     setChassisNo('');
+    //     setUnitPrice('');
+    //   })
+    //   .catch((e) => {
+    //     Swal.fire({
+    //       icon: 'error',
+    //       title: 'Oops...',
+    //       text: e.response.data.message,
+    //     });
+    //   });
   };
   return (
     <>

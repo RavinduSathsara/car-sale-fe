@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Table,
   Stack,
@@ -15,55 +15,63 @@ import {
   TableHead,
   Tooltip,
   Button,
+  Box,
+  LinearProgress,
 } from '@mui/material';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+
 import { Link as RouterLink } from 'react-router-dom';
 import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
 import LoadingLiner from '../../components/LoadingLiner';
-import useFetch from '../../hooks/useFetch';
+import { getAllTransaction, deleteTransaction } from '../../services/Transaction';
 
 const Transaction = () => {
-  const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/transactions');
+  const [transactions, setTransaction] = useState([]);
+  const [loading, setloading] = useState(true);
 
-  const rows = [];
-  if (data) {
-    data?.posts
-      .slice()
-      .reverse()
-      .forEach((item) => {
-        rows.push({
-          id: item?.id,
-          brand: item?.brand,
-          model: item?.model,
-          make: item?.make,
-          year_manufacture: item?.year_manufacture,
-          year_registration: item?.year_registration,
-          chassis_no: item?.chassis_no,
-          unit_price: item?.unit_price,
-        });
-      });
-  }
-  const deleteVehicle = (id, brand) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`http://127.0.0.1:8000/api/transactions/${id}`)
-          .then(Swal.fire(`${brand}  Deleted!  `, 'Your file has been deleted.', 'success'));
-      }
-    });
+  // get all Transaction
+
+  const fetchAllTransaction = async () => {
+    try {
+      const { data: allTransaction } = await getAllTransaction();
+      setTransaction(allTransaction.posts);
+      setloading(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  // delete Transaction
+
+  const deleteTransactions = (id, brand) => {
+    try {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const deleted = deleteTransaction(id, brand);
+          Swal.fire(`${brand}  Deleted!  `, 'Your file has been deleted.', 'success');
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllTransaction();
+  }, []);
+
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
@@ -83,6 +91,7 @@ const Transaction = () => {
       border: 0,
     },
   }));
+
   return (
     <Page title="Transaction">
       <Container>
@@ -100,11 +109,10 @@ const Transaction = () => {
             New Transaction
           </Button>
         </Stack>
-        <TableContainer component={Paper}>
-          {' '}
-          {isLoading ? (
-            <LoadingLiner />
-          ) : (
+        {loading ? (
+          <LoadingLiner />
+        ) : (
+          <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
                 <TableRow>
@@ -122,8 +130,9 @@ const Transaction = () => {
                   <StyledTableCell>Actions</StyledTableCell>
                 </TableRow>
               </TableHead>
+
               <TableBody>
-                {rows.map((row) => (
+                {transactions?.map((row) => (
                   <StyledTableRow key={row.id}>
                     <StyledTableCell component="th" scope="row">
                       {row.brand}
@@ -138,7 +147,7 @@ const Transaction = () => {
                       <IconButton
                         color="error"
                         onClick={() => {
-                          deleteVehicle(row.id, row.brand);
+                          deleteTransactions(row.id, row.brand);
                         }}
                       >
                         <Tooltip title="Delete">
@@ -155,8 +164,8 @@ const Transaction = () => {
                 ))}
               </TableBody>
             </Table>
-          )}
-        </TableContainer>
+          </TableContainer>
+        )}
       </Container>
     </Page>
   );
