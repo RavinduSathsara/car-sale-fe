@@ -63,7 +63,7 @@ export default function Router() {
         { path: 'add-transaction', element: <AddTransaction /> },
         { path: 'add-lend', element: <AddLend /> },
         { path: 'lend', element: <Lend /> },
-        { path: 'view-lend/:lended_id', element: <ViewLend /> },
+        { path: 'view-lend/:id', element: <ViewLend /> },
       ],
     },
     {
