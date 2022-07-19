@@ -34,7 +34,6 @@ const Transaction = () => {
   const [loading, setloading] = useState(true);
 
   // get all Transaction
-
   const fetchAllTransaction = async () => {
     try {
       const { data: allTransaction } = await getAllTransaction();

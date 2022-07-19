@@ -1,6 +1,7 @@
 import axios from 'axios';
 import EndPoints from './Endpoints';
 
+// get all transsactins data
 export const getAllTransaction = async () => {
   const results = await axios.get(EndPoints.transaction);
   return results;
