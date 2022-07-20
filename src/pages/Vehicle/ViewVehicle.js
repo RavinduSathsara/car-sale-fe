@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import {
   Card,
@@ -15,16 +15,47 @@ import {
 
 import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
-import useFetch from '../../hooks/useFetch';
+import { getVehicle } from '../../services/Vehicle';
+import { getAllMaintenance } from '../../services/Maintenance';
 
 const ViewVehicle = () => {
   const { id } = useParams();
-  const { data: viewData, isLoading } = useFetch(`http://127.0.0.1:8000/api/vehicles/${id}`);
-  const { data: maintenancesData, isLoading: maintenceLoading } = useFetch(`http://127.0.0.1:8000/api/maintenances`);
 
-  const vehicleMaintenceCost = maintenancesData?.posts.filter((vehicle) => {
+  const [vehicle, setVehicle] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [maintenancesData, setMaintenancesData] = useState([]);
+
+  // get all Maintenance
+  const fetchAllMaintenance = async () => {
+    try {
+      const { data: allMaintenance } = await getAllMaintenance();
+      setMaintenancesData(allMaintenance?.posts);
+      console.log('aaaaa', allMaintenance?.posts);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllMaintenance();
+  }, []);
+
+  // featching data
+  const getVehicleData = async (id) => {
+    const result = await getVehicle(id);
+    setVehicle(result?.data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getVehicleData(id);
+  }, []);
+
+  const vehicleMaintenceCost = maintenancesData?.filter((vehicle) => {
     return +vehicle.vehicleid === parseInt(id, 10);
   });
+  console.log('mmmm', vehicleMaintenceCost);
 
   const arr = [];
 
@@ -34,7 +65,7 @@ const ViewVehicle = () => {
 
   const sum = arr.reduce((partialSum, a) => partialSum + a, 0);
 
-  if (isLoading) {
+  if (loading) {
     return (
       <>
         <Stack spacing={1} sx={{ marginTop: '120px', marginLeft: '120px' }}>
@@ -60,7 +91,7 @@ const ViewVehicle = () => {
             <CardMedia
               component="img"
               sx={{ width: 300 }}
-              image={`http://127.0.0.1:8000/storage/${viewData?.v_image}`}
+              image={`http://127.0.0.1:8000/storage/${vehicle?.v_image}`}
             />{' '}
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <CardContent sx={{ flex: '1 0 auto', margin: '40px' }}>
@@ -72,7 +103,7 @@ const ViewVehicle = () => {
                         Brand :
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.brand}
+                        {vehicle?.brand}
                       </Typography>{' '}
                     </Stack>
                   </Grid>
@@ -82,7 +113,7 @@ const ViewVehicle = () => {
                         Model:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.model}
+                        {vehicle?.model}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -92,7 +123,7 @@ const ViewVehicle = () => {
                         Make:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.make}
+                        {vehicle?.make}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -102,7 +133,7 @@ const ViewVehicle = () => {
                         Year Manufacture:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.year_manufacture}
+                        {vehicle?.year_manufacture}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -112,7 +143,7 @@ const ViewVehicle = () => {
                         Year Registration:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.year_registration}
+                        {vehicle?.year_registration}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -122,7 +153,7 @@ const ViewVehicle = () => {
                         Ownership:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.ownership}
+                        {vehicle?.ownership}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -132,7 +163,7 @@ const ViewVehicle = () => {
                         Fuel Type:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.fuel_type}
+                        {vehicle?.fuel_type}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -142,7 +173,7 @@ const ViewVehicle = () => {
                         Chassis No:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.chassis_no}
+                        {vehicle?.chassis_no}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -152,7 +183,7 @@ const ViewVehicle = () => {
                         Reg No:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.reg_no}
+                        {vehicle?.reg_no}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -162,7 +193,7 @@ const ViewVehicle = () => {
                         Mileage:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.mileage}
+                        {vehicle?.mileage}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -172,7 +203,7 @@ const ViewVehicle = () => {
                         Cost:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.cost}
+                        {vehicle?.cost}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -182,7 +213,7 @@ const ViewVehicle = () => {
                         Unit Price:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.unit_price}
+                        {vehicle?.unit_price}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -192,7 +223,7 @@ const ViewVehicle = () => {
                         Margin:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.margin}
+                        {vehicle?.margin}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -202,7 +233,7 @@ const ViewVehicle = () => {
                         Trans No:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.trans_no}
+                        {vehicle?.trans_no}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -212,7 +243,7 @@ const ViewVehicle = () => {
                         Availability:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.availability}
+                        {vehicle?.availability}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -232,7 +263,7 @@ const ViewVehicle = () => {
                         Remarks:
                       </Typography>
                       <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {viewData?.remarks}
+                        {vehicle?.remarks}
                       </Typography>
                     </Stack>
                   </Grid>
