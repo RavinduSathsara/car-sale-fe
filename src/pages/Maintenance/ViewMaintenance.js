@@ -26,7 +26,7 @@ const ViewMaintenance = () => {
   const { id } = useParams();
   const { data: maintenanceData, isLoading } = useFetch(`http://127.0.0.1:8000/api/maintenances/${id}`);
 
-  const RemoveMaintenance = (id, maintenance_id) => {
+  const RemoveMaintenance = (id) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -39,7 +39,7 @@ const ViewMaintenance = () => {
       if (result.isConfirmed) {
         axios
           .delete(`http://127.0.0.1:8000/api/maintenances/${id}`)
-          .then(Swal.fire(`${maintenance_id}  Deleted!  `, 'Your file has been deleted.', 'success'));
+          .then(Swal.fire(`${id}  Deleted!  `, 'Your file has been deleted.', 'success'));
       }
       navigate('/dashboard/maintenance');
     });

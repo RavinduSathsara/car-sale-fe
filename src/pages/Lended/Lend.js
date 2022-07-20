@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Table,
   Stack,
@@ -25,26 +25,27 @@ import { Link as RouterLink } from 'react-router-dom';
 import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
 import LoadingLiner from '../../components/LoadingLiner';
-import useFetch from '../../hooks/useFetch';
+import { getAllLend } from '../../services/Lend';
 
 const Lend = () => {
-  const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/lendeds');
+  const [lend, setLend] = useState([]);
+  const [loading, setloading] = useState(true);
 
-  const rows = [];
-  if (data) {
-    data?.posts
-      .slice()
-      .reverse()
-      .forEach((item) => {
-        rows.push({
-          id: item?.lendeds_id,
-          lendeds_name: item?.lendeds_name,
-          lendeds_contact: item?.lendeds_contact,
-          model: item?.model,
-          chassis_no: item?.chassis_no,
-        });
-      });
-  }
+  // get all Lend
+  const fetchAllLend = async () => {
+    try {
+      const { data: allLend } = await getAllLend();
+      setLend(allLend.posts);
+      setloading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllLend();
+  }, []);
+
   const deleteLended = (id, lendedsName) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -100,7 +101,7 @@ const Lend = () => {
         </Stack>
         <TableContainer component={Paper}>
           {' '}
-          {isLoading ? (
+          {loading ? (
             <LoadingLiner />
           ) : (
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -113,7 +114,7 @@ const Lend = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {lend?.map((row) => (
                   <StyledTableRow key={row.id}>
                     <StyledTableCell component="th" scope="row">
                       {row.lendeds_name}

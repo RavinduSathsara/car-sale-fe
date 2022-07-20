@@ -31,6 +31,7 @@ import AddTransaction from './pages/Transactions/AddTransaction';
 import AddLend from './pages/Lended/AddLend';
 import Lend from './pages/Lended/Lend';
 import ViewLend from './pages/Lended/ViewLend';
+import ViewMaintenance from './pages/Maintenance/ViewMaintenance';
 
 // ----------------------------------------------------------------------
 
@@ -59,6 +60,7 @@ export default function Router() {
         { path: 'test-run', element: <TestRun /> },
         { path: 'view-test-run/:id', element: <ViewTestRun /> },
         { path: 'maintenance', element: <Maintenance /> },
+        { path: 'view-maintenance/:id', element: <ViewMaintenance /> },
         { path: 'transaction', element: <Transaction /> },
         { path: 'add-transaction', element: <AddTransaction /> },
         { path: 'add-lend', element: <AddLend /> },
