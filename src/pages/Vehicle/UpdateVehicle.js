@@ -2,40 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import {
-  Link,
   Stack,
   Grid,
-  Checkbox,
   Container,
   TextField,
   Typography,
   IconButton,
-  InputAdornment,
-  FormControlLabel,
   FormControl,
   FormLabel,
-  Input,
   InputLabel,
   MenuItem,
   Select,
 } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
-import * as Yup from 'yup';
 import Swal from 'sweetalert2';
-import { useFormik, Form, FormikProvider } from 'formik';
+
 import axios from 'axios';
 import { Icon } from '@iconify/react';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+
 // material
-import TextareaAutosize from '@mui/base/TextareaAutosize';
+
 import { LoadingButton, DatePicker } from '@mui/lab';
 import Page from '../../components/Page';
-import Iconify from '../../components/Iconify';
+
 import useFetch from '../../hooks/useFetch';
 
 const UpdateVehicle = () => {
@@ -77,8 +68,6 @@ const UpdateVehicle = () => {
   const [cost, setCost] = useState('');
   const [unitPrice, setUnitPrice] = useState('');
   const [margin, setMargin] = useState('');
-  // const [file, setFile] = useState();
-  // load initial values
 
   console.log(isSold);
   const handleCancel = (event) => {
@@ -122,7 +111,6 @@ const UpdateVehicle = () => {
         margin: `${margin}`,
         availability: `${isSold}`,
         trans_no: `1234`,
-        // v_image: `${file}`,
       })
       .then((res) => {
         Swal.fire({
@@ -176,11 +164,8 @@ const UpdateVehicle = () => {
     setCost('');
     setUnitPrice('');
     setMargin('');
-    // setFile('');
   };
-  function handleChange(event) {
-    // setFile(event.target.files[0]);
-  }
+  function handleChange(event) {}
   if (isLoading) {
     return <>loading...</>;
   }
@@ -412,15 +397,7 @@ const UpdateVehicle = () => {
                 onChange={(e) => setRemarks(e.target.value)}
               />
             </Grid>
-            {/* <Grid item xs={8} sx={{ m: 3 }}>
-              <FormLabel>
-                <Input style={{ display: 'none ' }} accept="image/*" id="contained-button-file" multiple type="file" />
-                <IconButton sx={{ ml: -2 }} color="primary" aria-label="upload picture" component="span">
-                  <PhotoCamera />
-                </IconButton>
-                Upload Image
-              </FormLabel>
-            </Grid> */}
+
             <Grid item xs={8} sx={{ m: 3 }}>
               <FormLabel>
                 <input type="file" onChange={handleChange} />

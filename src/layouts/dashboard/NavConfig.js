@@ -41,6 +41,21 @@ const navConfig = [
     path: '/dashboard/test-run',
     icon: getIcon('ic:baseline-run-circle'),
   },
+  {
+    title: 'Maintenances',
+    path: '/dashboard/maintenance',
+    icon: getIcon('carbon:license-maintenance-draft'),
+  },
+  {
+    title: 'Transactions',
+    path: '/dashboard/transaction',
+    icon: getIcon('icon-park-twotone:transaction'),
+  },
+  {
+    title: 'Lendeds',
+    path: '/dashboard/lend',
+    icon: getIcon('emojione-monotone:money-bag'),
+  },
 ];
 
 export default navConfig;

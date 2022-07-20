@@ -1,6 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Stack, Grid, Card, CardActions, CardContent, CardMedia, Button, Typography, Skeleton } from '@mui/material';
+import {
+  Stack,
+  Grid,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+  Skeleton,
+  IconButton,
+  Tooltip,
+} from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import PreviewIcon from '@mui/icons-material/Preview';
+import BuildIcon from '@mui/icons-material/Build';
+
+import MaintanceModal from './MaintanceModal';
 
 const VehicleList = ({
   brand,
@@ -15,6 +33,10 @@ const VehicleList = ({
   img,
   availability,
 }) => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   if (isLoading) {
     return (
       <>
@@ -24,6 +46,7 @@ const VehicleList = ({
       </>
     );
   }
+
   return (
     <>
       <Grid item xs={3} sx={{ m: 2 }}>
@@ -50,20 +73,37 @@ const VehicleList = ({
             </Typography>
           </CardContent>
           <CardActions style={{ marginLeft: '8px' }}>
-            <Button size="small" component={RouterLink} to={`/dashboard/update-vehicle/${id}`}>
-              Update
-            </Button>
-            <Button
-              size="small"
+            <IconButton component={RouterLink} to={`/dashboard/update-vehicle/${id}`}>
+              <Tooltip title="Update">
+                <EditIcon />
+              </Tooltip>
+            </IconButton>
+
+            <IconButton
               color="error"
               onClick={() => {
                 deleteVehicle(id, brand);
               }}
             >
-              Remove
-            </Button>
+              <Tooltip title="Delete">
+                <DeleteIcon />
+              </Tooltip>
+            </IconButton>
+
+            <IconButton component={RouterLink} to={`/dashboard/view-vehicle/${id}`}>
+              <Tooltip title="View">
+                <PreviewIcon />
+              </Tooltip>
+            </IconButton>
+
+            <IconButton onClick={handleOpen}>
+              <Tooltip title="Maintenance">
+                <BuildIcon />
+              </Tooltip>
+            </IconButton>
           </CardActions>
         </Card>
+        <MaintanceModal open={open} handleClose={handleClose} id={id} setOpen={setOpen} />
       </Grid>
     </>
   );

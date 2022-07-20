@@ -1,52 +1,48 @@
-import * as Yup from 'yup';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { useFormik, Form, FormikProvider } from 'formik';
 import axios from 'axios';
 // material
 import { Link, Stack, Checkbox, TextField, IconButton, InputAdornment, FormControlLabel } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+
 // component
 import Iconify from '../../../components/Iconify';
 
 // ----------------------------------------------------------------------
 
+import { handleLogin } from '../../../services/Auth';
+
 export default function LoginForm() {
   const navigate = useNavigate();
-
   const [showPassword, setShowPassword] = useState(false);
   const [userName, setUserName] = useState('');
   const [passWord, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    localStorage.setItem('name', userName);
-    axios
-      .post('http://127.0.0.1:8000/api/login', {
-        user_name: `${userName}`,
-        password: `${passWord}`,
-      })
-      .then((res) => {
-        console.log('login', res?.data.success);
-        if (res?.data.success) {
-          navigate('dashboard/app', { replace: true });
-        }
-      })
-      .catch((err) => {
-        console.log('err', err);
-        Swal.fire({
-          title: 'Username or password incorrect',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
-          },
-        });
+    const result = await handleLogin({
+      user_name: `${userName}`,
+      password: `${passWord}`,
+    });
+
+    if (result?.data.success) {
+      localStorage.setItem('name', `${result?.data.data.first_name}  ${result?.data.data.last_name}`);
+      localStorage.setItem('email', result?.data.data.email);
+      navigate('dashboard/app', { replace: true });
+    } else {
+      Swal.fire({
+        title: 'Username or password incorrect',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
       });
+    }
   };
 
   const handleShowPassword = () => {

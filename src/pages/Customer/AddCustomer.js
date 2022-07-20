@@ -32,15 +32,6 @@ const AddCustomer = () => {
             <Typography variant="h4" gutterBottom>
               All Customers
             </Typography>
-
-            <Button
-              variant="contained"
-              component={RouterLink}
-              to="/dashboard/add-customer-form"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              New Customer
-            </Button>
           </Stack>
           <BasicTable />
         </Container>

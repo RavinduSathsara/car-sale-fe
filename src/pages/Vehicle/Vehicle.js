@@ -1,4 +1,3 @@
-import { useState } from 'react';
 // material
 import { Container, Stack, Typography, Button, Grid } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
@@ -10,13 +9,12 @@ import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
 import { VehicleList } from '../../sections/@dashboard/vehicles';
 // mock
-import PRODUCTS from '../../_mock/products';
+
 import useFetch from '../../hooks/useFetch';
 
 // ----------------------------------------------------------------------
 
 export default function Vehicle() {
-  const [openFilter, setOpenFilter] = useState(false);
   const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/vehicles');
 
   const deleteVehicle = (id, brand) => {
@@ -37,14 +35,6 @@ export default function Vehicle() {
     });
   };
 
-  const handleOpenFilter = () => {
-    setOpenFilter(true);
-  };
-
-  const handleCloseFilter = () => {
-    setOpenFilter(false);
-  };
-
   return (
     <Page title="Vehicle">
       <Container>
@@ -62,10 +52,6 @@ export default function Vehicle() {
             New Vehicle
           </Button>
         </Stack>
-
-        {/* <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
-          <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}></Stack>
-        </Stack> */}
 
         <Grid container>
           {console.log(data?.Vehicle)}

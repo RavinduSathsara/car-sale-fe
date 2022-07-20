@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { sentenceCase } from 'change-case';
+import { useState, useEffect } from 'react';
+import { sample, filter } from 'lodash';
+import { faker } from '@faker-js/faker';
 import { Link as RouterLink } from 'react-router-dom';
 
 // material
@@ -20,34 +23,33 @@ import {
 } from '@mui/material';
 
 import PreviewIcon from '@mui/icons-material/Preview';
-
 // components
+import { getAllMaintenance } from '../../services/Maintenance';
 import Page from '../../components/Page';
-
 import LoadingLiner from '../../components/LoadingLiner';
-import DataTable from '../../components/DataTable';
-import { getAllTestRun } from '../../services/TestRun';
+
 // mock
 // import rows from '../../_mock/user';
 
 // ----------------------------------------------------------------------
 
-export default function TestRun() {
-  const [testRun, setTestRun] = useState([]);
+export default function ViewMaintenance() {
+  const [maintenance, setMaintenance] = useState([]);
   const [loading, setloading] = useState(true);
 
-  // get all TestRun
-  const fetchAllTestRun = async () => {
+  // get all Maintenance
+  const fetchAllMaintenance = async () => {
     try {
-      const { data: allTestRun } = await getAllTestRun();
-      setTestRun(allTestRun.posts);
+      const { data: allMaintenance } = await getAllMaintenance();
+      setMaintenance(allMaintenance.posts);
       setloading(false);
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
-    fetchAllTestRun();
+    fetchAllMaintenance();
   }, []);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -73,11 +75,11 @@ export default function TestRun() {
   // ----------------------------------------------------------------------
 
   return (
-    <Page title="TestRun">
+    <Page title="Maintenance">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Test Run
+            Maintenances
           </Typography>
         </Stack>
         <TableContainer component={Paper}>
@@ -87,31 +89,28 @@ export default function TestRun() {
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
                 <TableRow>
-                  <StyledTableCell> Name</StyledTableCell>
+                  <StyledTableCell> Vehicle Id</StyledTableCell>
+                  <StyledTableCell>Maintenance Id</StyledTableCell>
                   <StyledTableCell>Brand</StyledTableCell>
+                  <StyledTableCell>Chassis No</StyledTableCell>
                   <StyledTableCell>Model</StyledTableCell>
-                  <Tooltip title="Year Of Manufacture">
-                    <StyledTableCell>YOM</StyledTableCell>
-                  </Tooltip>
-                  <Tooltip title="Customer Request Date and Time">
-                    <StyledTableCell>Cus.Req DT</StyledTableCell>
-                  </Tooltip>
-
+                  <StyledTableCell>Cost</StyledTableCell>
                   <StyledTableCell>Actions</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {testRun?.map((row) => (
-                  <StyledTableRow key={row.name}>
+                {maintenance.map((row) => (
+                  <StyledTableRow key={row.id}>
                     <StyledTableCell component="th" scope="row">
-                      {row.name}
+                      {row.vehicleid}
                     </StyledTableCell>
+                    <StyledTableCell>{row.maintenance_id}</StyledTableCell>
                     <StyledTableCell>{row.brand}</StyledTableCell>
+                    <StyledTableCell>{row.chassis_no}</StyledTableCell>
                     <StyledTableCell>{row.model}</StyledTableCell>
-                    <StyledTableCell>{row.year}</StyledTableCell>
-                    <StyledTableCell>{row.cus_req}</StyledTableCell>
+                    <StyledTableCell>{row.cost}</StyledTableCell>
                     <StyledTableCell>
-                      <IconButton component={RouterLink} to={`/dashboard/view-test-run/${row.id}`}>
+                      <IconButton component={RouterLink} to={`/dashboard/View-Maintenance/${row.id}`}>
                         <PreviewIcon />
                       </IconButton>
                     </StyledTableCell>

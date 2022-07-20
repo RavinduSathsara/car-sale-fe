@@ -3,12 +3,10 @@ import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
   Card,
   Stack,
-  Avatar,
   Button,
   Container,
   Typography,
   IconButton,
-  CardMedia,
   Box,
   Grid,
   CardContent,
@@ -16,7 +14,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import ClearIcon from '@mui/icons-material/Clear';
+
 import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
 
@@ -26,7 +24,6 @@ const ViewVehicleInquiry = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: inquiryData, isLoading } = useFetch(`http://127.0.0.1:8000/api/vehicle_inquiry/${id}`);
-  console.log(inquiryData);
 
   const removeInquiry = (id, name) => {
     Swal.fire({
@@ -76,10 +73,10 @@ const ViewVehicleInquiry = () => {
                 <Grid container>
                   <Grid item sx={{ m: 2 }} xs={6}>
                     <Stack direction="row">
-                      <Typography component="div" variant="h5">
+                      <Typography component="div" variant="h6">
                         Name :
                       </Typography>
-                      <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {inquiryData?.name}
                       </Typography>{' '}
                     </Stack>
@@ -87,99 +84,99 @@ const ViewVehicleInquiry = () => {
                   <Grid item sx={{ m: 2 }}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
-                        contact:
+                        contact :
                       </Typography>
-                      <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {inquiryData?.contact}
                       </Typography>
                     </Stack>
                   </Grid>
                   <Grid item sx={{ m: 2 }} xs={8}>
                     <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Email:
+                      <Typography component="div" variant="h6">
+                        Email :
                       </Typography>
-                      <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {inquiryData?.email}
                       </Typography>
                     </Stack>
                   </Grid>
                   <Grid item sx={{ m: 2 }} xs={12}>
                     <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Address:
+                      <Typography component="div" variant="h6">
+                        Address :
                       </Typography>
-                      <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {inquiryData?.address}
                       </Typography>
                     </Stack>
                   </Grid>
                   <Grid item sx={{ m: 2 }} xs={8}>
                     <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Profession:
+                      <Typography component="div" variant="h6">
+                        Profession :
                       </Typography>
-                      <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {inquiryData?.profession}
                       </Typography>
                     </Stack>
                   </Grid>
                   <Grid item sx={{ m: 2 }} xs={5}>
                     <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Brand:
+                      <Typography component="div" variant="h6">
+                        Brand :
                       </Typography>
-                      <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {inquiryData?.brand}
                       </Typography>
                     </Stack>
                   </Grid>
                   <Grid item sx={{ m: 2 }} xs={3}>
                     <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Model:
+                      <Typography component="div" variant="h6">
+                        Model :
                       </Typography>
-                      <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {inquiryData?.model}
                       </Typography>
                     </Stack>
                   </Grid>
                   <Grid item sx={{ m: 2 }} xs={8}>
                     <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Make:
+                      <Typography component="div" variant="h6">
+                        Make :
                       </Typography>
-                      <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {inquiryData?.make}
                       </Typography>
                     </Stack>
                   </Grid>
                   <Grid item sx={{ m: 2 }} xs={5}>
                     <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Payment:
+                      <Typography component="div" variant="h6">
+                        Payment :
                       </Typography>
-                      <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {inquiryData?.payment}
                       </Typography>
                     </Stack>
                   </Grid>
                   <Grid item sx={{ m: 2 }} xs={3}>
                     <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Insurance:
+                      <Typography component="div" variant="h6">
+                        Insurance :
                       </Typography>
-                      <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {inquiryData?.insurance}
                       </Typography>
                     </Stack>
                   </Grid>
                   <Grid item sx={{ m: 2 }} xs={8}>
                     <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Remark:
+                      <Typography component="div" variant="h6">
+                        Remark :
                       </Typography>
-                      <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {inquiryData?.remarks}
                       </Typography>
                     </Stack>
@@ -187,10 +184,10 @@ const ViewVehicleInquiry = () => {
 
                   <Grid item sx={{ m: 2 }} xs={12}>
                     <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Customer Request:
+                      <Typography component="div" variant="h6">
+                        Customer Request :
                       </Typography>
-                      <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {inquiryData?.cus_req}
                       </Typography>
                     </Stack>

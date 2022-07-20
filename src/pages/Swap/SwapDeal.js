@@ -1,10 +1,6 @@
-import { sentenceCase } from 'change-case';
-import { useState } from 'react';
-import { sample, filter } from 'lodash';
-import { faker } from '@faker-js/faker';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import Swal from 'sweetalert2';
 // material
 import {
   Table,
@@ -23,47 +19,36 @@ import {
   Tooltip,
 } from '@mui/material';
 
-import CheckIcon from '@mui/icons-material/Check';
-import ClearIcon from '@mui/icons-material/Clear';
 import PreviewIcon from '@mui/icons-material/Preview';
-import axios from 'axios';
+
 import Label from '../../components/Label';
 // components
 import Page from '../../components/Page';
-
-import useFetch from '../../hooks/useFetch';
 import LoadingLiner from '../../components/LoadingLiner';
-
+import { getAllSwapVehicle } from '../../services/Swap';
 // mock
 // import rows from '../../_mock/user';
 
 // ----------------------------------------------------------------------
 
 export default function SwapDeal() {
-  const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/swapvehicle');
+  const [swapVehicle, setSwapVehicle] = useState([]);
+  const [loading, setloading] = useState(true);
 
-  const rows = [];
-  if (data) {
-    data?.posts
-      .slice()
-      .reverse()
-      .forEach((item) => {
-        rows.push({
-          id: item.id,
-          name: item?.name,
-          cus_model: item?.cus_model,
-          model: item?.model,
-          cus_year_manufacture: item?.cus_year_manufacture,
-          year: item?.year_manufacture,
-          contact: item?.contact,
-          decision: item?.decision,
-          // moblieNum: item?.ph_no,
-          // salary: item?.salary,
-          // shift: item?.shift,
-          // role: item?.position,
-        });
-      });
-  }
+  // get all SwapVehicle
+  const fetchAllSwapVehicle = async () => {
+    try {
+      const { data: allSwapVehicle } = await getAllSwapVehicle();
+      setSwapVehicle(allSwapVehicle.posts);
+      setloading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllSwapVehicle();
+  }, []);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -96,7 +81,7 @@ export default function SwapDeal() {
           </Typography>
         </Stack>
         <TableContainer component={Paper}>
-          {isLoading ? (
+          {loading ? (
             <LoadingLiner />
           ) : (
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -121,7 +106,7 @@ export default function SwapDeal() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {swapVehicle.map((row) => (
                   <StyledTableRow key={row.name}>
                     <StyledTableCell component="th" scope="row">
                       {row.name}
