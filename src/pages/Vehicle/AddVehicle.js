@@ -60,7 +60,6 @@ const AddVehicle = () => {
     setRegNo('');
     setMileAge('');
     setRemarks('');
-
     setCost('');
     setUnitPrice('');
     setMargin('');
@@ -114,22 +113,6 @@ const AddVehicle = () => {
           popup: 'animate__animated animate__fadeOutUp',
         },
       });
-
-      setBrand('');
-      setModel('');
-      setMake('');
-      setYearOfManufacture(Date.now());
-      setYearOfRegistration(Date.now());
-      setOwnership('');
-      setChassisNo('');
-      setFuelType('');
-      setRegNo('');
-      setMileAge('');
-      setRemarks('');
-      setCost('');
-      setUnitPrice('');
-      setMargin('');
-      setFile(null);
     }
   };
 

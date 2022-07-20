@@ -22,8 +22,8 @@ export const removeVehicle = async (id) => {
 
 // create vehicle
 
-export const createVehicle = async (id, data, config) => {
-  const results = await axios.post(`${EndPoints.vehicle}/${id}`, data, config);
+export const createVehicle = async (data, config) => {
+  const results = await axios.post(EndPoints.vehicle, data, config);
   return results;
 };
 
