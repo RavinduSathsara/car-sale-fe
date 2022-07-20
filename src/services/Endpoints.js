@@ -16,6 +16,8 @@ class EndPoints {
   static testRun = `${baseUrl}/testdrive`;
 
   static login = `${baseUrl}/login`;
+
+  static vehicle = `${baseUrl}/vehicles`;
 }
 
 export default EndPoints;

@@ -26,7 +26,7 @@ import { Icon } from '@iconify/react';
 
 import { LoadingButton, DatePicker } from '@mui/lab';
 import Page from '../../components/Page';
-
+import { updateVehi } from '../../services/Vehicle';
 import useFetch from '../../hooks/useFetch';
 
 const UpdateVehicle = () => {
@@ -69,7 +69,6 @@ const UpdateVehicle = () => {
   const [unitPrice, setUnitPrice] = useState('');
   const [margin, setMargin] = useState('');
 
-  console.log(isSold);
   const handleCancel = (event) => {
     event.preventDefault();
     Swal.fire({
@@ -86,66 +85,39 @@ const UpdateVehicle = () => {
       }
     });
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data',
-      },
-    };
-    axios
-      .put(`http://127.0.0.1:8000/api/vehicles/${id}`, {
-        brand: `${brand}`,
-        model: `${model}`,
-        make: `${make}`,
-        year_manufacture: `${moment(yearOfManufacture).format('YYYY')}`,
-        year_registration: `${moment(yearOfRegistration).format('YYYY')}`,
-        ownership: `${ownership}`,
-        chassis_no: `${chassisNo}`,
-        fuel_type: `${fuelType}`,
-        reg_no: `${regNo}`,
-        mileage: `${mileAge}`,
-        remarks: `${remarks}`,
-        cost: `${cost}`,
-        unit_price: `${unitPrice}`,
-        margin: `${margin}`,
-        availability: `${isSold}`,
-        trans_no: `1234`,
-      })
-      .then((res) => {
-        Swal.fire({
-          title: 'Vehicle Update sucessfully !',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
-          },
-        });
-      })
-      .catch((e) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: e.response.data.message,
-        });
-      });
 
-    // setBrand('');
-    // setModel('');
-    // setMake('');
-    // setYearOfManufacture('');
-    // setYearOfRegistration('');
-    // setOwnership('');
-    // setChassisNo('');
-    // setFuelType('');
-    // setRegNo('');
-    // setMileAge('');
-    // setRemarks('');
-    // setCost('');
-    // setUnitPrice('');
-    // setMargin('');
-    // setFile('');
+    const result = await updateVehi(id, {
+      brand: `${brand}`,
+      model: `${model}`,
+      make: `${make}`,
+      year_manufacture: `${moment(yearOfManufacture).format('YYYY')}`,
+      year_registration: `${moment(yearOfRegistration).format('YYYY')}`,
+      ownership: `${ownership}`,
+      chassis_no: `${chassisNo}`,
+      fuel_type: `${fuelType}`,
+      reg_no: `${regNo}`,
+      mileage: `${mileAge}`,
+      remarks: `${remarks}`,
+      cost: `${cost}`,
+      unit_price: `${unitPrice}`,
+      margin: `${margin}`,
+      availability: `${isSold}`,
+      trans_no: `1234`,
+    });
+
+    if (result.statusText === 'OK') {
+      Swal.fire({
+        title: result?.data.message,
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      });
+    }
   };
 
   const handleReset = (event) => {
