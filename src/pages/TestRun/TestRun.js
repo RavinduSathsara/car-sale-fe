@@ -121,7 +121,6 @@ export default function TestRun() {
             </Table>
           )}
         </TableContainer>
-        {/* <DataTable /> */}
       </Container>
     </Page>
   );
