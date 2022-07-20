@@ -4,6 +4,16 @@ const baseUrl = BASE_URL.development;
 
 class EndPoints {
   static transaction = `${baseUrl}/transactions`;
+
+  static swapvehicle = `${baseUrl}/swapvehicle`;
+
+  static vehicleInquiry = `${baseUrl}/vehicle_inquiry`;
+
+  static maintenance = `${baseUrl}/maintenances`;
+
+  static lend = `${baseUrl}/lendeds`;
+
+  static testRun = `${baseUrl}/testdrive`;
 }
 
 export default EndPoints;

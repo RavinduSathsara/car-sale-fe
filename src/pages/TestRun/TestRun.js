@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 // material
@@ -23,33 +24,31 @@ import PreviewIcon from '@mui/icons-material/Preview';
 // components
 import Page from '../../components/Page';
 
-import useFetch from '../../hooks/useFetch';
 import LoadingLiner from '../../components/LoadingLiner';
 import DataTable from '../../components/DataTable';
+import { getAllTestRun } from '../../services/TestRun';
 // mock
 // import rows from '../../_mock/user';
 
 // ----------------------------------------------------------------------
 
 export default function TestRun() {
-  const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/testdrive');
+  const [testRun, setTestRun] = useState([]);
+  const [loading, setloading] = useState(true);
 
-  const rows = [];
-  if (data) {
-    data?.posts
-      .slice()
-      .reverse()
-      .forEach((item) => {
-        rows.push({
-          id: item?.id,
-          name: item?.name,
-          brand: item?.brand,
-          model: item?.model,
-          year: item?.year_manufacture,
-          cus_req: item?.cus_req,
-        });
-      });
-  }
+  // get all TestRun
+  const fetchAllTestRun = async () => {
+    try {
+      const { data: allTestRun } = await getAllTestRun();
+      setTestRun(allTestRun.posts);
+      setloading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchAllTestRun();
+  }, []);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -82,7 +81,7 @@ export default function TestRun() {
           </Typography>
         </Stack>
         <TableContainer component={Paper}>
-          {isLoading ? (
+          {loading ? (
             <LoadingLiner />
           ) : (
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -102,7 +101,7 @@ export default function TestRun() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {testRun?.map((row) => (
                   <StyledTableRow key={row.name}>
                     <StyledTableCell component="th" scope="row">
                       {row.name}
@@ -122,7 +121,7 @@ export default function TestRun() {
             </Table>
           )}
         </TableContainer>
-        <DataTable />
+        {/* <DataTable /> */}
       </Container>
     </Page>
   );

@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import {
@@ -21,28 +22,27 @@ import PreviewIcon from '@mui/icons-material/Preview';
 
 import Page from '../../components/Page';
 
-import useFetch from '../../hooks/useFetch';
 import LoadingLiner from '../../components/LoadingLiner';
+import { getAllVehicleInquiry } from '../../services/VehicleInquiry';
 
 export default function VehicleInquiry() {
-  const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/vehicle_inquiry');
-  console.log(data);
-  const rows = [];
-  if (data) {
-    data?.posts
-      .slice()
-      .reverse()
-      .forEach((item) => {
-        rows.push({
-          id: item.id,
-          name: item?.name,
-          contact: item?.contact,
-          brand: item?.brand,
-          model: item?.model,
-          cus_req: item?.cus_req,
-        });
-      });
-  }
+  const [vehicleInquiry, setVehicleInquiry] = useState([]);
+  const [loading, setloading] = useState(true);
+
+  // get all Transaction
+  const fetchAllVehicleInquiry = async () => {
+    try {
+      const { data: allVehicleInquiry } = await getAllVehicleInquiry();
+      setVehicleInquiry(allVehicleInquiry.posts);
+      setloading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllVehicleInquiry();
+  }, []);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -74,7 +74,7 @@ export default function VehicleInquiry() {
         </Stack>
         <TableContainer component={Paper}>
           {' '}
-          {isLoading ? (
+          {loading ? (
             <LoadingLiner />
           ) : (
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -91,7 +91,7 @@ export default function VehicleInquiry() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {vehicleInquiry.map((row) => (
                   <StyledTableRow key={row.name}>
                     <StyledTableCell component="th" scope="row">
                       {row.name}

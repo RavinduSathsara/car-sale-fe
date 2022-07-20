@@ -44,7 +44,7 @@ const navConfig = [
   {
     title: 'Maintenances',
     path: '/dashboard/maintenance',
-    icon: getIcon('ic:baseline-run-circle'),
+    icon: getIcon('carbon:license-maintenance-draft'),
   },
   {
     title: 'Transactions',
@@ -54,7 +54,7 @@ const navConfig = [
   {
     title: 'Lendeds',
     path: '/dashboard/lend',
-    icon: getIcon('icon-park-twotone:transaction'),
+    icon: getIcon('emojione-monotone:money-bag'),
   },
 ];
 

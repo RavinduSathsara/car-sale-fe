@@ -1,5 +1,5 @@
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { sample, filter } from 'lodash';
 import { faker } from '@faker-js/faker';
 import { Link as RouterLink } from 'react-router-dom';
@@ -23,37 +23,34 @@ import {
 } from '@mui/material';
 
 import PreviewIcon from '@mui/icons-material/Preview';
-
 // components
+import { getAllMaintenance } from '../../services/Maintenance';
 import Page from '../../components/Page';
-
-import useFetch from '../../hooks/useFetch';
 import LoadingLiner from '../../components/LoadingLiner';
+
 // mock
 // import rows from '../../_mock/user';
 
 // ----------------------------------------------------------------------
 
 export default function ViewMaintenance() {
-  const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/maintenances');
+  const [maintenance, setMaintenance] = useState([]);
+  const [loading, setloading] = useState(true);
 
-  console.log('sss', data);
-  const rows = [];
-  if (data) {
-    data?.posts
-      .slice()
-      .reverse()
-      .forEach((item) => {
-        rows.push({
-          vehicleid: item?.vehicleid,
-          maintenance_id: item?.maintenance_id,
-          brand: item?.brand,
-          chassis_no: item?.chassis_no,
-          model: item?.model,
-          cost: item?.cost,
-        });
-      });
-  }
+  // get all Maintenance
+  const fetchAllMaintenance = async () => {
+    try {
+      const { data: allMaintenance } = await getAllMaintenance();
+      setMaintenance(allMaintenance.posts);
+      setloading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllMaintenance();
+  }, []);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -86,7 +83,7 @@ export default function ViewMaintenance() {
           </Typography>
         </Stack>
         <TableContainer component={Paper}>
-          {isLoading ? (
+          {loading ? (
             <LoadingLiner />
           ) : (
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -102,7 +99,7 @@ export default function ViewMaintenance() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {maintenance.map((row) => (
                   <StyledTableRow key={row.id}>
                     <StyledTableCell component="th" scope="row">
                       {row.vehicleid}
@@ -113,7 +110,7 @@ export default function ViewMaintenance() {
                     <StyledTableCell>{row.model}</StyledTableCell>
                     <StyledTableCell>{row.cost}</StyledTableCell>
                     <StyledTableCell>
-                      <IconButton component={RouterLink} to={`/dashboard/ViewMaintenance/${row.id}`}>
+                      <IconButton component={RouterLink} to={`/dashboard/View-Maintenance/${row.id}`}>
                         <PreviewIcon />
                       </IconButton>
                     </StyledTableCell>

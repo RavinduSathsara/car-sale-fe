@@ -23,6 +23,7 @@ import { Icon } from '@iconify/react';
 // material
 
 import { LoadingButton, DatePicker } from '@mui/lab';
+import { createLend } from '../../services/Lend';
 import Page from '../../components/Page';
 
 const AddLend = () => {
@@ -47,46 +48,58 @@ const AddLend = () => {
     setChassisNo('');
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios
-      .post('http://127.0.0.1:8000/api/lendeds', {
-        lendeds_id: `${lendedsId}`,
-        lendeds_name: `${lendedsName}`,
-        lendeds_contact: `${lendedsContact}`,
-        lendeds_address: `${lendedsAddress}`,
-        lendeds_nic: `${lendedsNic}`,
-        lendeds_email: `${lendedsEmail}`,
-        model: `${model}`,
-        chassis_no: `${chassisNo}`,
-      })
 
-      .then((res) => {
-        Swal.fire({
-          title: 'New Lendeds added sucessfully !',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
-          },
-        });
-        setId('');
-        setLended('');
-        setLendedContact('');
-        setAddress('');
-        setLendedsNic('');
-        setLendedsEmail('');
-        setModel('');
-        setChassisNo('');
-      })
-      .catch((e) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: e.response.data.message,
-        });
+    const result = await createLend({
+      lendeds_id: `${lendedsId}`,
+      lendeds_name: `${lendedsName}`,
+      lendeds_contact: `${lendedsContact}`,
+      lendeds_address: `${lendedsAddress}`,
+      lendeds_nic: `${lendedsNic}`,
+      lendeds_email: `${lendedsEmail}`,
+      model: `${model}`,
+      chassis_no: `${chassisNo}`,
+    });
+
+    if (result.data.status) {
+      Swal.fire({
+        title: 'New Lend added sucessfully !',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
       });
+    }
+
+    //     .then((res) => {
+    //       Swal.fire({
+    //         title: 'New Lendeds added sucessfully !',
+    //         showClass: {
+    //           popup: 'animate__animated animate__fadeInDown',
+    //         },
+    //         hideClass: {
+    //           popup: 'animate__animated animate__fadeOutUp',
+    //         },
+    //       });
+    //       setId('');
+    //       setLended('');
+    //       setLendedContact('');
+    //       setAddress('');
+    //       setLendedsNic('');
+    //       setLendedsEmail('');
+    //       setModel('');
+    //       setChassisNo('');
+    //     })
+    //     .catch((e) => {
+    //       Swal.fire({
+    //         icon: 'error',
+    //         title: 'Oops...',
+    //         text: e.response.data.message,
+    //       });
+    //     });
   };
   return (
     <>
