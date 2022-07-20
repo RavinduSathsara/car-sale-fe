@@ -5,10 +5,13 @@ import axios from 'axios';
 // material
 import { Link, Stack, Checkbox, TextField, IconButton, InputAdornment, FormControlLabel } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+
 // component
 import Iconify from '../../../components/Iconify';
 
 // ----------------------------------------------------------------------
+
+import { handleLogin } from '../../../services/Auth';
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -18,33 +21,28 @@ export default function LoginForm() {
   const [remember, setRemember] = useState(false);
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const result = await handleLogin({
+      user_name: `${userName}`,
+      password: `${passWord}`,
+    });
 
-    axios
-      .post('http://127.0.0.1:8000/api/login', {
-        user_name: `${userName}`,
-        password: `${passWord}`,
-      })
-
-      .then((res) => {
-        if (res?.data.success) {
-          localStorage.setItem('name', `${res.data.data.first_name}  ${res.data.data.last_name}`);
-          localStorage.setItem('email', res.data.data.email);
-          navigate('dashboard/app', { replace: true });
-        }
-      })
-      .catch(() => {
-        Swal.fire({
-          title: 'Username or password incorrect',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
-          },
-        });
+    if (result?.data.success) {
+      localStorage.setItem('name', `${result?.data.data.first_name}  ${result?.data.data.last_name}`);
+      localStorage.setItem('email', result?.data.data.email);
+      navigate('dashboard/app', { replace: true });
+    } else {
+      Swal.fire({
+        title: 'Username or password incorrect',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
       });
+    }
   };
 
   const handleShowPassword = () => {
