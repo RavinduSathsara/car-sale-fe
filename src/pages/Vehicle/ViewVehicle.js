@@ -15,16 +15,31 @@ import {
 
 import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
-import useFetch from '../../hooks/useFetch';
 import { getVehicle } from '../../services/Vehicle';
+import { getAllMaintenance } from '../../services/Maintenance';
 
 const ViewVehicle = () => {
   const { id } = useParams();
 
   const [vehicle, setVehicle] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [maintenancesData, setMaintenancesData] = useState([]);
 
-  const { data: maintenancesData, isLoading: maintenceLoading } = useFetch(`http://127.0.0.1:8000/api/maintenances`);
+  // get all Maintenance
+  const fetchAllMaintenance = async () => {
+    try {
+      const { data: allMaintenance } = await getAllMaintenance();
+      setMaintenancesData(allMaintenance?.posts);
+      console.log('aaaaa', allMaintenance?.posts);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllMaintenance();
+  }, []);
 
   // featching data
   const getVehicleData = async (id) => {
@@ -37,9 +52,10 @@ const ViewVehicle = () => {
     getVehicleData(id);
   }, []);
 
-  const vehicleMaintenceCost = maintenancesData?.posts.filter((vehicle) => {
+  const vehicleMaintenceCost = maintenancesData?.filter((vehicle) => {
     return +vehicle.vehicleid === parseInt(id, 10);
   });
+  console.log('mmmm', vehicleMaintenceCost);
 
   const arr = [];
 
