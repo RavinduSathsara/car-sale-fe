@@ -156,7 +156,7 @@ const ViewSwapDeal = () => {
           ) : (
             <Grid container>
               <Grid item sx={{ m: 2 }}>
-                <Card sx={{ display: 'flex', height: '980px', width: '520px' }}>
+                <Card sx={{ display: 'flex', height: '980px', width: '550px' }}>
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <CardContent>
                       <h3 style={{ marginLeft: '170px', marginBottom: '20px' }}> Personal</h3>
@@ -194,7 +194,7 @@ const ViewSwapDeal = () => {
                         <Grid item sx={{ m: 2 }} xs={8}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
-                              Address :
+                              Address:
                             </Typography>
                             <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                               {swapData?.address}
