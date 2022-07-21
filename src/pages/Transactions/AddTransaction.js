@@ -26,35 +26,38 @@ import { createTransaction } from '../../services/Transaction';
 import Page from '../../components/Page';
 
 const AddTransaction = () => {
+  const [make, setMake] = useState('');
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
-  const [make, setMake] = useState('');
   const [yearOfManufacture, setYearOfManufacture] = useState(Date.now());
   const [yearOfRegistration, setYearOfRegistration] = useState(Date.now());
   const [chassisNo, setChassisNo] = useState('');
   const [unitPrice, setUnitPrice] = useState('');
+  const [query, setQuery] = useState('');
 
   const handleReset = (event) => {
     event.preventDefault();
+    setMake('');
     setBrand('');
     setModel('');
-    setMake('');
     setYearOfManufacture(Date.now());
     setYearOfRegistration(Date.now());
     setChassisNo('');
     setUnitPrice('');
+    setQuery('');
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const result = await createTransaction({
+      make: `${make}`,
       brand: `${brand}`,
       model: `${model}`,
-      make: `${make}`,
       year_manufacture: `${yearOfManufacture.getFullYear()}`,
       year_registration: `${yearOfRegistration.getFullYear()}`,
       chassis_no: `${chassisNo}`,
       unit_price: `${unitPrice}`,
+      query: `${query}`,
     });
 
     if (result.data.status) {
@@ -121,6 +124,25 @@ const AddTransaction = () => {
           <form onSubmit={handleSubmit} onReset={handleReset}>
             <Grid container>
               <Grid item xs={4} sx={{ m: 2 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Make</InputLabel>
+                  <Select
+                    required
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={make}
+                    label="Make"
+                    onChange={(e) => {
+                      setMake(e.target.value);
+                    }}
+                  >
+                    <MenuItem value={'Car'}>Car</MenuItem>
+                    <MenuItem value={'Jeep'}>Jeep</MenuItem>
+                    <MenuItem value={'Van'}>Van</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>{' '}
+              <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
                   required
@@ -139,25 +161,6 @@ const AddTransaction = () => {
                   value={model}
                   onChange={(e) => setModel(e.target.value)}
                 />
-              </Grid>{' '}
-              <Grid item xs={4} sx={{ m: 2 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Make</InputLabel>
-                  <Select
-                    required
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={make}
-                    label="Make"
-                    onChange={(e) => {
-                      setMake(e.target.value);
-                    }}
-                  >
-                    <MenuItem value={'Car'}>Car</MenuItem>
-                    <MenuItem value={'Jeep'}>Jeep</MenuItem>
-                    <MenuItem value={'Van'}>Van</MenuItem>
-                  </Select>
-                </FormControl>
               </Grid>{' '}
               <Grid item xs={4} sx={{ m: 2 }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -205,6 +208,24 @@ const AddTransaction = () => {
                   onChange={(e) => setUnitPrice(e.target.value)}
                 />
               </Grid>
+              <Grid item xs={4} sx={{ m: 2 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Query</InputLabel>
+                  <Select
+                    required
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={query}
+                    label="Query"
+                    onChange={(e) => {
+                      setQuery(e.target.value);
+                    }}
+                  >
+                    <MenuItem value={'Sold'}>Sold</MenuItem>
+                    <MenuItem value={'bought'}>Bought</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>{' '}
             </Grid>
             <Grid item xs={5} sx={{ m: 2 }}>
               <LoadingButton style={{ width: 150 }} size="large" type="submit" variant="contained">

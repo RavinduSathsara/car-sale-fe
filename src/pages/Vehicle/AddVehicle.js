@@ -31,9 +31,9 @@ import Page from '../../components/Page';
 import { createVehicle } from '../../services/Vehicle';
 
 const AddVehicle = () => {
+  const [make, setMake] = useState('');
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
-  const [make, setMake] = useState('');
   const [yearOfManufacture, setYearOfManufacture] = useState(Date.now());
   const [yearOfRegistration, setYearOfRegistration] = useState(Date.now());
   const [ownership, setOwnership] = useState('');
@@ -49,9 +49,9 @@ const AddVehicle = () => {
 
   const handleReset = (event) => {
     event.preventDefault();
+    setMake('');
     setBrand('');
     setModel('');
-    setMake('');
     setYearOfManufacture('');
     setYearOfRegistration('');
     setOwnership('');
@@ -82,10 +82,9 @@ const AddVehicle = () => {
     };
 
     const formData = new FormData();
-
+    formData.append('make', `${make}`);
     formData.append('brand', `${brand}`);
     formData.append('model', `${model}`);
-    formData.append('make', `${make}`);
     formData.append('year_manufacture', `${yearOfManufacture.getFullYear()}`);
     formData.append('year_registration', `${yearOfRegistration.getFullYear()}`);
     formData.append('ownership', `${ownership}`);
@@ -131,6 +130,25 @@ const AddVehicle = () => {
           <form onSubmit={handleSubmit} onReset={handleReset}>
             <Grid container>
               <Grid item xs={4} sx={{ m: 2 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Make</InputLabel>
+                  <Select
+                    required
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={make}
+                    label="Make"
+                    onChange={(e) => {
+                      setMake(e.target.value);
+                    }}
+                  >
+                    <MenuItem value={'Car'}>Car</MenuItem>
+                    <MenuItem value={'Jeep'}>Jeep</MenuItem>
+                    <MenuItem value={'Van'}>Van</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
                   required
@@ -149,25 +167,6 @@ const AddVehicle = () => {
                   value={model}
                   onChange={(e) => setModel(e.target.value)}
                 />
-              </Grid>
-              <Grid item xs={4} sx={{ m: 2 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Make</InputLabel>
-                  <Select
-                    required
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={make}
-                    label="Make"
-                    onChange={(e) => {
-                      setMake(e.target.value);
-                    }}
-                  >
-                    <MenuItem value={'Car'}>Car</MenuItem>
-                    <MenuItem value={'Jeep'}>Jeep</MenuItem>
-                    <MenuItem value={'Van'}>Van</MenuItem>
-                  </Select>
-                </FormControl>
               </Grid>
 
               <Grid item xs={4} sx={{ m: 2 }}>
