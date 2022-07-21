@@ -30,8 +30,8 @@ const ViewStaff = () => {
   if (isLoading) {
     return (
       <>
-        <Stack spacing={1} sx={{ marginTop: '85px', marginLeft: '30px' }}>
-          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={1150} height={490} />
+        <Stack spacing={1} sx={{ marginTop: '85px', marginLeft: '120px' }}>
+          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={1000} height={550} />
         </Stack>
       </>
     );
@@ -50,7 +50,7 @@ const ViewStaff = () => {
             </IconButton>
           </Stack>
 
-          <Card sx={{ display: 'flex', height: '500px', maxWidth: '1500px' }}>
+          <Card sx={{ display: 'flex', height: '600px', maxWidth: '1000px', marginLeft: '80px' }}>
             <CardMedia
               component="img"
               sx={{ width: 300, height: 300, margin: '20px' }}
@@ -65,38 +65,56 @@ const ViewStaff = () => {
                         {staffData?.first_name} {staffData.last_name}
                       </Typography>{' '}
                     </Stack>{' '}
-                    <Stack direction="row" sx={{ m: 1, fontWeight: 'bold' }}>
-                      <Typography component="div" variant="p" color="text.secondary">
-                        DOB : {staffData?.d_o_b}
+                  </Grid>
+                  <Grid item sx={{ m: 1, marginTop: '50px' }} xs={12}>
+                    {' '}
+                    <Stack direction="row">
+                      <Typography component="div" variant="h6">
+                        DOB
+                      </Typography>
+                      <Typography variant="h6" sx={{ mx: 6 }}>
+                        :
+                      </Typography>
+                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
+                        {staffData?.d_o_b}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 1, marginTop: '50px' }} xs={12}>
+                  <Grid item sx={{ m: 1 }} xs={12}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
-                        Email :
+                        Email
                       </Typography>
-                      <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography variant="h6" sx={{ mx: 5 }}>
+                        :
+                      </Typography>
+                      <Typography variant="h6" color="text.secondary" sx={{ mx: 2 }}>
                         {staffData?.email}
                       </Typography>
                     </Stack>
                   </Grid>{' '}
-                  <Grid item sx={{ m: 1 }} xs={6}>
+                  <Grid item sx={{ m: 1 }} xs={12}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
-                        NIC :
+                        NIC
+                      </Typography>{' '}
+                      <Typography variant="h6" sx={{ mx: 7 }}>
+                        :
                       </Typography>
-                      <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography variant="h6" color="text.secondary">
                         {staffData?.nic}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 1 }}>
+                  <Grid item sx={{ m: 1 }} xs={12}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
-                        Gender :
+                        Gender
+                      </Typography>{' '}
+                      <Typography variant="h6" sx={{ mx: 3.2 }}>
+                        :
                       </Typography>
-                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 4 }}>
                         {staffData?.gender}
                       </Typography>
                     </Stack>
@@ -104,29 +122,38 @@ const ViewStaff = () => {
                   <Grid item sx={{ m: 1 }} xs={12}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
-                        Address :
+                        Address
+                      </Typography>{' '}
+                      <Typography variant="h6" sx={{ mx: 2.2 }}>
+                        :
                       </Typography>
-                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 5 }}>
                         {staffData?.address}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 1 }} xs={6}>
+                  <Grid item sx={{ m: 1 }} xs={12}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
-                        Phone no :
+                        Phone no
+                      </Typography>{' '}
+                      <Typography variant="h6" sx={{ mx: 1.5 }}>
+                        :
                       </Typography>
-                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 5.4 }}>
                         {staffData?.ph_no}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 1 }} xs={6}>
+                  <Grid item sx={{ m: 1 }} xs={12}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
-                        Position :
+                        Position
                       </Typography>
-                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography variant="h6" sx={{ mx: 2.8 }}>
+                        :
+                      </Typography>
+                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 4 }}>
                         {staffData?.position}
                       </Typography>
                     </Stack>
@@ -134,7 +161,10 @@ const ViewStaff = () => {
                   <Grid item sx={{ m: 1 }}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
-                        Shift :
+                        Shift
+                      </Typography>{' '}
+                      <Typography variant="h6" sx={{ mx: 6.3 }}>
+                        :
                       </Typography>
                       <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {staffData?.shift}
@@ -144,10 +174,13 @@ const ViewStaff = () => {
                   <Grid item sx={{ m: 1 }} xs={12}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
-                        Salary : Rs
+                        Salary
+                      </Typography>{' '}
+                      <Typography variant="h6" sx={{ mx: 4.5 }}>
+                        :
                       </Typography>
-                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {staffData?.salary}
+                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 2.5 }}>
+                        Rs {staffData?.salary}
                       </Typography>
                     </Stack>
                   </Grid>
