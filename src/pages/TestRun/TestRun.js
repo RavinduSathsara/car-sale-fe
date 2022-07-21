@@ -20,13 +20,15 @@ import {
 } from '@mui/material';
 
 import PreviewIcon from '@mui/icons-material/Preview';
+import Swal from 'sweetalert2';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 // components
 import Page from '../../components/Page';
 
 import LoadingLiner from '../../components/LoadingLiner';
 import DataTable from '../../components/DataTable';
-import { getAllTestRun } from '../../services/TestRun';
+import { getAllTestRun, removeTestRun } from '../../services/TestRun';
 // mock
 // import rows from '../../_mock/user';
 
@@ -42,6 +44,26 @@ export default function TestRun() {
       const { data: allTestRun } = await getAllTestRun();
       setTestRun(allTestRun.posts);
       setloading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const deleteTestrun = (id, name) => {
+    try {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const deleted = removeTestRun(id);
+          Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success');
+        }
+      });
     } catch (error) {
       console.log(error);
     }
@@ -114,6 +136,18 @@ export default function TestRun() {
                       <IconButton component={RouterLink} to={`/dashboard/view-test-run/${row.id}`}>
                         <PreviewIcon />
                       </IconButton>
+
+                      <IconButton
+                        color="error"
+                        onClick={() => {
+                          deleteTestrun(row.id, row.name);
+                        }}
+                      >
+                        <Tooltip title="Delete">
+                          <DeleteIcon />
+                        </Tooltip>
+                      </IconButton>
+                      {/* </IconButton> */}
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
