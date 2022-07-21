@@ -227,16 +227,6 @@ const ViewVehicle = () => {
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }} xs={6}>
-                    <Stack direction="row">
-                      <Typography component="div" variant="h6">
-                        Trans No:
-                      </Typography>
-                      <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {vehicle?.trans_no}
-                      </Typography>
-                    </Stack>
-                  </Grid>
                   <Grid item sx={{ m: 2 }}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">

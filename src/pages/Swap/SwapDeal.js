@@ -20,12 +20,14 @@ import {
 } from '@mui/material';
 
 import PreviewIcon from '@mui/icons-material/Preview';
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import Swal from 'sweetalert2';
 import Label from '../../components/Label';
+import { getAllSwapVehicle, deleteSwap } from '../../services/Swap';
 // components
 import Page from '../../components/Page';
 import LoadingLiner from '../../components/LoadingLiner';
-import { getAllSwapVehicle } from '../../services/Swap';
+
 // mock
 // import rows from '../../_mock/user';
 
@@ -45,7 +47,26 @@ export default function SwapDeal() {
       console.log(error);
     }
   };
-
+  const deleteSwaps = (id, name) => {
+    try {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const deleted = deleteSwap(id, name);
+          Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success');
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     fetchAllSwapVehicle();
   }, []);
@@ -97,7 +118,7 @@ export default function SwapDeal() {
                   <Tooltip title="Custom Year Of Manufacture">
                     <StyledTableCell>Cus. YOM</StyledTableCell>
                   </Tooltip>
-                  <Tooltip title="Request Year Of Month">
+                  <Tooltip title="Requested Year Of Manufacture">
                     <StyledTableCell>Req. YOM</StyledTableCell>
                   </Tooltip>
                   <StyledTableCell>Contact</StyledTableCell>
@@ -114,7 +135,7 @@ export default function SwapDeal() {
                     <StyledTableCell>{row.cus_model}</StyledTableCell>
                     <StyledTableCell>{row.model}</StyledTableCell>
                     <StyledTableCell>{row.cus_year_manufacture}</StyledTableCell>
-                    <StyledTableCell>{row.year}</StyledTableCell>
+                    <StyledTableCell>{row.year_manufacture}</StyledTableCell>
                     <StyledTableCell>{row.contact}</StyledTableCell>
                     <StyledTableCell>
                       <Label variant="ghost">{row.decision === 1 ? 'Accepted' : 'Pending'}</Label>
@@ -124,6 +145,16 @@ export default function SwapDeal() {
                     <StyledTableCell>
                       <IconButton component={RouterLink} to={`/dashboard/view-swap-deal/${row.id}`}>
                         <PreviewIcon />
+                      </IconButton>
+                      <IconButton
+                        color="error"
+                        onClick={() => {
+                          deleteSwaps(row.id, row.name);
+                        }}
+                      >
+                        <Tooltip title="Delete">
+                          <DeleteIcon />
+                        </Tooltip>
                       </IconButton>
                     </StyledTableCell>
                   </StyledTableRow>

@@ -117,7 +117,6 @@ const Transaction = () => {
                 <TableRow>
                   <StyledTableCell> Brand</StyledTableCell>
                   <StyledTableCell>Model</StyledTableCell>
-                  <StyledTableCell>Make</StyledTableCell>{' '}
                   <Tooltip title="Year Manufacture">
                     <StyledTableCell>Year.Manu</StyledTableCell>
                   </Tooltip>
@@ -125,7 +124,6 @@ const Transaction = () => {
                     <StyledTableCell>Year.Reg</StyledTableCell>
                   </Tooltip>
                   <StyledTableCell>ChassisNo</StyledTableCell>
-                  <StyledTableCell>UnitPrice</StyledTableCell>
                   <StyledTableCell>Actions</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -136,12 +134,10 @@ const Transaction = () => {
                     <StyledTableCell component="th" scope="row">
                       {row.brand}
                     </StyledTableCell>
-                    <StyledTableCell>{row.make}</StyledTableCell>
                     <StyledTableCell>{row.model}</StyledTableCell>
                     <StyledTableCell>{row.year_manufacture}</StyledTableCell>
                     <StyledTableCell>{row.year_registration}</StyledTableCell>
                     <StyledTableCell>{row.chassis_no}</StyledTableCell>{' '}
-                    <StyledTableCell>{row.unit_price}</StyledTableCell>
                     <StyledTableCell>
                       <IconButton
                         color="error"
