@@ -28,6 +28,7 @@ import { Icon } from '@iconify/react';
 
 import { LoadingButton, DatePicker } from '@mui/lab';
 import Page from '../../components/Page';
+import { createVehicle } from '../../services/Vehicle';
 
 const AddVehicle = () => {
   const [brand, setBrand] = useState('');
@@ -41,7 +42,6 @@ const AddVehicle = () => {
   const [regNo, setRegNo] = useState('');
   const [mileAge, setMileAge] = useState('');
   const [remarks, setRemarks] = useState('');
-
   const [cost, setCost] = useState('');
   const [unitPrice, setUnitPrice] = useState('');
   const [margin, setMargin] = useState('');
@@ -60,7 +60,6 @@ const AddVehicle = () => {
     setRegNo('');
     setMileAge('');
     setRemarks('');
-
     setCost('');
     setUnitPrice('');
     setMargin('');
@@ -73,7 +72,7 @@ const AddVehicle = () => {
     setFile(event.target.files[0]);
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const config = {
@@ -102,34 +101,19 @@ const AddVehicle = () => {
     formData.append('availability', `true`);
     formData.append('v_image', file);
 
-    axios.post('http://127.0.0.1:8000/api/vehicles', formData, config).then(
+    const result = await createVehicle(formData, config);
+
+    if (result.statusText === 'OK') {
       Swal.fire({
-        title: 'New Vehicle added sucessfully !',
+        title: result?.data.message,
         showClass: {
           popup: 'animate__animated animate__fadeInDown',
         },
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-      })
-    );
-
-    setBrand('');
-    setModel('');
-    setMake('');
-    setYearOfManufacture('');
-    setYearOfRegistration('');
-    setOwnership('');
-    setChassisNo('');
-    setFuelType('');
-    setRegNo('');
-    setMileAge('');
-    setRemarks('');
-
-    setCost('');
-    setUnitPrice('');
-    setMargin('');
-    setFile('');
+      });
+    }
   };
 
   return (

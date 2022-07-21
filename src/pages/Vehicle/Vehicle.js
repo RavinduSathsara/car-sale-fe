@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 // material
 import { Container, Stack, Typography, Button, Grid } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
@@ -10,12 +12,23 @@ import Iconify from '../../components/Iconify';
 import { VehicleList } from '../../sections/@dashboard/vehicles';
 // mock
 
-import useFetch from '../../hooks/useFetch';
+import { getAllVehicle, removeVehicle } from '../../services/Vehicle';
 
 // ----------------------------------------------------------------------
 
 export default function Vehicle() {
-  const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/vehicles');
+  const [vehicle, setVehicle] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchAllVehicle = async () => {
+    const result = await getAllVehicle();
+    setVehicle(result?.data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchAllVehicle();
+  }, []);
 
   const deleteVehicle = (id, brand) => {
     Swal.fire({
@@ -28,9 +41,8 @@ export default function Vehicle() {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .delete(`http://127.0.0.1:8000/api/vehicles/${id}`)
-          .then(Swal.fire(`${brand}  Deleted!  `, 'Your file has been deleted.', 'success'));
+        const result = removeVehicle(id);
+        Swal.fire(`${brand}  Deleted!  `, 'Vehicle has been deleted.', 'success');
       }
     });
   };
@@ -54,10 +66,9 @@ export default function Vehicle() {
         </Stack>
 
         <Grid container>
-          {console.log(data?.Vehicle)}
-          {data?.Vehicle.length === 0
+          {vehicle?.count === 0
             ? 'Vehicle is not availble !'
-            : data?.Vehicle.slice()
+            : vehicle?.Vehicle?.slice()
                 .reverse()
                 .map((item) => (
                   <VehicleList
@@ -72,7 +83,7 @@ export default function Vehicle() {
                     id={item.id}
                     deleteVehicle={deleteVehicle}
                     ownership={item.ownership}
-                    isLoading={isLoading}
+                    isLoading={loading}
                   />
                 ))}
         </Grid>
