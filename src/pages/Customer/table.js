@@ -47,7 +47,6 @@ const BasicTable = () => {
             <TableCell align="left">Contact</TableCell>
             <TableCell align="left">Email</TableCell>
             <TableCell align="left">Address</TableCell>
-            <TableCell align="left">Register at</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -60,7 +59,6 @@ const BasicTable = () => {
               <TableCell align="left">{row.contact}</TableCell>
               <TableCell align="left">{row.email}</TableCell>
               <TableCell align="left">{row.address}</TableCell>
-              <TableCell align="left">{row.created_at}</TableCell>
             </TableRow>
           ))}
         </TableBody>

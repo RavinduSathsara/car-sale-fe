@@ -51,6 +51,7 @@ export default function ViewMaintenance() {
   useEffect(() => {
     fetchAllMaintenance();
   }, []);
+  console.log('id', maintenance);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -110,7 +111,7 @@ export default function ViewMaintenance() {
                     <StyledTableCell>{row.model}</StyledTableCell>
                     <StyledTableCell>{row.cost}</StyledTableCell>
                     <StyledTableCell>
-                      <IconButton component={RouterLink} to={`/dashboard/View-Maintenance/${row.id}`}>
+                      <IconButton component={RouterLink} to={`/dashboard/View-Maintenance/${row.maintenance_id}`}>
                         <PreviewIcon />
                       </IconButton>
                     </StyledTableCell>

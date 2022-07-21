@@ -9,14 +9,13 @@ import {
   Container,
   Typography,
   IconButton,
-  CardMedia,
   Box,
   Grid,
   CardContent,
   Skeleton,
 } from '@mui/material';
 import axios from 'axios';
-import ClearIcon from '@mui/icons-material/Clear';
+
 import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
 import useFetch from '../../hooks/useFetch';
@@ -24,9 +23,9 @@ import useFetch from '../../hooks/useFetch';
 const ViewMaintenance = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data: maintenanceData, isLoading } = useFetch(`http://127.0.0.1:8000/api/maintenances/${id}`);
-
-  const RemoveMaintenance = (id) => {
+  const { data: maintenanceData, isLoading } = useFetch(`http://127.0.0.1:8000/api/maintenances/${1}`);
+  console.log('id', id);
+  const removeMaintenance = (id, brand) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -39,7 +38,7 @@ const ViewMaintenance = () => {
       if (result.isConfirmed) {
         axios
           .delete(`http://127.0.0.1:8000/api/maintenances/${id}`)
-          .then(Swal.fire(`${id}  Deleted!  `, 'Your file has been deleted.', 'success'));
+          .then(Swal.fire(`${brand}  Deleted!  `, 'Your file has been deleted.', 'success'));
       }
       navigate('/dashboard/maintenance');
     });
@@ -63,7 +62,7 @@ const ViewMaintenance = () => {
               View Maintenance
             </Typography>
 
-            <IconButton component={RouterLink} to="/dashboard/maintenence">
+            <IconButton component={RouterLink} to="/dashboard/maintenance">
               <Icon icon="ant-design:rollback-outlined" />
             </IconButton>
           </Stack>
@@ -73,10 +72,10 @@ const ViewMaintenance = () => {
                 <Grid container>
                   <Grid item sx={{ m: 2 }}>
                     <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Vehicle Id :
+                      <Typography component="div" variant="h6">
+                        vehicle Id :
                       </Typography>
-                      <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {maintenanceData?.vehicleid}
                       </Typography>{' '}
                     </Stack>
@@ -84,47 +83,57 @@ const ViewMaintenance = () => {
                   <Grid item sx={{ m: 2 }}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
-                        maintenance_id:
+                        Maintenance Id :
                       </Typography>
-                      <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {maintenanceData?.maintenance_id}
+                      </Typography>{' '}
+                    </Stack>
+                  </Grid>
+                  <Grid item sx={{ m: 2 }}>
+                    <Stack direction="row">
+                      <Typography component="div" variant="h6">
+                        Brand :
+                      </Typography>
+                      <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
+                        {maintenanceData?.brand}
                       </Typography>
                     </Stack>
                   </Grid>
                   <Grid item sx={{ m: 2 }} xs={8}>
                     <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        backgroundColor:
+                      <Typography component="div" variant="h6">
+                        Model :
                       </Typography>
-                      <Typography variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {maintenanceData?.brand}
-                      </Typography>
-                    </Stack>
-                  </Grid>
-                  <Grid item sx={{ m: 2 }} xs={4}>
-                    <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Register No:
-                      </Typography>
-                      <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
-                        {maintenanceData?.regNo}
+                      <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
+                        {maintenanceData?.model}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }}>
+                  <Grid item sx={{ m: 2 }} xs={8}>
                     <Stack direction="row">
-                      <Typography component="div" variant="h5">
-                        Maintenance cost:
+                      <Typography component="div" variant="h6">
+                        Cost :
                       </Typography>
-                      <Typography component="div" variant="h5" color="text.secondary" sx={{ mx: 1 }}>
+                      <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {maintenanceData?.cost}
+                      </Typography>
+                    </Stack>
+                  </Grid>
+                  <Grid item sx={{ m: 2 }} xs={6}>
+                    <Stack direction="row">
+                      <Typography component="div" variant="h6">
+                        ChassisNo :
+                      </Typography>
+                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
+                        {maintenanceData?.chassis_no}
                       </Typography>
                     </Stack>
                   </Grid>
                 </Grid>{' '}
                 <Button
                   onClick={() => {
-                    RemoveMaintenance(id, maintenanceData?.vehicleid);
+                    removeMaintenance(id, maintenanceData?.id);
                   }}
                   variant="outlined"
                   color="error"
