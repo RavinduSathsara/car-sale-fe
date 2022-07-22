@@ -124,6 +124,7 @@ const Transaction = () => {
                     <StyledTableCell>Year.Reg</StyledTableCell>
                   </Tooltip>
                   <StyledTableCell>ChassisNo</StyledTableCell>
+                  <StyledTableCell>Query</StyledTableCell>
                   <StyledTableCell>Actions</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -137,7 +138,8 @@ const Transaction = () => {
                     <StyledTableCell>{row.model}</StyledTableCell>
                     <StyledTableCell>{row.year_manufacture}</StyledTableCell>
                     <StyledTableCell>{row.year_registration}</StyledTableCell>
-                    <StyledTableCell>{row.chassis_no}</StyledTableCell>{' '}
+                    <StyledTableCell>{row.chassis_no}</StyledTableCell>
+                    <StyledTableCell>{row.query}</StyledTableCell>
                     <StyledTableCell>
                       <IconButton
                         color="error"

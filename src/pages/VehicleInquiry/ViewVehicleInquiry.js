@@ -18,10 +18,9 @@ import Swal from 'sweetalert2';
 import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
 
-import { getVehicleInquiry, removeVehicleInquiry } from '../../services/VehicleInquiry';
+import { getVehicleInquiry } from '../../services/VehicleInquiry';
 
 const ViewVehicleInquiry = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
   const [vehicleInquiry, setVehicleInquiry] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,24 +34,6 @@ const ViewVehicleInquiry = () => {
   useEffect(() => {
     getVehicleInquiryData(id);
   }, []);
-
-  const deleteInquiry = (id, name) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const deleted = removeVehicleInquiry(id);
-        Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success');
-      }
-      navigate('/dashboard/inquiry');
-    });
-  };
 
   if (loading) {
     return (
@@ -203,17 +184,6 @@ const ViewVehicleInquiry = () => {
                     </Stack>
                   </Grid>
                 </Grid>
-
-                <Button
-                  onClick={() => {
-                    deleteInquiry(id, vehicleInquiry?.name);
-                  }}
-                  variant="outlined"
-                  color="error"
-                  sx={{ margin: '20px' }}
-                >
-                  Delete
-                </Button>
               </CardContent>
             </Box>
           </Card>
