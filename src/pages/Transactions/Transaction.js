@@ -22,7 +22,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-
+import PreviewIcon from '@mui/icons-material/Preview';
 import { Link as RouterLink } from 'react-router-dom';
 import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
@@ -154,6 +154,11 @@ const Transaction = () => {
                           <AddBoxIcon />
                         </Tooltip>
                       </IconButton>
+                      <Tooltip title="View Transaction">
+                        <IconButton component={RouterLink} to={`/dashboard/view-transaction/${row.id}`}>
+                          <PreviewIcon />
+                        </IconButton>
+                      </Tooltip>
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}

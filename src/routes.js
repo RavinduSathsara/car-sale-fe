@@ -29,6 +29,7 @@ import Maintenance from './pages/Maintenance/Maintenance';
 import Transaction from './pages/Transactions/Transaction';
 import AddTransaction from './pages/Transactions/AddTransaction';
 import ViewMaintenance from './pages/Maintenance/ViewMaintenance';
+import ViewTransaction from './pages/Transactions/ViewTransaction';
 
 // ----------------------------------------------------------------------
 
@@ -60,6 +61,7 @@ export default function Router() {
         { path: 'view-maintenance/:id', element: <ViewMaintenance /> },
         { path: 'transaction', element: <Transaction /> },
         { path: 'add-transaction', element: <AddTransaction /> },
+        { path: 'view-transaction/:id', element: <ViewTransaction /> },
       ],
     },
     {

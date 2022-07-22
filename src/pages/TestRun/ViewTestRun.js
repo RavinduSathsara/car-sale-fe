@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import {
@@ -18,14 +18,25 @@ import axios from 'axios';
 
 import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
-import useFetch from '../../hooks/useFetch';
+import { getTestRun, removeTestRun } from '../../services/TestRun';
 
 const ViewTestRun = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data: testData, isLoading } = useFetch(`http://127.0.0.1:8000/api/testdrive/${id}`);
+  const [testRun, setTestRun] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const removeTestRun = (id, name) => {
+  // featching data
+  const getTestRunData = async (id) => {
+    const result = await getTestRun(id);
+    setTestRun(result?.data);
+    setLoading(false);
+  };
+  useEffect(() => {
+    getTestRunData(id);
+  }, []);
+
+  const deleteTestrun = (id, name) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -36,19 +47,18 @@ const ViewTestRun = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .delete(`http://127.0.0.1:8000/api/testdrive/${id}`)
-          .then(Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success'));
+        const deleted = removeTestRun(id);
+        Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success');
       }
       navigate('/dashboard/test-run');
     });
   };
 
-  if (isLoading) {
+  if (loading) {
     return (
       <>
         <Stack spacing={1} sx={{ marginTop: '130px', marginLeft: '230px' }}>
-          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={600} height={650} />
+          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={600} height={700} />
         </Stack>
       </>
     );
@@ -66,37 +76,37 @@ const ViewTestRun = () => {
               <Icon icon="ant-design:rollback-outlined" />
             </IconButton>
           </Stack>
-          <Card sx={{ display: 'flex', height: '650px', maxWidth: '600px', marginLeft: '190px', marginTop: '80px' }}>
+          <Card sx={{ display: 'flex', height: '800px', maxWidth: '600px', marginLeft: '190px', marginTop: '80px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <CardContent sx={{ flex: '1 0 auto', margin: '30px' }}>
+              <CardContent sx={{ flex: '1 0 auto', marginLeft: '100px' }}>
                 <Grid container>
-                  <Grid item sx={{ m: 2 }}>
+                  <Grid item sx={{ m: 2 }} xs={6}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         Name :
                       </Typography>
                       <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData?.name}
+                        {testRun?.name}
                       </Typography>{' '}
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }}>
+                  <Grid item sx={{ m: 2 }} xs={6}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         contact :
                       </Typography>
                       <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData?.contact}
+                        {testRun?.contact}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }} xs={8}>
+                  <Grid item sx={{ m: 2 }} xs={12}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         Email :
                       </Typography>
                       <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData?.email}
+                        {testRun?.email}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -106,67 +116,67 @@ const ViewTestRun = () => {
                         Profession :
                       </Typography>
                       <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData?.profession}
+                        {testRun?.profession}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }}>
+                  <Grid item sx={{ m: 2 }} xs={12}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         Address :
                       </Typography>
                       <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData?.address}
+                        {testRun?.address}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }} xs={4}>
+                  <Grid item sx={{ m: 2 }} xs={8}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         Make :
                       </Typography>
                       <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData?.make}
+                        {testRun?.make}
                       </Typography>
                     </Stack>
                   </Grid>{' '}
-                  <Grid item sx={{ m: 2 }}>
+                  <Grid item sx={{ m: 2 }} xs={8}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         Brand :
                       </Typography>
                       <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData?.brand}
+                        {testRun?.brand}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }} xs={4}>
+                  <Grid item sx={{ m: 2 }} xs={6}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         Model :
                       </Typography>
                       <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData?.model}
+                        {testRun?.model}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }}>
+                  <Grid item sx={{ m: 2 }} xs={6}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         Ownership :
                       </Typography>
                       <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData?.ownership}
+                        {testRun?.ownership}
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }}>
+                  <Grid item sx={{ m: 2 }} xs={12}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         Customer Request :
                       </Typography>
                       <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData?.cus_req}
+                        {testRun?.cus_req}
                       </Typography>
                     </Stack>
                   </Grid>
@@ -176,14 +186,14 @@ const ViewTestRun = () => {
                         Year Manufacture :
                       </Typography>
                       <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {testData?.year_manufacture}
+                        {testRun?.year_manufacture}
                       </Typography>
                     </Stack>
                   </Grid>
                 </Grid>{' '}
                 <Button
                   onClick={() => {
-                    removeTestRun(id, testData?.name);
+                    deleteTestrun(id, testRun?.name);
                   }}
                   variant="outlined"
                   color="error"

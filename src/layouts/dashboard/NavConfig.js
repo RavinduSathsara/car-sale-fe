@@ -21,11 +21,7 @@ const navConfig = [
     path: '/dashboard/vehicle',
     icon: getIcon('ant-design:car-filled'),
   },
-  {
-    title: 'Customer',
-    path: '/dashboard/add-customer',
-    icon: getIcon('material-symbols:record-voice-over-rounded'),
-  },
+
   {
     title: 'Swap',
     path: '/dashboard/swap',
@@ -50,6 +46,11 @@ const navConfig = [
     title: 'Transactions',
     path: '/dashboard/transaction',
     icon: getIcon('icon-park-twotone:transaction'),
+  },
+  {
+    title: 'Customer',
+    path: '/dashboard/add-customer',
+    icon: getIcon('material-symbols:record-voice-over-rounded'),
   },
 ];
 
