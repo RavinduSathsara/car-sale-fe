@@ -64,16 +64,14 @@ export default function Login() {
   return (
     <Page title="Login">
       <RootStyle>
-        <HeaderStyle>
-          <Logo />
-        </HeaderStyle>
-
         {mdUp && (
           <SectionStyle>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome
-            </Typography>
-            <img src="/static/illustrations/illustration_login.png" alt="login" />
+            <img
+              style={{ marginLeft: 40 }}
+              width={'330px'}
+              src="/static/illustrations/illustration_login.png"
+              alt="login"
+            />
           </SectionStyle>
         )}
 
