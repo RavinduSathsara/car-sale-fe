@@ -35,6 +35,7 @@ import LoadingLiner from '../../components/LoadingLiner';
 
 export default function SwapDeal() {
   const [swapVehicle, setSwapVehicle] = useState([]);
+  const [refresh, setRefresh] = useState(0);
   const [loading, setloading] = useState(true);
 
   // get all SwapVehicle
@@ -61,6 +62,9 @@ export default function SwapDeal() {
         if (result.isConfirmed) {
           const deleted = deleteSwap(id, name);
           Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success');
+          setTimeout(() => {
+            setRefresh(refresh + 1);
+          }, 1000);
         }
       });
     } catch (error) {
@@ -69,7 +73,7 @@ export default function SwapDeal() {
   };
   useEffect(() => {
     fetchAllSwapVehicle();
-  }, []);
+  }, [refresh]);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {

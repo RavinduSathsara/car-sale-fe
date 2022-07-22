@@ -37,6 +37,7 @@ import { getAllTestRun, removeTestRun } from '../../services/TestRun';
 export default function TestRun() {
   const [testRun, setTestRun] = useState([]);
   const [loading, setloading] = useState(true);
+  const [refresh, setRefresh] = useState(0);
 
   // get all TestRun
   const fetchAllTestRun = async () => {
@@ -63,6 +64,9 @@ export default function TestRun() {
           const deleted = removeTestRun(id);
           Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success');
         }
+        setTimeout(() => {
+          setRefresh(refresh + 1);
+        }, 1000);
       });
     } catch (error) {
       console.log(error);
@@ -70,7 +74,7 @@ export default function TestRun() {
   };
   useEffect(() => {
     fetchAllTestRun();
-  }, []);
+  }, [refresh]);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
