@@ -18,6 +18,7 @@ import { getAllVehicle, removeVehicle } from '../../services/Vehicle';
 
 export default function Vehicle() {
   const [vehicle, setVehicle] = useState([]);
+  const [refresh, setRefresh] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const fetchAllVehicle = async () => {
@@ -28,9 +29,9 @@ export default function Vehicle() {
 
   useEffect(() => {
     fetchAllVehicle();
-  }, []);
+  }, [refresh]);
 
-  const deleteVehicle = (id, brand) => {
+  const deleteVehicle = async (id, brand) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -43,6 +44,9 @@ export default function Vehicle() {
       if (result.isConfirmed) {
         const result = removeVehicle(id);
         Swal.fire(`${brand}  Deleted!  `, 'Vehicle has been deleted.', 'success');
+        setTimeout(() => {
+          setRefresh(refresh + 1);
+        }, 1000);
       }
     });
   };

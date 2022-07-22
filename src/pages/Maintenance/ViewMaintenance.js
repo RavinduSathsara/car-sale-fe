@@ -23,26 +23,7 @@ import useFetch from '../../hooks/useFetch';
 const ViewMaintenance = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data: maintenanceData, isLoading } = useFetch(`http://127.0.0.1:8000/api/maintenances/${1}`);
-  console.log('id', id);
-  const removeMaintenance = (id, brand) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`http://127.0.0.1:8000/api/maintenances/${id}`)
-          .then(Swal.fire(`${brand}  Deleted!  `, 'Your file has been deleted.', 'success'));
-      }
-      navigate('/dashboard/maintenance');
-    });
-  };
+  const { data: maintenanceData, isLoading } = useFetch(`http://127.0.0.1:8000/api/maintenances/${id}`);
 
   if (isLoading) {
     return (
@@ -66,31 +47,22 @@ const ViewMaintenance = () => {
               <Icon icon="ant-design:rollback-outlined" />
             </IconButton>
           </Stack>
-          <Card sx={{ display: 'flex', height: '650px', maxWidth: '600px', marginLeft: '190px', marginTop: '80px' }}>
+          <Card sx={{ display: 'flex', height: '450px', maxWidth: '600px', marginLeft: '190px', marginTop: '80px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <CardContent sx={{ flex: '1 0 auto', margin: '30px' }}>
                 <Grid container>
-                  <Grid item sx={{ m: 2 }}>
+                  <Grid item sx={{ m: 2 }} xs={4}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
-                        vehicle Id :
+                        Vehicle Id :
                       </Typography>
                       <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {maintenanceData?.vehicleid}
                       </Typography>{' '}
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }}>
-                    <Stack direction="row">
-                      <Typography component="div" variant="h6">
-                        Maintenance Id :
-                      </Typography>
-                      <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {maintenanceData?.maintenance_id}
-                      </Typography>{' '}
-                    </Stack>
-                  </Grid>
-                  <Grid item sx={{ m: 2 }}>
+
+                  <Grid item sx={{ m: 2 }} xs={4}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         Brand :
@@ -100,7 +72,7 @@ const ViewMaintenance = () => {
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }} xs={8}>
+                  <Grid item sx={{ m: 2 }} xs={4}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         Model :
@@ -110,7 +82,7 @@ const ViewMaintenance = () => {
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }} xs={8}>
+                  <Grid item sx={{ m: 2 }} xs={4}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         Cost :
@@ -131,16 +103,16 @@ const ViewMaintenance = () => {
                     </Stack>
                   </Grid>
                 </Grid>{' '}
-                <Button
-                  onClick={() => {
-                    removeMaintenance(id, maintenanceData?.id);
-                  }}
-                  variant="outlined"
-                  color="error"
-                  sx={{ margin: '20px' }}
-                >
-                  Delete
-                </Button>
+                <Grid item sx={{ m: 2 }} xs={4}>
+                  <Stack direction="row">
+                    <Typography component="div" variant="h6">
+                      Comment :
+                    </Typography>
+                    <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
+                      {maintenanceData?.comment}
+                    </Typography>
+                  </Stack>
+                </Grid>
               </CardContent>
             </Box>
           </Card>
