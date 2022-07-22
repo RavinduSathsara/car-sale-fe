@@ -36,7 +36,7 @@ import LoadingLiner from '../../components/LoadingLiner';
 
 export default function ViewMaintenance() {
   const [maintenance, setMaintenance] = useState([]);
-  const [refresh, setRefresh] = useState(0);
+  const [refresh1, setRefresh] = useState(0);
   const [loading, setloading] = useState(true);
 
   // get all Maintenance
@@ -74,7 +74,7 @@ export default function ViewMaintenance() {
   };
   useEffect(() => {
     fetchAllMaintenance();
-  }, [refresh]);
+  }, [refresh1]);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
