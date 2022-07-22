@@ -27,7 +27,6 @@ export default function MaintanceModal({ open, handleClose, id, setOpen }) {
   const [comment, setComment] = useState('');
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState('');
-  const [color, setColor] = useState('success');
 
   const { data: vehicleData, isLoading: vehicleLoading } = useFetch(`http://127.0.0.1:8000/api/vehicles/${id}`);
 
