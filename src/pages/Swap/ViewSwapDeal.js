@@ -156,12 +156,12 @@ const ViewSwapDeal = () => {
           ) : (
             <Grid container>
               <Grid item sx={{ m: 2 }}>
-                <Card sx={{ display: 'flex', height: '980px', width: '550px' }}>
+                <Card sx={{ display: 'flex', height: '1000px', width: '550px' }}>
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <CardContent>
                       <h3 style={{ marginLeft: '170px', marginBottom: '20px' }}> Personal</h3>
                       <Grid container>
-                        <Grid item sx={{ m: 2 }}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Name :
@@ -171,7 +171,7 @@ const ViewSwapDeal = () => {
                             </Typography>{' '}
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Contact :
@@ -181,7 +181,7 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }} xs={8}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Email :
@@ -191,17 +191,17 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }} xs={8}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
-                              Address:
+                              Address :
                             </Typography>
                             <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                               {swapData?.address}
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }} xs={8}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Profession :
@@ -211,7 +211,7 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Customer Make :
@@ -221,7 +221,7 @@ const ViewSwapDeal = () => {
                             </Typography>{' '}
                           </Stack>
                         </Grid>{' '}
-                        <Grid item sx={{ m: 2 }}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Customer Brand :
@@ -231,7 +231,7 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }} xs={8}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Customer Model :
@@ -241,7 +241,7 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Customer year Manufacture :
@@ -251,7 +251,7 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Year Registration :
@@ -261,7 +261,7 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Customer Ownership :
@@ -271,7 +271,7 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>{' '}
-                        <Grid item sx={{ m: 2 }} xs={8}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Chassis No :
@@ -281,17 +281,17 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }} xs={4}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
-                              FuelType :
+                              Fuel Type :
                             </Typography>
                             <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                               {swapData?.cus_fuel_type}
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }} xs={4}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Mileage :
@@ -301,7 +301,7 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }} xs={8}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Remark :
@@ -322,7 +322,7 @@ const ViewSwapDeal = () => {
                     <CardContent>
                       <h3 style={{ marginLeft: '170px', marginBottom: '20px' }}> Expecting</h3>
                       <Grid container sx={{ marginLeft: '50px' }}>
-                        <Grid item sx={{ m: 2 }} xs={4}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Brand :
@@ -332,7 +332,7 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }} xs={6}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Model :
@@ -342,7 +342,7 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>{' '}
-                        <Grid item sx={{ m: 2 }}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Make :
@@ -352,7 +352,7 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }} xs={8}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Ownership :
@@ -362,7 +362,7 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>
-                        <Grid item sx={{ m: 2 }} xs={8}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
                               Year Manufacture :
@@ -372,10 +372,10 @@ const ViewSwapDeal = () => {
                             </Typography>
                           </Stack>
                         </Grid>{' '}
-                        <Grid item sx={{ m: 2 }} xs={8}>
+                        <Grid item sx={{ m: 2 }} xs={12}>
                           <Stack direction="row">
                             <Typography component="div" variant="h6">
-                              FuelType :
+                              Fuel Type :
                             </Typography>
                             <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                               {swapData?.fuel_type}

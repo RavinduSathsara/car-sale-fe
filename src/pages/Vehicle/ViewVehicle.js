@@ -227,16 +227,6 @@ const ViewVehicle = () => {
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 1 }} xs={6}>
-                    <Stack direction="row">
-                      <Typography component="div" variant="h6">
-                        Trans No :
-                      </Typography>
-                      <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {vehicle?.trans_no}
-                      </Typography>
-                    </Stack>
-                  </Grid>
                   <Grid item sx={{ m: 1 }} xs={5}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
@@ -247,7 +237,7 @@ const ViewVehicle = () => {
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 1 }} xs={6}>
+                  <Grid item sx={{ m: 1 }} xs={12}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         Maintence Cost :
@@ -257,7 +247,7 @@ const ViewVehicle = () => {
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 1 }} xs={8}>
+                  <Grid item sx={{ m: 1 }} xs={12}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         Remarks :

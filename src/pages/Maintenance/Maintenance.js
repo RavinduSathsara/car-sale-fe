@@ -91,7 +91,6 @@ export default function ViewMaintenance() {
               <TableHead>
                 <TableRow>
                   <StyledTableCell> Vehicle Id</StyledTableCell>
-                  <StyledTableCell>Maintenance Id</StyledTableCell>
                   <StyledTableCell>Brand</StyledTableCell>
                   <StyledTableCell>Chassis No</StyledTableCell>
                   <StyledTableCell>Model</StyledTableCell>
@@ -105,13 +104,12 @@ export default function ViewMaintenance() {
                     <StyledTableCell component="th" scope="row">
                       {row.vehicleid}
                     </StyledTableCell>
-                    <StyledTableCell>{row.maintenance_id}</StyledTableCell>
                     <StyledTableCell>{row.brand}</StyledTableCell>
                     <StyledTableCell>{row.chassis_no}</StyledTableCell>
                     <StyledTableCell>{row.model}</StyledTableCell>
                     <StyledTableCell>{row.cost}</StyledTableCell>
                     <StyledTableCell>
-                      <IconButton component={RouterLink} to={`/dashboard/View-Maintenance/${row.maintenance_id}`}>
+                      <IconButton component={RouterLink} to={`/dashboard/View-Maintenance/${row.id}`}>
                         <PreviewIcon />
                       </IconButton>
                     </StyledTableCell>
