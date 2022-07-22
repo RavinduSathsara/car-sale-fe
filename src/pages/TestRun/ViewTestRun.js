@@ -18,10 +18,9 @@ import axios from 'axios';
 
 import { Icon } from '@iconify/react';
 import Page from '../../components/Page';
-import { getTestRun, removeTestRun } from '../../services/TestRun';
+import { getTestRun } from '../../services/TestRun';
 
 const ViewTestRun = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
   const [testRun, setTestRun] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,24 +34,6 @@ const ViewTestRun = () => {
   useEffect(() => {
     getTestRunData(id);
   }, []);
-
-  const deleteTestrun = (id, name) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const deleted = removeTestRun(id);
-        Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success');
-      }
-      navigate('/dashboard/test-run');
-    });
-  };
 
   if (loading) {
     return (
@@ -191,16 +172,6 @@ const ViewTestRun = () => {
                     </Stack>
                   </Grid>
                 </Grid>{' '}
-                <Button
-                  onClick={() => {
-                    deleteTestrun(id, testRun?.name);
-                  }}
-                  variant="outlined"
-                  color="error"
-                  sx={{ margin: '20px' }}
-                >
-                  Delete
-                </Button>
               </CardContent>
             </Box>
           </Card>

@@ -21,10 +21,11 @@ import {
   TableHead,
   Tooltip,
 } from '@mui/material';
-
+import Swal from 'sweetalert2';
+import DeleteIcon from '@mui/icons-material/Delete';
 import PreviewIcon from '@mui/icons-material/Preview';
 // components
-import { getAllMaintenance } from '../../services/Maintenance';
+import { getAllMaintenance, removeMaintenance } from '../../services/Maintenance';
 import Page from '../../components/Page';
 import LoadingLiner from '../../components/LoadingLiner';
 
@@ -47,11 +48,29 @@ export default function ViewMaintenance() {
       console.log(error);
     }
   };
-
+  const deleteMaintenance = (id, brand) => {
+    try {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const deleted = removeMaintenance(id);
+          Swal.fire(`${brand}  Deleted!  `, 'Your file has been deleted.', 'success');
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     fetchAllMaintenance();
   }, []);
-  console.log('id', maintenance);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -111,6 +130,16 @@ export default function ViewMaintenance() {
                     <StyledTableCell>
                       <IconButton component={RouterLink} to={`/dashboard/View-Maintenance/${row.id}`}>
                         <PreviewIcon />
+                      </IconButton>
+                      <IconButton
+                        color="error"
+                        onClick={() => {
+                          deleteMaintenance(row.id, row.brand);
+                        }}
+                      >
+                        <Tooltip title="Delete">
+                          <DeleteIcon />
+                        </Tooltip>
                       </IconButton>
                     </StyledTableCell>
                   </StyledTableRow>

@@ -24,25 +24,6 @@ const ViewMaintenance = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: maintenanceData, isLoading } = useFetch(`http://127.0.0.1:8000/api/maintenances/${id}`);
-  console.log('id', id);
-  const removeMaintenance = (id, brand) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`http://127.0.0.1:8000/api/maintenances/${id}`)
-          .then(Swal.fire(`${brand}  Deleted!  `, 'Your file has been deleted.', 'success'));
-      }
-      navigate('/dashboard/maintenance');
-    });
-  };
 
   if (isLoading) {
     return (
@@ -132,16 +113,6 @@ const ViewMaintenance = () => {
                     </Typography>
                   </Stack>
                 </Grid>
-                <Button
-                  onClick={() => {
-                    removeMaintenance(id, maintenanceData?.brand);
-                  }}
-                  variant="outlined"
-                  color="error"
-                  sx={{ margin: '20px' }}
-                >
-                  Delete
-                </Button>
               </CardContent>
             </Box>
           </Card>
