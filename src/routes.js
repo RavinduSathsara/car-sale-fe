@@ -24,6 +24,7 @@ import TestRun from './pages/TestRun/TestRun';
 import ViewVehicleInquiry from './pages/VehicleInquiry/ViewVehicleInquiry';
 import ViewSwapDeal from './pages/Swap/ViewSwapDeal';
 import ViewTestRun from './pages/TestRun/ViewTestRun';
+import UpdateTestRun from './pages/TestRun/UpdateTestRun';
 import ViewVehicle from './pages/Vehicle/ViewVehicle';
 import Maintenance from './pages/Maintenance/Maintenance';
 import Transaction from './pages/Transactions/Transaction';
@@ -56,6 +57,7 @@ export default function Router() {
         { path: 'inquiry', element: <VehicleInquiry /> },
         { path: 'view-vehicle-inquiry/:id', element: <ViewVehicleInquiry /> },
         { path: 'test-run', element: <TestRun /> },
+        { path: 'update-test-run/:id', element: <UpdateTestRun /> },
         { path: 'view-test-run/:id', element: <ViewTestRun /> },
         { path: 'maintenance', element: <Maintenance /> },
         { path: 'view-maintenance/:id', element: <ViewMaintenance /> },

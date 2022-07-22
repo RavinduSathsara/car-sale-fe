@@ -22,6 +22,7 @@ import {
 import PreviewIcon from '@mui/icons-material/Preview';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 // components
 import Page from '../../components/Page';
@@ -139,8 +140,10 @@ export default function TestRun() {
                     <StyledTableCell>
                       <IconButton component={RouterLink} to={`/dashboard/view-test-run/${row.id}`}>
                         <PreviewIcon />
+                      </IconButton>{' '}
+                      <IconButton component={RouterLink} to={`/dashboard/update-test-run/${row.id}`}>
+                        <EditIcon />
                       </IconButton>
-
                       <IconButton
                         color="error"
                         onClick={() => {

@@ -15,3 +15,8 @@ export const getTestRun = async (id) => {
   const results = await axios.get(`${EndPoints.testRun}/${id}`);
   return results;
 };
+// Update Test run
+export const updateTestRun = async (id, data) => {
+  const results = await axios.put(`${EndPoints.testRun}/${id}`, data);
+  return results;
+};
