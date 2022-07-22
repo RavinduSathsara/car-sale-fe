@@ -1,5 +1,5 @@
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { filter } from 'lodash';
 
 import { Link as RouterLink } from 'react-router-dom';
@@ -31,6 +31,7 @@ import SearchNotFound from '../../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../../sections/@dashboard/user';
 import useFetch from '../../hooks/useFetch';
 import LoadingLiner from '../../components/LoadingLiner';
+import { getAllStaff } from '../../services/Staff';
 // mock
 // import rows from '../../_mock/user';
 
@@ -38,6 +39,8 @@ import LoadingLiner from '../../components/LoadingLiner';
 
 export default function Staff() {
   const [page, setPage] = useState(0);
+
+  const [loading, setLoading] = useState(true);
 
   const [order, setOrder] = useState('asc');
 
@@ -49,11 +52,23 @@ export default function Staff() {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const { data, isLoading } = useFetch('http://127.0.0.1:8000/api/staff');
+  const [staff, setStaff] = useState([]);
+
+  const [refresh, setRefresh] = useState(0);
+
+  const fetchAllStaff = async () => {
+    const allStaff = await getAllStaff();
+    setStaff(allStaff?.data.staff);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchAllStaff();
+  }, [refresh]);
 
   const rows = [];
-  if (data) {
-    data?.staff
+  if (staff) {
+    staff
       .slice()
       .reverse()
       .forEach((item) => {
@@ -83,6 +98,9 @@ export default function Staff() {
         axios
           .delete(`http://127.0.0.1:8000/api/staff/${id}`)
           .then(Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success'));
+        setTimeout(() => {
+          setRefresh(refresh + 1);
+        }, 1000);
       }
     });
   };
@@ -194,7 +212,7 @@ export default function Staff() {
           </Button>
         </Stack>
 
-        {isLoading ? (
+        {loading ? (
           <LoadingLiner />
         ) : (
           <Card>
