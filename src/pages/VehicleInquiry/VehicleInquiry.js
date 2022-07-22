@@ -21,6 +21,7 @@ import {
 import PreviewIcon from '@mui/icons-material/Preview';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import Page from '../../components/Page';
 
 import LoadingLiner from '../../components/LoadingLiner';
@@ -125,6 +126,9 @@ export default function VehicleInquiry() {
                     <StyledTableCell>
                       <IconButton component={RouterLink} to={`/dashboard/view-vehicle-inquiry/${row.id}`}>
                         <PreviewIcon />
+                      </IconButton>{' '}
+                      <IconButton component={RouterLink} to={`/dashboard/update-vehicle-inquiry/${row.id}`}>
+                        <EditIcon />
                       </IconButton>
                       <IconButton
                         color="error"
