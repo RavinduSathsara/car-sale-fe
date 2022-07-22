@@ -19,11 +19,12 @@ import {
 } from '@mui/material';
 
 import PreviewIcon from '@mui/icons-material/Preview';
-
+import Swal from 'sweetalert2';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Page from '../../components/Page';
 
 import LoadingLiner from '../../components/LoadingLiner';
-import { getAllVehicleInquiry } from '../../services/VehicleInquiry';
+import { getAllVehicleInquiry, removeVehicleInquiry } from '../../services/VehicleInquiry';
 
 export default function VehicleInquiry() {
   const [vehicleInquiry, setVehicleInquiry] = useState([]);
@@ -35,6 +36,26 @@ export default function VehicleInquiry() {
       const { data: allVehicleInquiry } = await getAllVehicleInquiry();
       setVehicleInquiry(allVehicleInquiry.posts);
       setloading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const deleteVehicleInquiry = (id, name) => {
+    try {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const deleted = removeVehicleInquiry(id);
+          Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success');
+        }
+      });
     } catch (error) {
       console.log(error);
     }
@@ -104,6 +125,16 @@ export default function VehicleInquiry() {
                     <StyledTableCell>
                       <IconButton component={RouterLink} to={`/dashboard/view-vehicle-inquiry/${row.id}`}>
                         <PreviewIcon />
+                      </IconButton>
+                      <IconButton
+                        color="error"
+                        onClick={() => {
+                          deleteVehicleInquiry(row.id, row.name);
+                        }}
+                      >
+                        <Tooltip title="Delete">
+                          <DeleteIcon />
+                        </Tooltip>
                       </IconButton>
                     </StyledTableCell>
                   </StyledTableRow>
