@@ -36,6 +36,7 @@ import LoadingLiner from '../../components/LoadingLiner';
 
 export default function ViewMaintenance() {
   const [maintenance, setMaintenance] = useState([]);
+  const [refresh, setRefresh] = useState(0);
   const [loading, setloading] = useState(true);
 
   // get all Maintenance
@@ -62,6 +63,9 @@ export default function ViewMaintenance() {
         if (result.isConfirmed) {
           const deleted = removeMaintenance(id);
           Swal.fire(`${brand}  Deleted!  `, 'Your file has been deleted.', 'success');
+          setTimeout(() => {
+            setRefresh(refresh + 1);
+          }, 1000);
         }
       });
     } catch (error) {
@@ -70,7 +74,7 @@ export default function ViewMaintenance() {
   };
   useEffect(() => {
     fetchAllMaintenance();
-  }, []);
+  }, [refresh]);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
