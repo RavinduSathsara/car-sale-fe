@@ -31,6 +31,7 @@ import { getAllTransaction, deleteTransaction } from '../../services/Transaction
 
 const Transaction = () => {
   const [transactions, setTransaction] = useState([]);
+  const [refresh, setRefresh] = useState(0);
   const [loading, setloading] = useState(true);
 
   // get all Transaction
@@ -60,6 +61,9 @@ const Transaction = () => {
         if (result.isConfirmed) {
           const deleted = deleteTransaction(id, brand);
           Swal.fire(`${brand}  Deleted!  `, 'Your file has been deleted.', 'success');
+          setTimeout(() => {
+            setRefresh(refresh + 1);
+          }, 1000);
         }
       });
     } catch (error) {
@@ -69,7 +73,7 @@ const Transaction = () => {
 
   useEffect(() => {
     fetchAllTransaction();
-  }, []);
+  }, [refresh]);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {

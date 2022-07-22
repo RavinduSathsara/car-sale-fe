@@ -28,6 +28,7 @@ import { getAllVehicleInquiry, removeVehicleInquiry } from '../../services/Vehic
 
 export default function VehicleInquiry() {
   const [vehicleInquiry, setVehicleInquiry] = useState([]);
+  const [refresh, setRefresh] = useState(0);
   const [loading, setloading] = useState(true);
 
   // get all Transaction
@@ -54,6 +55,9 @@ export default function VehicleInquiry() {
         if (result.isConfirmed) {
           const deleted = removeVehicleInquiry(id);
           Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success');
+          setTimeout(() => {
+            setRefresh(refresh + 1);
+          }, 1000);
         }
       });
     } catch (error) {
@@ -63,7 +67,7 @@ export default function VehicleInquiry() {
 
   useEffect(() => {
     fetchAllVehicleInquiry();
-  }, []);
+  }, [refresh]);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
