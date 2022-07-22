@@ -130,7 +130,7 @@ export default function TestRun() {
                     </StyledTableCell>
                     <StyledTableCell>{row.brand}</StyledTableCell>
                     <StyledTableCell>{row.model}</StyledTableCell>
-                    <StyledTableCell>{row.year}</StyledTableCell>
+                    <StyledTableCell>{row.year_manufacture}</StyledTableCell>
                     <StyledTableCell>{row.cus_req}</StyledTableCell>
                     <StyledTableCell>
                       <IconButton component={RouterLink} to={`/dashboard/view-test-run/${row.id}`}>
