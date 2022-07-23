@@ -51,7 +51,7 @@ const UpdateVehicleInquiry = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const result = await UpdateVehicleInquiry(id, {
+    const result = await updateVehicleInquiry(id, {
       name: `${fullName}`,
       contact: `0${contact}`,
       email: `${email}`,
@@ -66,7 +66,7 @@ const UpdateVehicleInquiry = () => {
       remarks: `${remarks}`,
     });
     if (result) {
-      navigate('/dashboard/vehicleInquiry');
+      navigate('/dashboard/inquiry');
     }
   };
   const fetchVehicleInquiry = async (id) => {
