@@ -94,7 +94,7 @@ const UpdateVehicleInquiry = () => {
     setPayment(vehicleInquiryData?.payment);
     setInsurance(vehicleInquiryData?.insurance);
     setRemarks(vehicleInquiryData?.remarks);
-  }, []);
+  }, [loading]);
 
   return (
     <Page title="Add Staff">
