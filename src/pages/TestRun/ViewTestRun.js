@@ -39,7 +39,7 @@ const ViewTestRun = () => {
     return (
       <>
         <Stack spacing={1} sx={{ marginTop: '130px', marginLeft: '230px' }}>
-          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={700} height={700} />
+          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={720} height={700} />
         </Stack>
       </>
     );
@@ -57,7 +57,7 @@ const ViewTestRun = () => {
               <Icon icon="ant-design:rollback-outlined" />
             </IconButton>
           </Stack>
-          <Card sx={{ display: 'flex', height: '800px', maxWidth: '700px', marginLeft: '190px', marginTop: '80px' }}>
+          <Card sx={{ display: 'flex', height: '800px', maxWidth: '720px', marginLeft: '190px', marginTop: '80px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <CardContent sx={{ flex: '1 0 auto', marginLeft: '100px' }}>
                 <Grid container>
