@@ -169,10 +169,10 @@ const UpdateTestRun = () => {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     label="Customer Req."
-                    defaultValue={yearofmanufacture}
-                    value={yearofmanufacture}
+                    defaultValue={cusreq}
+                    value={cusreq}
                     onChange={(newValue) => {
-                      setYearOfManufacture(newValue);
+                      setCusReq(newValue);
                     }}
                     renderInput={(params) => <TextField fullWidth {...params} />}
                   />
