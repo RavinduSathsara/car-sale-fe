@@ -148,7 +148,7 @@ const UpdateVehicleInquiry = () => {
                   type="number"
                   value={contact}
                   label="contact"
-                  onChange={(e) => setFullName(e.target.value)}
+                  onChange={(e) => setContact(e.target.value)}
                 />
               </Grid>
 
