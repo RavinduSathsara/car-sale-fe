@@ -1,4 +1,5 @@
 import { Navigate, useRoutes } from 'react-router-dom';
+import { element } from 'prop-types';
 // layouts
 import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
@@ -22,6 +23,7 @@ import SwapDeal from './pages/Swap/SwapDeal';
 import VehicleInquiry from './pages/VehicleInquiry/VehicleInquiry';
 import TestRun from './pages/TestRun/TestRun';
 import ViewVehicleInquiry from './pages/VehicleInquiry/ViewVehicleInquiry';
+// import UpdateVehicleInquiry from './pages/VehicleInquiry/UpdateVehicleInquiry';
 import ViewSwapDeal from './pages/Swap/ViewSwapDeal';
 import ViewTestRun from './pages/TestRun/ViewTestRun';
 import UpdateTestRun from './pages/TestRun/UpdateTestRun';
@@ -31,6 +33,8 @@ import Transaction from './pages/Transactions/Transaction';
 import AddTransaction from './pages/Transactions/AddTransaction';
 import ViewMaintenance from './pages/Maintenance/ViewMaintenance';
 import ViewTransaction from './pages/Transactions/ViewTransaction';
+
+import UpdateVehicleInquiry from './pages/VehicleInquiry/UpdateVehicleInquiry';
 
 // ----------------------------------------------------------------------
 
@@ -56,6 +60,7 @@ export default function Router() {
         { path: 'view-swap-deal/:id', element: <ViewSwapDeal /> },
         { path: 'inquiry', element: <VehicleInquiry /> },
         { path: 'view-vehicle-inquiry/:id', element: <ViewVehicleInquiry /> },
+        { path: 'update-vehicle-inquiry/:id', element: <UpdateVehicleInquiry /> },
         { path: 'test-run', element: <TestRun /> },
         { path: 'update-test-run/:id', element: <UpdateTestRun /> },
         { path: 'view-test-run/:id', element: <ViewTestRun /> },
