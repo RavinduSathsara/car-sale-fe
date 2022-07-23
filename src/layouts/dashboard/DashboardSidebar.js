@@ -66,6 +66,9 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         <Logo />
       </Box>
 
+      <NavSection navConfig={navConfig} />
+
+      <Box sx={{ flexGrow: 1 }} />
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none" component={RouterLink} to="#">
           <AccountStyle>
@@ -83,10 +86,6 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
           </AccountStyle>
         </Link>
       </Box>
-
-      <NavSection navConfig={navConfig} />
-
-      <Box sx={{ flexGrow: 1 }} />
     </Scrollbar>
   );
 

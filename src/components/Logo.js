@@ -21,7 +21,7 @@ export default function Logo({ disabledLink = false, sx }) {
   const PRIMARY_DARK = theme.palette.primary.dark;
 
   // OR
-  const logo = <Box component="img" src="/static/logo.svg" sx={{ width: 80, height: 40, ...sx }} />;
+  const logo = <Box component="img" src="/static/logo.svg" sx={{ width: 250, height: 80, ...sx }} />;
 
   if (disabledLink) {
     return <>{logo}</>;
