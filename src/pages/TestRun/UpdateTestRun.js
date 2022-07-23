@@ -22,7 +22,7 @@ import { LoadingButton, LocalizationProvider, DatePicker } from '@mui/lab';
 import Swal from 'sweetalert2';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-import { getTestRun } from '../../services/TestRun';
+import { getTestRun, updateTestRun } from '../../services/TestRun';
 import Page from '../../components/Page';
 import TestRun from './TestRun';
 
@@ -49,7 +49,22 @@ const UpdateTestRun = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    alert('Called');
+    const result = await updateTestRun(id, {
+      name: `${fullName}`,
+      contact: `0${contact}`,
+      email: 'email@gmail.com',
+      profession: 'security',
+      address: 'galkisse innee',
+      cus_req: '2022-02-08 10:20',
+      make: 'Car',
+      brand: 'Merc',
+      model: 'W13',
+      year_manufacture: '2020',
+      ownership: 'Third',
+    });
+    if (result) {
+      navigate('/dashboard/test-run');
+    }
   };
 
   const fetchTestRun = async (id) => {
