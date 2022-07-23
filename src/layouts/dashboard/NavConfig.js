@@ -33,7 +33,7 @@ const navConfig = [
     icon: getIcon('fa-solid:question-circle'),
   },
   {
-    title: 'Test Runs',
+    title: 'Test Drive',
     path: '/dashboard/test-run',
     icon: getIcon('ic:baseline-run-circle'),
   },

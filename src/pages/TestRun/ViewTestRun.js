@@ -46,11 +46,11 @@ const ViewTestRun = () => {
   }
   return (
     <>
-      <Page title=" View TestRun">
+      <Page title=" View TestDrive">
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography variant="h4" gutterBottom>
-              View Test Run
+              View Test Drive
             </Typography>
 
             <IconButton component={RouterLink} to="/dashboard/test-run">
