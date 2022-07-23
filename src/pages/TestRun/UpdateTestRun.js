@@ -24,6 +24,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import { getTestRun } from '../../services/TestRun';
 import Page from '../../components/Page';
+import TestRun from './TestRun';
 
 const UpdateTestRun = () => {
   const [testRunData, setTestRunData] = useState();
@@ -31,6 +32,16 @@ const UpdateTestRun = () => {
 
   // states
   const [fullName, setFullName] = useState();
+  const [contact, setContact] = useState();
+  const [email, setEmail] = useState();
+  const [profession, setProfession] = useState();
+  const [address, setAddress] = useState();
+  const [cusreq, setCusReq] = useState();
+  const [make, setMake] = useState();
+  const [brand, setBrand] = useState();
+  const [model, setModel] = useState();
+  const [yearofmanufacture, setYearOfManufacture] = useState();
+  const [ownership, setOwnership] = useState();
 
   const navigate = useNavigate();
 
@@ -71,6 +82,16 @@ const UpdateTestRun = () => {
   // set initial data
   useEffect(() => {
     setFullName(testRunData?.name);
+    setContact(testRunData?.contact);
+    setEmail(testRunData?.email);
+    setProfession(testRunData?.profession);
+    setAddress(testRunData?.address);
+    setCusReq(testRunData?.cus_req);
+    setMake(testRunData?.make);
+    setBrand(testRunData?.brand);
+    setModel(testRunData?.model);
+    setYearOfManufacture(testRunData?.year_manufacture);
+    setOwnership(testRunData?.ownership);
   }, [loading]);
 
   return (
@@ -104,55 +125,55 @@ const UpdateTestRun = () => {
                 <TextField
                   fullWidth
                   required
-                  // defaultValue={data?.first_name}
+                  defaultValue={contact}
                   type="number"
-                  // value={firstName}
+                  value={contact}
                   label="Contact"
-                  // onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => setContact(e.target.value)}
                 />
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
                   required
-                  // defaultValue={data?.first_name}
+                  defaultValue={email}
                   type="email"
-                  // value={firstName}
+                  value={email}
                   label="Email"
-                  // onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
                   required
-                  // defaultValue={data?.first_name}
+                  defaultValue={profession}
                   type="text"
-                  // value={firstName}
+                  value={profession}
                   label="Profession"
-                  // onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => setProfession(e.target.value)}
                 />
               </Grid>
               <Grid item xs={8.4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
                   required
-                  // defaultValue={data?.first_name}
+                  defaultValue={address}
                   type="text"
-                  // value={firstName}
+                  value={address}
                   label="Address"
-                  // onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => setAddress(e.target.value)}
                 />
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     label="Customer Req."
-                    // defaultValue={data?.d_o_b}
-                    // value={dateOfBirth}
-                    // onChange={(newValue) => {
-                    //   setDateOfBirth(newValue);
-                    // }}
+                    defaultValue={cusreq}
+                    value={cusreq}
+                    onChange={(newValue) => {
+                      setCusReq(newValue);
+                    }}
                     renderInput={(params) => <TextField fullWidth {...params} />}
                   />
                 </LocalizationProvider>
@@ -161,55 +182,55 @@ const UpdateTestRun = () => {
                 <TextField
                   fullWidth
                   required
-                  // defaultValue={data?.first_name}
+                  defaultValue={make}
                   type="text"
-                  // value={firstName}
+                  value={make}
                   label="Make"
-                  // onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => setMake(e.target.value)}
                 />
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
                   required
-                  // defaultValue={data?.first_name}
+                  defaultValue={brand}
                   type="text"
-                  // value={firstName}
+                  value={brand}
                   label="Brand"
-                  // onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => setBrand(e.target.value)}
                 />
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
                   required
-                  // defaultValue={data?.first_name}
+                  defaultValue={model}
                   type="text"
-                  // value={firstName}
+                  value={model}
                   label="Model"
-                  // onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => setModel(e.target.value)}
                 />
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
                   required
-                  // defaultValue={data?.first_name}
+                  defaultValue={yearofmanufacture}
                   type="text"
-                  // value={firstName}
+                  value={yearofmanufacture}
                   label="Year of Manufacture"
-                  // onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => setYearOfManufacture(e.target.value)}
                 />
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
                   required
-                  // defaultValue={data?.first_name}
+                  defaultValue={ownership}
                   type="text"
-                  // value={firstName}
+                  value={ownership}
                   label="Ownership"
-                  // onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => setOwnership(e.target.value)}
                 />
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
