@@ -53,7 +53,7 @@ const UpdateVehicleInquiry = () => {
     event.preventDefault();
     const result = await updateVehicleInquiry(id, {
       name: `${fullName}`,
-      contact: `0${contact}`,
+      contact: `${contact}`,
       email: `${email}`,
       profession: `${profession}`,
       address: `${address}`,

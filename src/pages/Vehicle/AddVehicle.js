@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import {
   Link,
@@ -46,6 +46,8 @@ const AddVehicle = () => {
   const [unitPrice, setUnitPrice] = useState('');
   const [margin, setMargin] = useState('');
   const [file, setFile] = useState();
+
+  const navigate = useNavigate();
 
   const handleReset = (event) => {
     event.preventDefault();
@@ -112,6 +114,7 @@ const AddVehicle = () => {
           popup: 'animate__animated animate__fadeOutUp',
         },
       });
+      navigate('/dashboard/vehicle');
     }
   };
 
