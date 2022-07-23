@@ -52,15 +52,15 @@ const UpdateTestRun = () => {
     const result = await updateTestRun(id, {
       name: `${fullName}`,
       contact: `0${contact}`,
-      email: 'email@gmail.com',
-      profession: 'security',
-      address: 'galkisse innee',
-      cus_req: '2022-02-08 10:20',
-      make: 'Car',
-      brand: 'Merc',
-      model: 'W13',
-      year_manufacture: '2020',
-      ownership: 'Third',
+      email: `${email}`,
+      profession: `${profession}`,
+      address: `${address}`,
+      cus_req: `${cusreq}`,
+      make: `${make}`,
+      brand: `${brand}`,
+      model: `${model}`,
+      year_manufacture: `${yearofmanufacture}`,
+      ownership: `${ownership}`,
     });
     if (result) {
       navigate('/dashboard/test-run');
@@ -110,7 +110,7 @@ const UpdateTestRun = () => {
   }, [loading]);
 
   return (
-    <Page title="Add Staff">
+    <Page title="Update Test run">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography sx={{ ml: 2 }} variant="h4" gutterBottom>
