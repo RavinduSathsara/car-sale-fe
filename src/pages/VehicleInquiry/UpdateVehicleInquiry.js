@@ -171,17 +171,18 @@ const UpdateVehicleInquiry = () => {
                   onChange={(e) => setAddress(e.target.value)}
                 />
               </Grid>
-
               <Grid item xs={4} sx={{ m: 2 }}>
-                <TextField
-                  fullWidth
-                  required
-                  defaultValue={cusreq}
-                  type="text"
-                  value={cusreq}
-                  label="Customer Req"
-                  onChange={(e) => setCusReq(e.target.value)}
-                />
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    label="Customer Req."
+                    defaultValue={cusreq}
+                    value={cusreq}
+                    onChange={(newValue) => {
+                      setCusReq(newValue);
+                    }}
+                    renderInput={(params) => <TextField fullWidth {...params} />}
+                  />
+                </LocalizationProvider>
               </Grid>
 
               <Grid item xs={4} sx={{ m: 2 }}>
