@@ -32,16 +32,6 @@ export default function LoginForm() {
       localStorage.setItem('name', `${result?.data.data.first_name}  ${result?.data.data.last_name}`);
       localStorage.setItem('email', result?.data.data.email);
       navigate('dashboard/app', { replace: true });
-    } else {
-      Swal.fire({
-        title: 'Username or password incorrect',
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown',
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp',
-        },
-      });
     }
   };
 

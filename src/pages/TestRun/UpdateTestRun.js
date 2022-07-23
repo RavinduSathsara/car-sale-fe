@@ -51,7 +51,7 @@ const UpdateTestRun = () => {
     event.preventDefault();
     const result = await updateTestRun(id, {
       name: `${fullName}`,
-      contact: `0${contact}`,
+      contact: `${contact}`,
       email: `${email}`,
       profession: `${profession}`,
       address: `${address}`,
@@ -140,10 +140,17 @@ const UpdateTestRun = () => {
                 <TextField
                   fullWidth
                   required
-                  defaultValue={contact}
-                  type="number"
+                  autoComplete=""
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                  }}
+                  // type="number"
+                  maxLength={4}
+                  label="Contact No."
+                  inputProps={{
+                    maxLength: 10,
+                  }}
                   value={contact}
-                  label="Contact"
                   onChange={(e) => setContact(e.target.value)}
                 />
               </Grid>

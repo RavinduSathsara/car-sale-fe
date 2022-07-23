@@ -144,10 +144,17 @@ const UpdateVehicleInquiry = () => {
                 <TextField
                   fullWidth
                   required
-                  defaultValue={contact}
-                  type="number"
+                  autoComplete=""
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                  }}
+                  // type="number"
+                  maxLength={4}
+                  label="Contact No."
+                  inputProps={{
+                    maxLength: 10,
+                  }}
                   value={contact}
-                  label="contact"
                   onChange={(e) => setContact(e.target.value)}
                 />
               </Grid>
