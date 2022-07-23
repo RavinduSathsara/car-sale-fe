@@ -16,7 +16,7 @@ export const getVehicleInquiry = async (id) => {
   return results;
 };
 // Update Vehicle Inquiry
-export const UpdateVehicleInquiry = async (id, data) => {
+export const updateVehicleInquiry = async (id, data) => {
   const results = await axios.put(`${EndPoints.vehicleInquiry}/${id}`, data);
   return results;
 };

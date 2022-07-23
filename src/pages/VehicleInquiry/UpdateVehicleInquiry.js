@@ -22,7 +22,7 @@ import { LoadingButton, LocalizationProvider, DatePicker } from '@mui/lab';
 import Swal from 'sweetalert2';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-import { getVehicleInquiry } from '../../services/VehicleInquiry';
+import { getVehicleInquiry, updateVehicleInquiry } from '../../services/VehicleInquiry';
 
 import Page from '../../components/Page';
 import VehicleInquiry from './VehicleInquiry';
@@ -51,7 +51,23 @@ const UpdateVehicleInquiry = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    alert('called');
+    const result = await UpdateVehicleInquiry(id, {
+      name: `${fullName}`,
+      contact: `0${contact}`,
+      email: `${email}`,
+      profession: `${profession}`,
+      address: `${address}`,
+      cus_req: `${cusreq}`,
+      make: `${make}`,
+      brand: `${brand}`,
+      model: `${model}`,
+      payment: `${payment}`,
+      insurance: `${insurance}`,
+      remarks: `${remarks}`,
+    });
+    if (result) {
+      navigate('/dashboard/vehicleInquiry');
+    }
   };
   const fetchVehicleInquiry = async (id) => {
     const vehicleInquiry = await getVehicleInquiry(id);
