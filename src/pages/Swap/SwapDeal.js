@@ -17,6 +17,7 @@ import {
   Paper,
   TableHead,
   Tooltip,
+  Box,
 } from '@mui/material';
 
 import PreviewIcon from '@mui/icons-material/Preview';
@@ -109,62 +110,65 @@ export default function SwapDeal() {
           {loading ? (
             <LoadingLiner />
           ) : (
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>Full Name</StyledTableCell>
-                  <Tooltip title="Custom Model">
-                    <StyledTableCell>Cus. Model</StyledTableCell>
-                  </Tooltip>
-                  <Tooltip title="Request Model">
-                    <StyledTableCell>Req. Model</StyledTableCell>
-                  </Tooltip>
-                  <Tooltip title="Custom Year Of Manufacture">
-                    <StyledTableCell>Cus. YOM</StyledTableCell>
-                  </Tooltip>
-                  <Tooltip title="Requested Year Of Manufacture">
-                    <StyledTableCell>Req. YOM</StyledTableCell>
-                  </Tooltip>
-                  <StyledTableCell>Contact</StyledTableCell>
-                  <StyledTableCell>Status</StyledTableCell>
-                  <StyledTableCell>Actions</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {swapVehicle.map((row) => (
-                  <StyledTableRow key={row.name}>
-                    <StyledTableCell component="th" scope="row">
-                      {row.name}
-                    </StyledTableCell>
-                    <StyledTableCell>{row.cus_model}</StyledTableCell>
-                    <StyledTableCell>{row.model}</StyledTableCell>
-                    <StyledTableCell>{row.cus_year_manufacture}</StyledTableCell>
-                    <StyledTableCell>{row.year_manufacture}</StyledTableCell>
-                    <StyledTableCell>{row.contact}</StyledTableCell>
-                    <StyledTableCell>
-                      <Label variant="ghost">{row.decision === 1 ? 'Accepted' : 'Pending'}</Label>
-                      {console.log(row.decision)}
-                    </StyledTableCell>
+            <Box style={{ maxHeight: '100vh' }}>
+              <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>Full Name</StyledTableCell>
+                    <Tooltip title="Custom Model">
+                      <StyledTableCell>Cus. Model</StyledTableCell>
+                    </Tooltip>
+                    <Tooltip title="Request Model">
+                      <StyledTableCell>Req. Model</StyledTableCell>
+                    </Tooltip>
+                    <Tooltip title="Custom Year Of Manufacture">
+                      <StyledTableCell>Cus. YOM</StyledTableCell>
+                    </Tooltip>
+                    <Tooltip title="Requested Year Of Manufacture">
+                      <StyledTableCell>Req. YOM</StyledTableCell>
+                    </Tooltip>
+                    <StyledTableCell>Contact</StyledTableCell>
+                    <StyledTableCell>Status</StyledTableCell>
+                    <StyledTableCell>Actions</StyledTableCell>
+                  </TableRow>
+                </TableHead>
 
-                    <StyledTableCell>
-                      <IconButton component={RouterLink} to={`/dashboard/view-swap-deal/${row.id}`}>
-                        <PreviewIcon />
-                      </IconButton>
-                      <IconButton
-                        color="error"
-                        onClick={() => {
-                          deleteSwaps(row.id, row.name);
-                        }}
-                      >
-                        <Tooltip title="Delete">
-                          <DeleteIcon />
-                        </Tooltip>
-                      </IconButton>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
+                <TableBody>
+                  {swapVehicle.map((row) => (
+                    <StyledTableRow key={row.name}>
+                      <StyledTableCell component="th" scope="row">
+                        {row.name}
+                      </StyledTableCell>
+                      <StyledTableCell>{row.cus_model}</StyledTableCell>
+                      <StyledTableCell>{row.model}</StyledTableCell>
+                      <StyledTableCell>{row.cus_year_manufacture}</StyledTableCell>
+                      <StyledTableCell>{row.year_manufacture}</StyledTableCell>
+                      <StyledTableCell>{row.contact}</StyledTableCell>
+                      <StyledTableCell>
+                        <Label variant="ghost">{row.decision === 1 ? 'Accepted' : 'Pending'}</Label>
+                        {console.log(row.decision)}
+                      </StyledTableCell>
+
+                      <StyledTableCell>
+                        <IconButton component={RouterLink} to={`/dashboard/view-swap-deal/${row.id}`}>
+                          <PreviewIcon />
+                        </IconButton>
+                        <IconButton
+                          color="error"
+                          onClick={() => {
+                            deleteSwaps(row.id, row.name);
+                          }}
+                        >
+                          <Tooltip title="Delete">
+                            <DeleteIcon />
+                          </Tooltip>
+                        </IconButton>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
           )}
         </TableContainer>
       </Container>

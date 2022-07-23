@@ -20,6 +20,7 @@ import {
   Paper,
   TableHead,
   Tooltip,
+  Box,
 } from '@mui/material';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -110,46 +111,48 @@ export default function ViewMaintenance() {
           {loading ? (
             <LoadingLiner />
           ) : (
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell> Vehicle Id</StyledTableCell>
-                  <StyledTableCell>Brand</StyledTableCell>
-                  <StyledTableCell>Chassis No</StyledTableCell>
-                  <StyledTableCell>Model</StyledTableCell>
-                  <StyledTableCell>Cost</StyledTableCell>
-                  <StyledTableCell>Actions</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {maintenance.map((row) => (
-                  <StyledTableRow key={row.id}>
-                    <StyledTableCell component="th" scope="row">
-                      {row.vehicleid}
-                    </StyledTableCell>
-                    <StyledTableCell>{row.brand}</StyledTableCell>
-                    <StyledTableCell>{row.chassis_no}</StyledTableCell>
-                    <StyledTableCell>{row.model}</StyledTableCell>
-                    <StyledTableCell>{row.cost}</StyledTableCell>
-                    <StyledTableCell>
-                      <IconButton component={RouterLink} to={`/dashboard/View-Maintenance/${row.id}`}>
-                        <PreviewIcon />
-                      </IconButton>
-                      <IconButton
-                        color="error"
-                        onClick={() => {
-                          deleteMaintenance(row.id, row.brand);
-                        }}
-                      >
-                        <Tooltip title="Delete">
-                          <DeleteIcon />
-                        </Tooltip>
-                      </IconButton>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <Box style={{ maxHeight: '100vh' }}>
+              <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell> Vehicle Id</StyledTableCell>
+                    <StyledTableCell>Brand</StyledTableCell>
+                    <StyledTableCell>Chassis No</StyledTableCell>
+                    <StyledTableCell>Model</StyledTableCell>
+                    <StyledTableCell>Cost</StyledTableCell>
+                    <StyledTableCell>Actions</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {maintenance.map((row) => (
+                    <StyledTableRow key={row.id}>
+                      <StyledTableCell component="th" scope="row">
+                        {row.vehicleid}
+                      </StyledTableCell>
+                      <StyledTableCell>{row.brand}</StyledTableCell>
+                      <StyledTableCell>{row.chassis_no}</StyledTableCell>
+                      <StyledTableCell>{row.model}</StyledTableCell>
+                      <StyledTableCell>{row.cost}</StyledTableCell>
+                      <StyledTableCell>
+                        <IconButton component={RouterLink} to={`/dashboard/View-Maintenance/${row.id}`}>
+                          <PreviewIcon />
+                        </IconButton>
+                        <IconButton
+                          color="error"
+                          onClick={() => {
+                            deleteMaintenance(row.id, row.brand);
+                          }}
+                        >
+                          <Tooltip title="Delete">
+                            <DeleteIcon />
+                          </Tooltip>
+                        </IconButton>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>{' '}
+            </Box>
           )}
         </TableContainer>
       </Container>

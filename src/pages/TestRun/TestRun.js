@@ -17,6 +17,7 @@ import {
   Paper,
   TableHead,
   Tooltip,
+  Box,
 } from '@mui/material';
 
 import PreviewIcon from '@mui/icons-material/Preview';
@@ -111,55 +112,57 @@ export default function TestRun() {
           {loading ? (
             <LoadingLiner />
           ) : (
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell> Name</StyledTableCell>
-                  <StyledTableCell>Brand</StyledTableCell>
-                  <StyledTableCell>Model</StyledTableCell>
-                  <Tooltip title="Year Of Manufacture">
-                    <StyledTableCell>YOM</StyledTableCell>
-                  </Tooltip>
-                  <Tooltip title="Customer Request Date and Time">
-                    <StyledTableCell>Cus.Req DT</StyledTableCell>
-                  </Tooltip>
+            <Box style={{ maxHeight: '100vh' }}>
+              <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell> Name</StyledTableCell>
+                    <StyledTableCell>Brand</StyledTableCell>
+                    <StyledTableCell>Model</StyledTableCell>
+                    <Tooltip title="Year Of Manufacture">
+                      <StyledTableCell>YOM</StyledTableCell>
+                    </Tooltip>
+                    <Tooltip title="Customer Request Date and Time">
+                      <StyledTableCell>Cus.Req DT</StyledTableCell>
+                    </Tooltip>
 
-                  <StyledTableCell>Actions</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {testRun?.map((row) => (
-                  <StyledTableRow key={row.name}>
-                    <StyledTableCell component="th" scope="row">
-                      {row.name}
-                    </StyledTableCell>
-                    <StyledTableCell>{row.brand}</StyledTableCell>
-                    <StyledTableCell>{row.model}</StyledTableCell>
-                    <StyledTableCell>{row.year_manufacture}</StyledTableCell>
-                    <StyledTableCell>{row.cus_req}</StyledTableCell>
-                    <StyledTableCell>
-                      <IconButton component={RouterLink} to={`/dashboard/view-test-run/${row.id}`}>
-                        <PreviewIcon />
-                      </IconButton>{' '}
-                      <IconButton component={RouterLink} to={`/dashboard/update-test-run/${row.id}`}>
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton
-                        color="error"
-                        onClick={() => {
-                          deleteTestrun(row.id, row.name);
-                        }}
-                      >
-                        <Tooltip title="Delete">
-                          <DeleteIcon />
-                        </Tooltip>
-                      </IconButton>
-                      {/* </IconButton> */}
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
+                    <StyledTableCell>Actions</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {testRun?.map((row) => (
+                    <StyledTableRow key={row.name}>
+                      <StyledTableCell component="th" scope="row">
+                        {row.name}
+                      </StyledTableCell>
+                      <StyledTableCell>{row.brand}</StyledTableCell>
+                      <StyledTableCell>{row.model}</StyledTableCell>
+                      <StyledTableCell>{row.year_manufacture}</StyledTableCell>
+                      <StyledTableCell>{row.cus_req}</StyledTableCell>
+                      <StyledTableCell>
+                        <IconButton component={RouterLink} to={`/dashboard/view-test-run/${row.id}`}>
+                          <PreviewIcon />
+                        </IconButton>{' '}
+                        <IconButton component={RouterLink} to={`/dashboard/update-test-run/${row.id}`}>
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton
+                          color="error"
+                          onClick={() => {
+                            deleteTestrun(row.id, row.name);
+                          }}
+                        >
+                          <Tooltip title="Delete">
+                            <DeleteIcon />
+                          </Tooltip>
+                        </IconButton>
+                        {/* </IconButton> */}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>{' '}
+            </Box>
           )}
         </TableContainer>
       </Container>

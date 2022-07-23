@@ -16,6 +16,7 @@ import {
   Paper,
   TableHead,
   Tooltip,
+  Box,
 } from '@mui/material';
 
 import PreviewIcon from '@mui/icons-material/Preview';
@@ -103,52 +104,54 @@ export default function VehicleInquiry() {
           {loading ? (
             <LoadingLiner />
           ) : (
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell> Name</StyledTableCell>
-                  <StyledTableCell>Contact</StyledTableCell>
-                  <StyledTableCell>Brand</StyledTableCell>
-                  <StyledTableCell>Model</StyledTableCell>
-                  <Tooltip title="Custom Request">
-                    <StyledTableCell>Cus.Req</StyledTableCell>
-                  </Tooltip>
-                  <StyledTableCell>Actions</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {vehicleInquiry.map((row) => (
-                  <StyledTableRow key={row.name}>
-                    <StyledTableCell component="th" scope="row">
-                      {row.name}
-                    </StyledTableCell>
-                    <StyledTableCell>{row.contact}</StyledTableCell>
-                    <StyledTableCell>{row.brand}</StyledTableCell>
-                    <StyledTableCell>{row.model}</StyledTableCell>
-                    <StyledTableCell>{row.cus_req}</StyledTableCell>
+            <Box style={{ maxHeight: '100vh' }}>
+              <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell> Name</StyledTableCell>
+                    <StyledTableCell>Contact</StyledTableCell>
+                    <StyledTableCell>Brand</StyledTableCell>
+                    <StyledTableCell>Model</StyledTableCell>
+                    <Tooltip title="Custom Request">
+                      <StyledTableCell>Cus.Req</StyledTableCell>
+                    </Tooltip>
+                    <StyledTableCell>Actions</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {vehicleInquiry.map((row) => (
+                    <StyledTableRow key={row.name}>
+                      <StyledTableCell component="th" scope="row">
+                        {row.name}
+                      </StyledTableCell>
+                      <StyledTableCell>{row.contact}</StyledTableCell>
+                      <StyledTableCell>{row.brand}</StyledTableCell>
+                      <StyledTableCell>{row.model}</StyledTableCell>
+                      <StyledTableCell>{row.cus_req}</StyledTableCell>
 
-                    <StyledTableCell>
-                      <IconButton component={RouterLink} to={`/dashboard/view-vehicle-inquiry/${row.id}`}>
-                        <PreviewIcon />
-                      </IconButton>{' '}
-                      <IconButton component={RouterLink} to={`/dashboard/update-vehicle-inquiry/${row.id}`}>
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton
-                        color="error"
-                        onClick={() => {
-                          deleteVehicleInquiry(row.id, row.name);
-                        }}
-                      >
-                        <Tooltip title="Delete">
-                          <DeleteIcon />
-                        </Tooltip>
-                      </IconButton>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
+                      <StyledTableCell>
+                        <IconButton component={RouterLink} to={`/dashboard/view-vehicle-inquiry/${row.id}`}>
+                          <PreviewIcon />
+                        </IconButton>{' '}
+                        <IconButton component={RouterLink} to={`/dashboard/update-vehicle-inquiry/${row.id}`}>
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton
+                          color="error"
+                          onClick={() => {
+                            deleteVehicleInquiry(row.id, row.name);
+                          }}
+                        >
+                          <Tooltip title="Delete">
+                            <DeleteIcon />
+                          </Tooltip>
+                        </IconButton>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
           )}
         </TableContainer>
       </Container>
