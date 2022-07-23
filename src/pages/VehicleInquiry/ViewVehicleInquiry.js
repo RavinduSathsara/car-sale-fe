@@ -50,7 +50,7 @@ const ViewVehicleInquiry = () => {
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography variant="h4" gutterBottom>
-              View VehicleInquiry
+              View Vehicle Inquiry
             </Typography>
 
             <IconButton component={RouterLink} to="/dashboard/inquiry">
@@ -75,7 +75,7 @@ const ViewVehicleInquiry = () => {
                   <Grid item sx={{ m: 2 }} xs={12}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
-                        contact :
+                        Contact :
                       </Typography>
                       <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {vehicleInquiry?.contact}
