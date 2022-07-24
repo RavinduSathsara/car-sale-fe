@@ -39,25 +39,25 @@ const ViewTestRun = () => {
     return (
       <>
         <Stack spacing={1} sx={{ marginTop: '130px', marginLeft: '230px' }}>
-          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={600} height={700} />
+          <Skeleton style={{ borderRadius: 18 }} variant="rectangular" width={720} height={700} />
         </Stack>
       </>
     );
   }
   return (
     <>
-      <Page title=" View TestRun">
+      <Page title=" View TestDrive">
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography variant="h4" gutterBottom>
-              View TestRun
+              View Test Drive
             </Typography>
 
             <IconButton component={RouterLink} to="/dashboard/test-run">
               <Icon icon="ant-design:rollback-outlined" />
             </IconButton>
           </Stack>
-          <Card sx={{ display: 'flex', height: '800px', maxWidth: '600px', marginLeft: '190px', marginTop: '80px' }}>
+          <Card sx={{ display: 'flex', height: '800px', maxWidth: '720px', marginLeft: '190px', marginTop: '80px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <CardContent sx={{ flex: '1 0 auto', marginLeft: '100px' }}>
                 <Grid container>
@@ -74,7 +74,7 @@ const ViewTestRun = () => {
                   <Grid item sx={{ m: 2 }} xs={6}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
-                        contact :
+                        Contact :
                       </Typography>
                       <Typography variant="h6" color="text.secondary" sx={{ mx: 1 }}>
                         {testRun?.contact}

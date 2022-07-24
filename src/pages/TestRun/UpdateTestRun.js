@@ -110,11 +110,11 @@ const UpdateTestRun = () => {
   }, [loading]);
 
   return (
-    <Page title="Update Test run">
+    <Page title="Update Test Drive">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography sx={{ ml: 2 }} variant="h4" gutterBottom>
-            Update Test Run
+            Update Test Drive
           </Typography>
           <IconButton component={RouterLink} to="/dashboard/test-run">
             <Icon icon="ant-design:rollback-outlined" />
