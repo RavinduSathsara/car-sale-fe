@@ -116,60 +116,62 @@ const Transaction = () => {
           <LoadingLiner />
         ) : (
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell> Brand</StyledTableCell>
-                  <StyledTableCell>Model</StyledTableCell>
-                  <Tooltip title="Year Manufacture">
-                    <StyledTableCell>Year.Manu</StyledTableCell>
-                  </Tooltip>
-                  <Tooltip title="Year Registration">
-                    <StyledTableCell>Year.Reg</StyledTableCell>
-                  </Tooltip>
-                  <StyledTableCell>ChassisNo</StyledTableCell>
-                  <StyledTableCell>Query</StyledTableCell>
-                  <StyledTableCell>Actions</StyledTableCell>
-                </TableRow>
-              </TableHead>
+            <Box style={{ maxHeight: '100vh' }}>
+              <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell> Brand</StyledTableCell>
+                    <StyledTableCell>Model</StyledTableCell>
+                    <Tooltip title="Year Manufacture">
+                      <StyledTableCell>Year.Manu</StyledTableCell>
+                    </Tooltip>
+                    <Tooltip title="Year Registration">
+                      <StyledTableCell>Year.Reg</StyledTableCell>
+                    </Tooltip>
+                    <StyledTableCell>ChassisNo</StyledTableCell>
+                    <StyledTableCell>Query</StyledTableCell>
+                    <StyledTableCell>Actions</StyledTableCell>
+                  </TableRow>
+                </TableHead>
 
-              <TableBody>
-                {transactions?.map((row) => (
-                  <StyledTableRow key={row.id}>
-                    <StyledTableCell component="th" scope="row">
-                      {row.brand}
-                    </StyledTableCell>
-                    <StyledTableCell>{row.model}</StyledTableCell>
-                    <StyledTableCell>{row.year_manufacture}</StyledTableCell>
-                    <StyledTableCell>{row.year_registration}</StyledTableCell>
-                    <StyledTableCell>{row.chassis_no}</StyledTableCell>
-                    <StyledTableCell>{row.query}</StyledTableCell>
-                    <StyledTableCell>
-                      <IconButton
-                        color="error"
-                        onClick={() => {
-                          deleteTransactions(row.id, row.brand);
-                        }}
-                      >
-                        <Tooltip title="Delete">
-                          <DeleteIcon />
-                        </Tooltip>
-                      </IconButton>
-                      <IconButton component={RouterLink} to={`/dashboard/add-customer-form/${row.id}`}>
-                        <Tooltip title="Add Customer">
-                          <AddBoxIcon />
-                        </Tooltip>
-                      </IconButton>
-                      <Tooltip title="View Transaction">
-                        <IconButton component={RouterLink} to={`/dashboard/view-transaction/${row.id}`}>
-                          <PreviewIcon />
+                <TableBody>
+                  {transactions?.map((row) => (
+                    <StyledTableRow key={row.id}>
+                      <StyledTableCell component="th" scope="row">
+                        {row.brand}
+                      </StyledTableCell>
+                      <StyledTableCell>{row.model}</StyledTableCell>
+                      <StyledTableCell>{row.year_manufacture}</StyledTableCell>
+                      <StyledTableCell>{row.year_registration}</StyledTableCell>
+                      <StyledTableCell>{row.chassis_no}</StyledTableCell>
+                      <StyledTableCell>{row.query}</StyledTableCell>
+                      <StyledTableCell>
+                        <IconButton
+                          color="error"
+                          onClick={() => {
+                            deleteTransactions(row.id, row.brand);
+                          }}
+                        >
+                          <Tooltip title="Delete">
+                            <DeleteIcon />
+                          </Tooltip>
                         </IconButton>
-                      </Tooltip>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
+                        <IconButton component={RouterLink} to={`/dashboard/add-customer-form/${row.id}`}>
+                          <Tooltip title="Add Customer">
+                            <AddBoxIcon />
+                          </Tooltip>
+                        </IconButton>
+                        <Tooltip title="View Transaction">
+                          <IconButton component={RouterLink} to={`/dashboard/view-transaction/${row.id}`}>
+                            <PreviewIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>{' '}
+            </Box>
           </TableContainer>
         )}
       </Container>
