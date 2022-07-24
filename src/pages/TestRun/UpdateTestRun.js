@@ -41,7 +41,6 @@ const UpdateTestRun = () => {
   const [brand, setBrand] = useState();
   const [model, setModel] = useState();
   const [yearofmanufacture, setYearOfManufacture] = useState();
-  const [ownership, setOwnership] = useState();
 
   const navigate = useNavigate();
 
@@ -60,7 +59,6 @@ const UpdateTestRun = () => {
       brand: `${brand}`,
       model: `${model}`,
       year_manufacture: `${yearofmanufacture}`,
-      ownership: `${ownership}`,
     });
     if (result) {
       navigate('/dashboard/test-run');
@@ -106,7 +104,6 @@ const UpdateTestRun = () => {
     setBrand(testRunData?.brand);
     setModel(testRunData?.model);
     setYearOfManufacture(testRunData?.year_manufacture);
-    setOwnership(testRunData?.ownership);
   }, [loading]);
 
   return (
@@ -144,7 +141,6 @@ const UpdateTestRun = () => {
                   onInput={(e) => {
                     e.target.value = e.target.value.replace(/[^0-9]/g, '');
                   }}
-                  // type="number"
                   maxLength={4}
                   label="Contact No."
                   inputProps={{
@@ -244,18 +240,8 @@ const UpdateTestRun = () => {
                   onChange={(e) => setYearOfManufacture(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={4} sx={{ m: 2 }}>
-                <TextField
-                  fullWidth
-                  required
-                  defaultValue={ownership}
-                  type="text"
-                  value={ownership}
-                  label="Ownership"
-                  onChange={(e) => setOwnership(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={4} sx={{ m: 2 }}>
+
+              <Grid item xs={8} sx={{ m: 2 }}>
                 <LoadingButton style={{ width: 150 }} id="sub" size="large" type="submit" variant="contained">
                   Save
                 </LoadingButton>
