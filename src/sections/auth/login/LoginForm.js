@@ -23,15 +23,24 @@ export default function LoginForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const result = await handleLogin({
-      user_name: `${userName}`,
-      password: `${passWord}`,
-    });
 
-    if (result?.data.success) {
-      localStorage.setItem('name', `${result?.data.data.first_name}  ${result?.data.data.last_name}`);
-      localStorage.setItem('email', result?.data.data.email);
-      navigate('dashboard/app', { replace: true });
+    try {
+      const result = await handleLogin({
+        user_name: `${userName}`,
+        password: `${passWord}`,
+      });
+
+      if (result?.data.success) {
+        localStorage.setItem('name', `${result?.data.data.first_name}  ${result?.data.data.last_name}`);
+        localStorage.setItem('email', result?.data.data.email);
+        navigate('dashboard/app', { replace: true });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Unauthorised !',
+        text: 'Please Check username and password. !',
+      });
     }
   };
 

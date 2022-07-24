@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 
 import {
@@ -11,16 +11,58 @@ import {
   Paper,
   Typography,
   Box,
+  IconButton,
+  Tooltip,
 } from '@mui/material';
-import useFetch from '../../hooks/useFetch';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Swal from 'sweetalert2';
+import { getAllCustomer, deleteCustomer } from '../../services/Customer';
 import LoadingLiner from '../../components/LoadingLiner';
 
 const BasicTable = () => {
-  const { data, isLoading, error } = useFetch('http://127.0.0.1:8000/api/customers');
+  const [customers, setCustomers] = useState();
+  const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(0);
+
+  const handleDelete = async (id, name) => {
+    try {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const deleted = deleteCustomer(id);
+          Swal.fire(`${name}  Deleted!  `, 'Your file has been deleted.', 'success');
+        }
+        setTimeout(() => {
+          setRefresh(refresh + 1);
+        }, 1000);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    // const result = await deleteCustomer(id);
+    // console.log('delete', result.data);
+  };
+
+  const fetchAllCustomer = async () => {
+    const results = await getAllCustomer();
+    setCustomers(results.data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchAllCustomer();
+  }, [loading, refresh]);
 
   const rows = [];
-  if (data) {
-    data?.customer
+  if (customers) {
+    customers?.customer
       .slice()
       .reverse()
       .forEach((item) => {
@@ -35,41 +77,44 @@ const BasicTable = () => {
       });
   }
 
-  if (isLoading) {
+  if (loading) {
     return <LoadingLiner />;
   }
-  if (error) {
-    return (
-      <>
-        <Typography color="error" variant="h6">
-          Something went wrong !{' '}
-        </Typography>
-      </>
-    );
-  }
+
   return (
     <TableContainer component={Paper}>
       <Box style={{ maxHeight: '100vh' }}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow style={{ background: ' #ffebee' }}>
-              <TableCell align="left">Id</TableCell>
+              <TableCell>Id</TableCell>
               <TableCell>Full Name</TableCell>
-              <TableCell align="left">Contact</TableCell>
-              <TableCell align="left">Email</TableCell>
-              <TableCell align="left">Address</TableCell>
+              <TableCell>Contact</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Address</TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
               <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <TableCell align="left">{row.id}</TableCell>{' '}
+                <TableCell>{row.id}</TableCell>
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="left">{row.contact}</TableCell>
-                <TableCell align="left">{row.email}</TableCell>
-                <TableCell align="left">{row.address}</TableCell>
+                <TableCell>{row.contact}</TableCell>
+                <TableCell>{row.email}</TableCell>
+                <TableCell>{row.address}</TableCell>
+                <IconButton
+                  color="error"
+                  onClick={() => {
+                    handleDelete(row.id, row.name);
+                  }}
+                >
+                  <Tooltip title="Delete">
+                    <DeleteIcon />
+                  </Tooltip>
+                </IconButton>
               </TableRow>
             ))}
           </TableBody>

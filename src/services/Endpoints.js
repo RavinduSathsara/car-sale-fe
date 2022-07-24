@@ -20,6 +20,8 @@ class EndPoints {
   static vehicle = `${baseUrl}/vehicles`;
 
   static staff = `${baseUrl}/staff`;
+
+  static customer = `${baseUrl}/customers`;
 }
 
 export default EndPoints;

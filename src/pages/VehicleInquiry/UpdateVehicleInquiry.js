@@ -92,7 +92,7 @@ const UpdateVehicleInquiry = () => {
       confirmButtonText: 'Yes',
     }).then((result) => {
       if (result.isConfirmed) {
-        navigate('dashboard/vehicleInquiry');
+        navigate('/dashboard/inquiry');
       }
     });
   };
