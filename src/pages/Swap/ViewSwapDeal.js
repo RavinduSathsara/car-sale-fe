@@ -144,7 +144,7 @@ const ViewSwapDeal = () => {
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography variant="h4" gutterBottom>
-              View SwapDeal
+              View Swap Deal
             </Typography>
 
             <IconButton component={RouterLink} to="/dashboard/swap">
