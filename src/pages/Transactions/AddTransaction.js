@@ -30,7 +30,7 @@ const AddTransaction = () => {
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [yearOfManufacture, setYearOfManufacture] = useState(Date.now());
-  const [yearOfRegistration, setYearOfRegistration] = useState(Date.now());
+  const [yearOfRegistration, setYearOfRegistration] = useState();
   const [chassisNo, setChassisNo] = useState('');
   const [unitPrice, setUnitPrice] = useState('');
   const [query, setQuery] = useState('');
@@ -54,7 +54,7 @@ const AddTransaction = () => {
       brand: `${brand}`,
       model: `${model}`,
       year_manufacture: `${yearOfManufacture.getFullYear()}`,
-      year_registration: `${yearOfRegistration.getFullYear()}`,
+      year_registration: `${yearOfRegistration}`,
       chassis_no: `${chassisNo}`,
       unit_price: `${unitPrice}`,
       query: `${query}`,
@@ -71,43 +71,6 @@ const AddTransaction = () => {
         },
       });
     }
-
-    // axios
-    //   .post('http://127.0.0.1:8000/api/transactions', {
-    //     brand: `${brand}`,
-    //     model: `${model}`,
-    //     make: `${make}`,
-    //     year_manufacture: `${yearOfManufacture.getFullYear()}`,
-    //     year_registration: `${yearOfRegistration.getFullYear()}`,
-    //     chassis_no: `${chassisNo}`,
-    //     unit_price: `${unitPrice}`,
-    //   })
-
-    //   .then((res) => {
-    //     Swal.fire({
-    //       title: 'New Transaction added sucessfully !',
-    //       showClass: {
-    //         popup: 'animate__animated animate__fadeInDown',
-    //       },
-    //       hideClass: {
-    //         popup: 'animate__animated animate__fadeOutUp',
-    //       },
-    //     });
-    //     setBrand('');
-    //     setModel('');
-    //     setMake('');
-    //     setYearOfManufacture(Date.now());
-    //     setYearOfRegistration(Date.now());
-    //     setChassisNo('');
-    //     setUnitPrice('');
-    //   })
-    //   .catch((e) => {
-    //     Swal.fire({
-    //       icon: 'error',
-    //       title: 'Oops...',
-    //       text: e.response.data.message,
-    //     });
-    //   });
   };
   return (
     <>
@@ -176,7 +139,15 @@ const AddTransaction = () => {
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <TextField
+                  fullWidth
+                  required
+                  type="text"
+                  label="Year of Registration"
+                  value={yearOfRegistration}
+                  onChange={(e) => setYearOfRegistration(e.target.value)}
+                />
+                {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     label="Year of Registration"
                     views={['year']}
@@ -184,14 +155,14 @@ const AddTransaction = () => {
                     onChange={(newValue) => {
                       setYearOfRegistration(newValue);
                     }}
-                    renderInput={(params) => <TextField required fullWidth {...params} />}
+                    renderInput={(params) => <TextField fullWidth {...params} />}
                   />
-                </LocalizationProvider>
+                </LocalizationProvider> */}
               </Grid>
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
-                  type="number"
+                  type="text"
                   required
                   label="Chasis No"
                   value={chassisNo}
