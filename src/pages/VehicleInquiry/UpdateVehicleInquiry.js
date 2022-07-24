@@ -53,7 +53,7 @@ const UpdateVehicleInquiry = () => {
     event.preventDefault();
     const result = await updateVehicleInquiry(id, {
       name: `${fullName}`,
-      contact: `0${contact}`,
+      contact: `${contact}`,
       email: `${email}`,
       profession: `${profession}`,
       address: `${address}`,
@@ -144,11 +144,18 @@ const UpdateVehicleInquiry = () => {
                 <TextField
                   fullWidth
                   required
-                  defaultValue={contact}
-                  type="number"
+                  autoComplete=""
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                  }}
+                  // type="number"
+                  maxLength={4}
+                  label="Contact No."
+                  inputProps={{
+                    maxLength: 10,
+                  }}
                   value={contact}
-                  label="contact"
-                  onChange={(e) => setFullName(e.target.value)}
+                  onChange={(e) => setContact(e.target.value)}
                 />
               </Grid>
 
