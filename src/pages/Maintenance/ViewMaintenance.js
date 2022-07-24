@@ -92,7 +92,7 @@ const ViewMaintenance = () => {
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }} xs={6}>
+                  <Grid item sx={{ m: 2 }} xs={8}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
                         ChassisNo :

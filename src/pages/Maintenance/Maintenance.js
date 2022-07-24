@@ -135,7 +135,9 @@ export default function ViewMaintenance() {
                       <StyledTableCell>{row.cost}</StyledTableCell>
                       <StyledTableCell>
                         <IconButton component={RouterLink} to={`/dashboard/View-Maintenance/${row.id}`}>
-                          <PreviewIcon />
+                          <Tooltip title="View">
+                            <PreviewIcon />
+                          </Tooltip>
                         </IconButton>
                         <IconButton
                           color="error"
