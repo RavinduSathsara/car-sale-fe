@@ -141,16 +141,6 @@ const ViewTestRun = () => {
                       </Typography>
                     </Stack>
                   </Grid>
-                  <Grid item sx={{ m: 2 }} xs={6}>
-                    <Stack direction="row">
-                      <Typography component="div" variant="h6">
-                        Ownership :
-                      </Typography>
-                      <Typography component="div" variant="h6" color="text.secondary" sx={{ mx: 1 }}>
-                        {testRun?.ownership}
-                      </Typography>
-                    </Stack>
-                  </Grid>
                   <Grid item sx={{ m: 2 }} xs={12}>
                     <Stack direction="row">
                       <Typography component="div" variant="h6">
