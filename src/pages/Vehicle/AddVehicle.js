@@ -223,7 +223,7 @@ const AddVehicle = () => {
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
-                  type="number"
+                  type="text"
                   required
                   label="Chasis No"
                   value={chassisNo}
