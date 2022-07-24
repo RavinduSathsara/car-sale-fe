@@ -94,7 +94,7 @@ const ViewSwapDeal = () => {
         axios
           .put(`http://127.0.0.1:8000/api/swapvehicle/${id}`, {
             name: `${name}`,
-            contact: `0${contacts}`,
+            contact: `${contacts}`,
             email: `${email}`,
             profession: `${profession}`,
             address: `${address}`,

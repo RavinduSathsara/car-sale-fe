@@ -180,7 +180,7 @@ const AddVehicle = () => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={ownership}
-                    label="Owership"
+                    label="Ownership"
                     onChange={(e) => {
                       setOwnership(e.target.value);
                     }}
@@ -251,7 +251,6 @@ const AddVehicle = () => {
               <Grid item xs={4} sx={{ m: 2 }}>
                 <TextField
                   fullWidth
-                  inputProps={{ maxLength: 7 }}
                   type="text"
                   required
                   label="Registration No"
