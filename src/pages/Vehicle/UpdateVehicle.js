@@ -252,7 +252,7 @@ const UpdateVehicle = () => {
                 <TextField
                   fullWidth
                   defaultValue={data?.chassis_no}
-                  type="number"
+                  type="text"
                   required
                   label="Chasis No"
                   value={chassisNo}
