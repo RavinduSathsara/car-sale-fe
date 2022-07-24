@@ -126,6 +126,7 @@ const ViewSwapDeal = () => {
                 popup: 'animate__animated animate__fadeOutUp',
               },
             });
+            navigate('/dashboard/swap');
           })
           .catch((e) => {
             Swal.fire({

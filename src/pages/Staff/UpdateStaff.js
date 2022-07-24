@@ -117,6 +117,7 @@ const UpdateStaff = () => {
             popup: 'animate__animated animate__fadeOutUp',
           },
         });
+        navigate('/dashboard/staff');
       })
       .catch((e) => {
         Swal.fire({
